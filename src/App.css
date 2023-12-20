@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
+
+:root {
+    --necklace-height: 175px;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'EB Garamond', serif;
+  color: #FFFFFF;
+  background-color: #070322;
+}
+
+.container {
+    display: flex;
+    align-items: center; /* Uitlijning aan de bovenkant van de container */
+    position: relative; /* Zorg ervoor dat de container is gepositioneerd */
+    /*border: 10px solid pink;*/
+}
+
+.paintings-overview {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    /*border: 10px solid gold;*/
+}
+
+.paintings-overview ul{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.painting-image {
+    height: auto;
+    margin: 10px;
+    border-radius: 50%;
+}
+
+.necklace-image {
+    z-index: 1; /* Zorg ervoor dat dit getal groter is dan de z-index van de gesleepte schilderijen */
+    max-height: 100%;
+    width: auto;
+    /*border: 10px solid green;*/
+}
+
+.painting-image {
+    height: var(--necklace-height); /* Gebruik de hoogte van de ketting als basis */
+}
+
+.draggable {
+    z-index: 2; /* Of een hoger getal dan de z-index van .necklace-image */
+    position: absolute;
+}
+
+

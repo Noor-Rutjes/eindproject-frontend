@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+SC&family=EB+Garamond&display=swap');
+#header {
+    display: flex;
+}
+.header-container {
+    min-height: 220px;
+    max-height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #FFFFFF;
+    font-size: 80px;
+}
+
+.header-top {
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+}
+
+.header-top p{
+    margin: 0;
+}
+
+.header-icon img {
+width: 100px;
+}
+
