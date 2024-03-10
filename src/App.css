@@ -5,55 +5,91 @@
 }
 
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'EB Garamond', serif;
-  color: #FFFFFF;
-  background-color: #070322;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'EB Garamond', serif;
+    color: #FFFFFF;
+    background-color: #070322;
 }
 
+.parent {
+    position: relative;
+    top: 0;
+    left: 0;
+}
 .container {
     display: flex;
-    align-items: center; /* Uitlijning aan de bovenkant van de container */
-    position: relative; /* Zorg ervoor dat de container is gepositioneerd */
-    /*border: 10px solid pink;*/
+    border: 10px solid pink;
 }
 
 .paintings-overview {
     display: flex;
     flex-direction: column;
-    position: relative;
-
-    /*border: 10px solid gold;*/
-}
-
-.paintings-overview ul{
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
+    border: 10px solid gold;
 }
 
 .painting-image {
-    height: auto;
     margin: 10px;
+    /*border: 10px solid red;*/
     border-radius: 50%;
-}
-
-.necklace-image {
-    z-index: 1; /* Zorg ervoor dat dit getal groter is dan de z-index van de gesleepte schilderijen */
-    max-height: 100%;
-    width: auto;
-    /*border: 10px solid green;*/
-}
-
-.painting-image {
     height: var(--necklace-height); /* Gebruik de hoogte van de ketting als basis */
 }
 
-.draggable {
-    z-index: 2; /* Of een hoger getal dan de z-index van .necklace-image */
+#box1 {
     position: absolute;
+    width: 70px;
+    height: 94px;
+    bottom: 487px;
+    left: 387px;
+    /*border: 10px solid deepskyblue;*/
 }
+
+#box2 {
+    position: absolute;
+    width: 97px;
+    height: 129px;
+    bottom: 300px;
+    left: 475px;
+    /*border: 10px solid mediumpurple;*/
+}
+
+#box3 {
+    position: absolute;
+    width: 155px;
+    height: 200px;
+    bottom: 138px;
+    left: 647px;
+    /*border: 10px solid ivory;*/
+}
+
+#box4 {
+    position: absolute;
+    width: 97px;
+    height: 129px;
+    bottom: 300px;
+    left: 885px;
+    /*border: 10px solid orange;*/
+}
+
+#box5 {
+    position: absolute;
+    width: 80px;
+    height: 103px;
+    bottom: 483px;
+    left: 1003px;
+    /*border: 10px solid darkseagreen;*/
+}
+
+.necklace-image {
+    max-height: 100%;
+    width: auto;
+    border: 10px solid green;
+}
+
+.opacity-dragging {
+    opacity: 0.5; /* Verminder de dekking van de elementen tijdens het slepen */
+}
+
 
 
