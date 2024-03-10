@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import necklace2 from './assets/img.png';
 import Header from './components/header/Header.jsx';
@@ -43,10 +43,9 @@ function App() {
         };
     }, []);
 
-
     function dragStart(e, id) {
         console.log("dragging");
-        console.log("ID:", id); // Voeg deze regel toe om ook de id te loggen
+        console.log("ID:", id);
         e.dataTransfer.setData('text/plain', id);
 
         const element = document.getElementById(id);
@@ -61,7 +60,6 @@ function App() {
         const invisibleElements = document.querySelectorAll(".opacity-dragging");
         invisibleElements.forEach(element => {
             element.classList.remove("opacity-dragging");
-            this.className = "painting-image";
         });
     }
 
@@ -83,7 +81,6 @@ function App() {
         const paintingElement = document.getElementById(paintingId);
         if (paintingElement) {
             paintingElement.classList.remove("opacity-dragging");
-            paintingElement.classList.add("painting-image");
             e.target.appendChild(paintingElement);
         }
     }
@@ -105,7 +102,7 @@ function App() {
                 box.removeEventListener('drop', drop);
             }
         };
-    }, [painting]);
+    }, []);
 
     return (
         <>
@@ -113,15 +110,14 @@ function App() {
             <div className="parent">
                 <div className="container">
                     <div className="paintings-overview">
-                        {painting.map((setItem, index) => (// Voeg index parameter toe aan de mapfunctie
+                        {painting.map((setItem, index) => (
                             <div
                                 key={setItem.id}
-                                id={`painting-${index}`} // Gebruik index om unieke id te genereren
+                                id={`painting-${index}`}
                                 draggable="true"
-                                onDragStart={(e) => dragStart(e, `painting-${index}`)} // Voeg handleDragStart toe met de gegenereerde id
-                                onDragEnd={dragEnd} // Voeg de onDragEnd handler toe
+                                onDragStart={(e) => dragStart(e, `painting-${index}`)}
+                                onDragEnd={dragEnd}
                                 className="painting"
-
                             >
                                 <img
                                     className="painting-image"
@@ -144,4 +140,3 @@ function App() {
 }
 
 export default App;
-
