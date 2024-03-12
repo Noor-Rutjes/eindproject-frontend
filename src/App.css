@@ -20,17 +20,17 @@ body {
 }
 .container {
     display: flex;
-    border: 10px solid pink;
+    /*border: 10px solid pink;*/
     height: 1100px; /* Stel een vaste hoogte in voor de container */
 }
 
 .paintings-overview {
     display: flex;
     flex-direction: column;
-    border: 10px solid gold;
+    /*border: 10px solid gold;*/
     justify-content: center; /* Center de afbeeldingen horizontaal */
     overflow-y: auto; /* Voeg een overflow-y toe om te scrollen als de inhoud groter is dan de container */
-    width: 150px; /* Stel een minimale hoogte in voor .paintings-overview */
+    min-width: 150px; /* Stel een minimale hoogte in voor .paintings-overview */
 }
 
 .painting-image {
@@ -39,58 +39,63 @@ body {
     border-radius: 50%;
     height: var(--necklace-height); /* Gebruik de hoogte van de ketting als basis */
     flex-shrink: 0; /* Voorkom dat afbeeldingen kleiner worden gemaakt als ze niet in de container passen */
+}
 
+.box {
+    /*width: 150px;*/
+    /*height: 150px;*/
+    border-radius: 50%;
 }
 
 #box1 {
     position: absolute;
-    width: 70px;
-    height: 94px;
-    bottom: 487px;
-    left: 387px;
-    /*border: 10px solid deepskyblue;*/
+    width: 165px;
+    height: 165px;
+    bottom: 621px;
+    left: 295px;
+    /*border: 1px solid deepskyblue;*/
 }
 
 #box2 {
     position: absolute;
-    width: 97px;
-    height: 129px;
-    bottom: 300px;
-    left: 475px;
-    /*border: 10px solid mediumpurple;*/
+    width: 165px;
+    height: 165px;
+    bottom: 447px;
+    left: 425px;
+    /*border: 1px solid mediumpurple;*/
 }
 
 #box3 {
     position: absolute;
-    width: 155px;
-    height: 200px;
-    bottom: 138px;
-    left: 647px;
-    /*border: 10px solid ivory;*/
+    width: 165px;
+    height: 165px;
+    bottom: 307px;
+    left: 663px;
+    border: 1px solid ivory;
 }
 
 #box4 {
     position: absolute;
-    width: 97px;
-    height: 129px;
-    bottom: 300px;
-    left: 885px;
+    width: 165px;
+    height: 165px;
+    bottom: 460px;
+    left: 877px;
     /*border: 10px solid orange;*/
 }
 
 #box5 {
     position: absolute;
-    width: 80px;
-    height: 103px;
-    bottom: 483px;
-    left: 1003px;
+    width: 165px;
+    height: 165px;
+    bottom: 612px;
+    left: 976px;
     /*border: 10px solid darkseagreen;*/
 }
 
 .necklace-image {
     max-height: 100%;
     width: auto;
-    border: 10px solid green;
+    /*border: 10px solid green;*/
 }
 
 .opacity-dragging {

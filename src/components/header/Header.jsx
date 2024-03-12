@@ -8,7 +8,7 @@ function Header() {
                 <div className="header-container">
                     <div className="header-top">
                         <div className="header-logo">
-                            <p>RijksBling</p>
+                            <p>RIJKS BLING</p>
                         </div>
                         <div className="header-icon">
                             <img src={icon} alt="logo"/>
