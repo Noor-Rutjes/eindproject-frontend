@@ -1,4 +1,4 @@
-import React,  { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import necklace3 from './assets/ketting.jpg'
 import Header from './components/header/Header.jsx';
@@ -7,14 +7,15 @@ import {dragStart, dragEnd, dragOver, dragEnter, dragLeave, drop} from "./helper
 
 function App() {
     const apiKey = import.meta.env.VITE_API_KEY;
-    const [painting, setPainting] = useState([]);
+    const [paintings, setPaintings] = useState([]);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
 
     useEffect(() => {
         const controller = new AbortController();
 
-        async function fetchPainting() {
+        // Fetch paintings data from the API
+        async function fetchPaintings() {
             toggleError(false);
             toggleLoading(true);
 
@@ -22,16 +23,14 @@ function App() {
                 const response = await axios.get(
                     `https://www.rijksmuseum.nl/api/nl/usersets/4515733-bloemen?key=${apiKey}&format=json&page=1&pageSize=5`,
 
-                    {
-                        signal: controller.signal,
-                    }
+                    {signal: controller.signal}
                 );
-                console.log(response);
-                setPainting(response.data.userSet.setItems);
+                // console.log(response);
+                setPaintings(response.data.userSet.setItems);
             } catch (e) {
                 if (axios.isCancel(e)) {
-                    console.error('Request is canceled...');
-                } else {
+                    // console.error('Request is canceled...');
+                    // } else {
                     console.error(e);
                     toggleError(true);
                 }
@@ -40,8 +39,9 @@ function App() {
             }
         }
 
-        fetchPainting();
+        fetchPaintings();
 
+        // Cleanup function to abort fetching on unmount
         return function cleanup() {
             controller.abort();
         };
@@ -49,22 +49,31 @@ function App() {
 
 
     useEffect(() => {
-        const boxes = document.querySelectorAll(".box");
-        for (let box of boxes) {
-            box.addEventListener('dragover', dragOver);
-            box.addEventListener('dragenter', dragEnter);
-            box.addEventListener('dragleave', dragLeave);
-            box.addEventListener('drop', drop);
-        }
+        // Add event listeners for drag and drop functionality
+        const addEventListeners = () => {
+            const boxes = document.querySelectorAll(".box");
+            boxes.forEach(box => {
+                box.addEventListener('dragover', dragOver);
+                box.addEventListener('dragenter', dragEnter);
+                box.addEventListener('dragleave', dragLeave);
+                box.addEventListener('drop', drop);
+            });
+        };
 
-        return () => {
-            for (let box of boxes) {
+        // Remove event listeners when component unmounts
+        const removeEventListeners = () => {
+            const boxes = document.querySelectorAll(".box");
+            boxes.forEach(box => {
                 box.removeEventListener('dragover', dragOver);
                 box.removeEventListener('dragenter', dragEnter);
                 box.removeEventListener('dragleave', dragLeave);
                 box.removeEventListener('drop', drop);
-            }
+            });
         };
+
+        addEventListeners();
+
+        return removeEventListeners;
     }, []);
 
     return (
@@ -73,38 +82,29 @@ function App() {
             <div className="parent">
                 <div className="container">
                     <div className="paintings-overview">
-                        {painting.map((setItem, index) => (
+                        {paintings.map((painting, index) => (
                             <div
-                                key={setItem.id}
+                                key={painting.id}
                                 id={`painting-${index}`}
                                 draggable="true"
                                 onDragStart={(e) => dragStart(e, `painting-${index}`)}
                                 onDragEnd={dragEnd}
                                 className="painting"
-                                style={{
-                                    width: '165px',
-                                    height: '165px',
-                                }}
+                                style={{width: '165px', height: '165px'}}
                             >
                                 <img
                                     className="painting-image"
-                                    src={setItem.image.cdnUrl}
+                                    src={painting.image.cdnUrl}
                                     alt="schilderij"
-                                    style={{
-                                        width: '100%',
-                                        height: '100%',
-                                        objectFit: 'cover'
-                                    }}
+                                    style={{width: '100%', height: '100%', objectFit: 'cover'}}
                                 />
                             </div>
                         ))}
                     </div>
                     <img className="necklace-image" src={necklace3} alt="ketting"/>
-                    <div className="box" id="box1"></div>
-                    <div className="box" id="box2"></div>
-                    <div className="box" id="box3"></div>
-                    <div className="box" id="box4"></div>
-                    <div className="box" id="box5"></div>
+                    {[...Array(5)].map((_, index) => (
+                        <div key={`box${index}`} className="box" id={`box${index + 1}`}></div>
+                    ))}
                 </div>
             </div>
         </>

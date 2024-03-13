@@ -1,7 +1,6 @@
-export function dragStart(e, id) {
-    console.log("dragging");
-    console.log("ID:", id);
-    e.dataTransfer.setData('text/plain', id);
+// Function to handle drag start event
+export function dragStart(event, id) {
+    event.dataTransfer.setData('text/plain', id);
 
     const element = document.getElementById(id);
     if (element) {
@@ -9,33 +8,36 @@ export function dragStart(e, id) {
     }
 }
 
+// Function to handle drag end event
 export function dragEnd() {
-    console.log("dragging is done");
-
     const invisibleElements = document.querySelectorAll(".opacity-dragging");
     invisibleElements.forEach(element => {
         element.classList.remove("opacity-dragging");
     });
 }
 
-export function dragOver(e) {
-    e.preventDefault();
+// Function that prevents default behavior when an element is dragged over another element
+export function dragOver(event) {
+    event.preventDefault();
 }
 
-export function dragEnter(e) {
-    e.preventDefault();
+// Function that prevents default behavior when a dragged element enters the area of another element
+export function dragEnter(event) {
+    event.preventDefault();
 }
 
-export function dragLeave(e) {
-    e.preventDefault();
+// Function that prevents default behavior when a dragged element leaves the area of another element
+export function dragLeave(event) {
+    event.preventDefault();
 }
 
-export function drop(e) {
-    e.preventDefault();
-    const paintingId = e.dataTransfer.getData('text/plain');
+// Function to handle drop event
+export function drop(event) {
+    event.preventDefault();
+    const paintingId = event.dataTransfer.getData('text/plain');
     const paintingElement = document.getElementById(paintingId);
     if (paintingElement) {
         paintingElement.classList.remove("opacity-dragging");
-        e.target.appendChild(paintingElement);
+        event.target.appendChild(paintingElement);
     }
 }
