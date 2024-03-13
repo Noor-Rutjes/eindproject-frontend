@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react';
+import React,  { useEffect, useState } from 'react';
 import axios from 'axios';
-import necklace2 from './assets/img.png';
 import necklace3 from './assets/ketting.jpg'
 import Header from './components/header/Header.jsx';
 import './App.css';
+import {dragStart, dragEnd, dragOver, dragEnter, dragLeave, drop} from "./helpers/dragAndDrop.jsx";
 
 function App() {
+    const apiKey = import.meta.env.VITE_API_KEY;
     const [painting, setPainting] = useState([]);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
@@ -19,7 +20,7 @@ function App() {
 
             try {
                 const response = await axios.get(
-                    'https://www.rijksmuseum.nl/api/nl/usersets/4515733-bloemen?key=FsvdlDrC&format=json&page=1&pageSize=5',
+                    `https://www.rijksmuseum.nl/api/nl/usersets/4515733-bloemen?key=${apiKey}&format=json&page=1&pageSize=5`,
 
                     {
                         signal: controller.signal,
@@ -46,47 +47,6 @@ function App() {
         };
     }, []);
 
-    function dragStart(e, id) {
-        console.log("dragging");
-        console.log("ID:", id);
-        e.dataTransfer.setData('text/plain', id);
-
-        const element = document.getElementById(id);
-        if (element) {
-            element.classList.add("opacity-dragging");
-        }
-    }
-
-    function dragEnd() {
-        console.log("dragging is done");
-
-        const invisibleElements = document.querySelectorAll(".opacity-dragging");
-        invisibleElements.forEach(element => {
-            element.classList.remove("opacity-dragging");
-        });
-    }
-
-    function dragOver(e) {
-        e.preventDefault();
-    }
-
-    function dragEnter(e) {
-        e.preventDefault();
-    }
-
-    function dragLeave(e) {
-        e.preventDefault();
-    }
-
-    function drop(e) {
-        e.preventDefault();
-        const paintingId = e.dataTransfer.getData('text/plain');
-        const paintingElement = document.getElementById(paintingId);
-        if (paintingElement) {
-            paintingElement.classList.remove("opacity-dragging");
-            e.target.appendChild(paintingElement);
-        }
-    }
 
     useEffect(() => {
         const boxes = document.querySelectorAll(".box");
@@ -107,42 +67,6 @@ function App() {
         };
     }, []);
 
-
-    function cropAndResizeImage(imageUrl, cropX, cropY, cropWidth, cropHeight, targetWidth, targetHeight) {
-        const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext('2d');
-        const img = new Image();
-        img.crossOrigin = 'anonymous'; // Allow cross-origin images
-        img.src = imageUrl;
-
-        return new Promise((resolve, reject) => {
-            img.onload = function () {
-                canvas.width = cropWidth;
-                canvas.height = cropHeight;
-                ctx.drawImage(img, -cropX, -cropY);
-
-                const croppedImageUrl = canvas.toDataURL('image/png');
-
-                const croppedImg = new Image();
-                croppedImg.onload = function () {
-                    const resizedCanvas = document.createElement('canvas');
-                    const resizedCtx = resizedCanvas.getContext('2d');
-                    resizedCanvas.width = targetWidth;
-                    resizedCanvas.height = targetHeight;
-                    resizedCtx.drawImage(croppedImg, 0, 0, targetWidth, targetHeight);
-
-                    resolve(resizedCanvas.toDataURL('image/png'));
-                };
-                croppedImg.src = croppedImageUrl;
-            };
-
-            img.onerror = function (error) {
-                reject(error);
-            };
-        });
-    }
-
-
     return (
         <>
             <Header/>
@@ -160,7 +84,6 @@ function App() {
                                 style={{
                                     width: '165px',
                                     height: '165px',
-                                    // overflow: 'hidden'
                                 }}
                             >
                                 <img
