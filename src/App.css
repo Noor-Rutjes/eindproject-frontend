@@ -18,88 +18,73 @@ body {
     top: 0;
     left: 0;
 }
+
 .container {
     display: flex;
-    /*border: 10px solid pink;*/
-    height: 1100px; /* Stel een vaste hoogte in voor de container */
+    height: 1100px;
+    /*border: 1px solid pink;*/
 }
 
 .paintings-overview {
     display: flex;
     flex-direction: column;
-    /*border: 10px solid gold;*/
-    justify-content: center; /* Center de afbeeldingen horizontaal */
+    justify-content: space-around;
     overflow-y: auto; /* Voeg een overflow-y toe om te scrollen als de inhoud groter is dan de container */
-    min-width: 150px; /* Stel een minimale hoogte in voor .paintings-overview */
+    min-width: 200px;
+    min-height: 50px;
+    /*border: 1px solid gold;*/
+
 }
 
 .painting-image {
-    margin: 10px;
-    /*border: 10px solid red;*/
     border-radius: 50%;
-    height: var(--necklace-height); /* Gebruik de hoogte van de ketting als basis */
     flex-shrink: 0; /* Voorkom dat afbeeldingen kleiner worden gemaakt als ze niet in de container passen */
+    /*border: 1px solid red;*/
+
 }
 
 .box {
-    /*width: 150px;*/
-    /*height: 150px;*/
+    position: absolute;
     border-radius: 50%;
+    width: 138px;
+    height: 138px;
+    /*border: 1px solid deepskyblue;*/
+
+}
+
+#box0 {
+    bottom: 601px;
+    left: 381px;
 }
 
 #box1 {
-    position: absolute;
-    width: 165px;
-    height: 165px;
-    bottom: 621px;
-    left: 295px;
-    /*border: 1px solid deepskyblue;*/
+    bottom: 368px;
+    left: 466px;
 }
 
 #box2 {
-    position: absolute;
-    width: 165px;
-    height: 165px;
-    bottom: 447px;
-    left: 425px;
-    /*border: 1px solid mediumpurple;*/
+    bottom: 208px;
+    left: 665px;
 }
 
 #box3 {
-    position: absolute;
-    width: 165px;
-    height: 165px;
-    bottom: 307px;
-    left: 663px;
-    border: 1px solid ivory;
+    bottom: 369px;
+    left: 877px;
 }
 
 #box4 {
-    position: absolute;
-    width: 165px;
-    height: 165px;
-    bottom: 460px;
-    left: 877px;
-    /*border: 10px solid orange;*/
-}
-
-#box5 {
-    position: absolute;
-    width: 165px;
-    height: 165px;
-    bottom: 612px;
-    left: 976px;
-    /*border: 10px solid darkseagreen;*/
+    bottom: 601px;
+    left: 951px;
 }
 
 .necklace-image {
     max-height: 100%;
     width: auto;
-    /*border: 10px solid green;*/
+    /*border: 1px solid green;*/
 }
 
 .opacity-dragging {
-    opacity: 0.5; /* Verminder de dekking van de elementen tijdens het slepen */
+    opacity: 0.5;
 }
 
 

@@ -1,28 +1,28 @@
-import icon from "../../assets/logo-transparent.png";
+import icon from "../../assets/logo-header.png";
+// import Hamburger from "../hamburger/Hamburger.jsx";
 import "./Header.css";
+import Navigation from "../navigation/Navigation.jsx";
 
 function Header() {
-    return (
-        <>
-            <header>
-                <div className="header-container">
-                    <div className="header-top">
-                        <div className="header-logo">
-                            <p>RIJKS BLING</p>
-                        </div>
-                        <div className="header-icon">
-                            <img src={icon} alt="logo"/>
-                        </div>
+    return (<>
+        <header>
+            <div className="header-container">
+                <div className="header-top">
+                    <Navigation />
+                    <div className="header-logo">
+                        <p>Rijks Bling</p>
                     </div>
-                    <div className="header-bottom">
-                        <div className="navigation">
-
-                        </div>
+                    <div className="header-icon">
+                        <img src={icon} alt="logo"/>
                     </div>
                 </div>
-            </header>
-        </>
-    );
+                <div className="header-bottom">
+                    <div className="navigation">
+                    </div>
+                </div>
+            </div>
+        </header>
+    </>);
 }
 
 export default Header;

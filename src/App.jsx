@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import necklace3 from './assets/ketting.jpg'
 import Header from './components/header/Header.jsx';
-import './App.css';
+import necklace from './assets/necklace.jpg'
 import {dragStart, dragEnd, dragOver, dragEnter, dragLeave, drop} from "./helpers/dragAndDrop.jsx";
+import './App.css';
 
 function App() {
     const apiKey = import.meta.env.VITE_API_KEY;
@@ -90,7 +90,7 @@ function App() {
                                 onDragStart={(e) => dragStart(e, `painting-${index}`)}
                                 onDragEnd={dragEnd}
                                 className="painting"
-                                style={{width: '165px', height: '165px'}}
+                                style={{width: '138px', height: '138px'}}
                             >
                                 <img
                                     className="painting-image"
@@ -101,9 +101,9 @@ function App() {
                             </div>
                         ))}
                     </div>
-                    <img className="necklace-image" src={necklace3} alt="ketting"/>
+                    <img className="necklace-image" src={necklace} alt="ketting"/>
                     {[...Array(5)].map((_, index) => (
-                        <div key={`box${index}`} className="box" id={`box${index + 1}`}></div>
+                        <div key={`box${index}`} className="box" id={`box${index}`}></div>
                     ))}
                 </div>
             </div>
