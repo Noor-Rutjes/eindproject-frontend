@@ -19,6 +19,12 @@ function Necklace() {
             <div className="parent">
                 <div className="container">
                     <div className="paintings-overview">
+
+                        <div>
+                            <button type="button" className="nav-button" onClick={() => setPage(prevPage => prevPage - 1)} disabled={page === 1}>vorige</button>
+                            <button type="button" className="nav-button" onClick={() => setPage(prevPage => prevPage + 1)} disabled={(page * pageSize) >= totalResults}>volgende</button>
+                        </div>
+
                         {loading && <p>Loading...</p>}
                         {!loading && paintings.map((painting, index) => (
                             <div
@@ -43,12 +49,6 @@ function Necklace() {
                     {[...Array(5)].map((_, index) => (
                         <div key={`box${index}`} className="box" id={`box${index}`}></div>
                     ))}
-                    <div>
-                        <button onClick={() => setPage(prevPage => prevPage - 1)} disabled={page === 1}>Previous Page</button>
-                        <span>Page {page}</span>
-                        <button onClick={() => setPage(prevPage => prevPage + 1)} disabled={(page * pageSize) >= totalResults}>Next Page</button>
-                    </div>
-                    <p>Total Results: {totalResults}</p> {/* Show total results */}
                 </div>
             </div>
         </>

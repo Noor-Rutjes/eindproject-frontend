@@ -7,7 +7,7 @@
 .container {
     display: flex;
     height: 1100px;
-    border: 1px solid pink;
+    /*border: 1px solid pink;*/
 }
 
 .necklace-image {
@@ -22,6 +22,8 @@
     justify-content: space-around;
     min-width: 200px;
     min-height: 50px;
+    /*background: linear-gradient(to right,  rgba(14,14,14,1) 0%,rgba(125,126,125,1) 100%);*/
+    background: linear-gradient(to right, #070322 0%,#545760 100%);
     /*border: 1px solid gold;*/
 }
 
@@ -66,4 +68,28 @@
 
 .opacity-dragging {
     opacity: 0.5;
+}
+
+.nav-button {
+    padding: 8px 8px;
+    width: 100px;
+    border: 2px solid transparent;
+    background-color: #070322;
+    color: white;
+    border-radius: 2px;
+    font-family: 'Rubik', 'Arial', sans-serif;
+    outline: none;
+}
+
+.nav-button:hover {
+    cursor: pointer;
+}
+
+.nav-button:disabled {
+    background-color: #545760;
+    cursor: not-allowed;
+}
+
+.nav-button + .nav-button {
+    margin-left: 8px;
 }
