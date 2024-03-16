@@ -38,7 +38,6 @@ export function useFetchPaintings(apiKey, page, pageSize, setPaintings, setTotal
 
         fetchData();
 
-        // Cleanup function to abort fetching on unmount
         return () => {};
     }, [apiKey, page, pageSize, setPaintings, setTotalResults, toggleLoading, toggleError]);
 }

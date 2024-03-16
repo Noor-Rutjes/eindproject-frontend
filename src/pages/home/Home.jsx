@@ -2,7 +2,6 @@ import './Home.css';
 
 function Home() {
 
-
     return (
         <>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci assumenda distinctio dolorem eligendi
