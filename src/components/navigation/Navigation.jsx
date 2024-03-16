@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import React, {useState} from "react";
+import {NavLink} from "react-router-dom";
 import Hamburger from "../hamburger/Hamburger.jsx";
-import Home from "../../pages/home/Home.jsx";
 import './Navigation.css';
 
 function Navigation() {
@@ -12,14 +11,29 @@ function Navigation() {
     }
 
     return (
-        <div className="navigation__container">
-            <Routes className={hamburgerOpen ? "navigation__standard" : "navigation-closed navigation__standard"}>
-                <Route path="/home" element={<Home />} />
-            </Routes>
-            <div className="hamburger-outer-container" onClick={toggleHamburger}>
-                <Hamburger isOpen={hamburgerOpen}/>
-            </div>
-        </div>
+        <nav>
+            <ul className="navigation-container">
+                <li
+                    className={hamburgerOpen ? "navigation" : "navigation-closed"}>
+                    <NavLink className="navigation-link" to="/">
+                        Home
+                    </NavLink>
+                </li>
+                <li className={hamburgerOpen ? "navigation" : "navigation-closed"}>
+                    <NavLink className="navigation-link" to="/paintings">
+                        Paintings
+                    </NavLink>
+                </li>
+                <li className={hamburgerOpen ? "navigation" : "navigation-closed"}>
+                    <NavLink className="navigation-link" to="/necklace">
+                        Necklace
+                    </NavLink>
+                </li>
+                <div className="hamburger-container" onClick={toggleHamburger}>
+                    <Hamburger isOpen={hamburgerOpen}/>
+                </div>
+            </ul>
+        </nav>
     );
 }
 

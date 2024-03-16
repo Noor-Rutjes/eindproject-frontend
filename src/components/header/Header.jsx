@@ -17,8 +17,6 @@ function Header() {
                     </div>
                 </div>
                 <div className="header-bottom">
-                    <div className="navigation">
-                    </div>
                 </div>
             </div>
         </header>

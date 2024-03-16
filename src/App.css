@@ -22,14 +22,20 @@ body {
 .container {
     display: flex;
     height: 1100px;
-    /*border: 1px solid pink;*/
+    border: 1px solid pink;
+}
+
+.necklace-image {
+    max-height: 100%;
+    width: auto;
+    /*border: 1px solid green;*/
 }
 
 .paintings-overview {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    overflow-y: auto; /* Voeg een overflow-y toe om te scrollen als de inhoud groter is dan de container */
+    /*overflow-y: auto; !* Voeg een overflow-y toe om te scrollen als de inhoud groter is dan de container *!*/
     min-width: 200px;
     min-height: 50px;
     /*border: 1px solid gold;*/
@@ -77,11 +83,6 @@ body {
     left: 951px;
 }
 
-.necklace-image {
-    max-height: 100%;
-    width: auto;
-    /*border: 1px solid green;*/
-}
 
 .opacity-dragging {
     opacity: 0.5;
