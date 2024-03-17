@@ -17,8 +17,9 @@
 
 .navigation-link {
     color: #FFFFFF;
-    font-size: 50px;
-    font-weight: 700;
+    font-family: 'Rubik', 'Arial', sans-serif;
+    font-size: 25px;
+    /*font-weight: 700;*/
     cursor: pointer;
     text-decoration: underline 0.15em rgba(0, 0, 0, 0);
     transition: text-decoration-color 300ms;

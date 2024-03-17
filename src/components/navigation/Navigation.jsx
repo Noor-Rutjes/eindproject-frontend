@@ -12,6 +12,10 @@ function Navigation() {
 
     return (
         <nav>
+            <div className="hamburger-container" onClick={toggleHamburger}>
+                <Hamburger isOpen={hamburgerOpen}/>
+            </div>
+
             <ul className="navigation-container">
                 <li
                     className={hamburgerOpen ? "navigation" : "navigation-closed"}>
@@ -29,9 +33,6 @@ function Navigation() {
                         Necklace
                     </NavLink>
                 </li>
-                <div className="hamburger-container" onClick={toggleHamburger}>
-                    <Hamburger isOpen={hamburgerOpen}/>
-                </div>
             </ul>
         </nav>
     );

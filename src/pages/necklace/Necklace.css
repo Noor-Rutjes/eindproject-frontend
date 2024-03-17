@@ -6,7 +6,9 @@
 
 .container {
     display: flex;
-    height: 1100px;
+    height: 1000px;
+    justify-content: center;
+    flex-wrap: wrap;
     /*border: 1px solid pink;*/
 }
 
@@ -19,11 +21,13 @@
 .paintings-overview {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    min-width: 200px;
-    min-height: 50px;
-    /*background: linear-gradient(to right,  rgba(14,14,14,1) 0%,rgba(125,126,125,1) 100%);*/
-    background: linear-gradient(to right, #070322 0%,#545760 100%);
+    justify-content: space-between;
+    align-items: center;
+    /*background: linear-gradient(to right, rgba(14,14,14,1) 0%,rgba(125,126,125,1) 100%);*/
+    /*background: linear-gradient(to right, rgba(7,3,34,1.000) 0%,rgba(125,126,125,1) 100%);*/
+    /*background: linear-gradient(to right, rgba(7,3,34,1.000) 0%,rgba(125,126,125,1) 100%);*/
+    background: radial-gradient(circle, rgba(125,126,125,1) 0%, rgba(7,3,34,1) 100%);
+    /*background: linear-gradient(to right, #070322 0%,#595B67 100%);*/
     /*border: 1px solid gold;*/
 }
 
@@ -73,7 +77,7 @@
 .nav-button {
     padding: 8px 8px;
     width: 100px;
-    border: 2px solid transparent;
+    border: 1px solid transparent;
     background-color: #070322;
     color: white;
     border-radius: 2px;

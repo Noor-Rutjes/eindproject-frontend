@@ -1,33 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Alegreya+SC&family=EB+Garamond&display=swap');
+/*@import url('https://fonts.googleapis.com/css2?family=Alegreya+SC&family=EB+Garamond&display=swap');*/
 
-.body {
-}
 #header {
     display: flex;
-    font-family: "Roboto Condensed", sans-serif;
-    font-weight: bold;
-    font-size: 600px;
+    /*font-family: "Roboto Condensed", sans-serif;*/
+    /*font-weight: bold;*/
+    /*font-size: 600px;*/
 }
 .header-container {
     min-height: 350px;
     max-height: 350px;
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     color: #FFFFFF;
     font-size: 160px;
-}
-
-.header-top {
-    display: flex;
-    flex-direction: row;
-    align-content: center;
-    border: 1px plum;
-
-}
-
-.header-top p{
-    margin: 0;
 }
 
 .header-icon img {
