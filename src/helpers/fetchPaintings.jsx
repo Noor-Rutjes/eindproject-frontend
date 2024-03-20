@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import axios from 'axios';
 
 export async function fetchPaintings(apiKey, page, pageSize) {
+    console.log("fetchPaintings function called");
     const controller = new AbortController();
 
     try {
@@ -25,6 +26,7 @@ export async function fetchPaintings(apiKey, page, pageSize) {
 
 export function useFetchPaintings(apiKey, page, pageSize, setPaintings, setTotalResults, toggleLoading, toggleError) {
     useEffect(() => {
+        console.log("useFetchPaintings hook called");
         const fetchData = async () => {
             toggleError(false);
             toggleLoading(true);

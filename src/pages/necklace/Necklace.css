@@ -23,12 +23,7 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    /*background: linear-gradient(to right, rgba(14,14,14,1) 0%,rgba(125,126,125,1) 100%);*/
-    /*background: linear-gradient(to right, rgba(7,3,34,1.000) 0%,rgba(125,126,125,1) 100%);*/
-    /*background: linear-gradient(to right, rgba(7,3,34,1.000) 0%,rgba(125,126,125,1) 100%);*/
     background: radial-gradient(circle, rgba(125,126,125,1) 0%, rgba(7,3,34,1) 100%);
-    /*background: linear-gradient(to right, #070322 0%,#595B67 100%);*/
-    /*border: 1px solid gold;*/
 }
 
 .painting-image {
@@ -46,28 +41,28 @@
 }
 
 #box0 {
-    bottom: 601px;
-    left: 381px;
+    bottom: 541px;
+    left: 363px;
 }
 
 #box1 {
-    bottom: 368px;
-    left: 466px;
+    bottom: 327px;
+    left: 442px;
 }
 
 #box2 {
-    bottom: 208px;
-    left: 665px;
+    bottom: 183px;
+    left: 624px;
 }
 
 #box3 {
-    bottom: 369px;
-    left: 877px;
+    bottom: 328px;
+    left: 813px;
 }
 
 #box4 {
-    bottom: 601px;
-    left: 951px;
+    bottom: 537px;
+    left: 883px;
 }
 
 .opacity-dragging {

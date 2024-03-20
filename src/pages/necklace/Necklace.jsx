@@ -12,7 +12,10 @@ function Necklace() {
     const [page, setPage] = useState(1);
     const [totalResults, setTotalResults] = useState(0);
     const pageSize = 5;
+
+    console.log("Necklace component rendered");
     useFetchPaintings(apiKey, page, pageSize, setPaintings, setTotalResults, toggleLoading, toggleError);
+    console.log(paintings);
 
     return (
         <>

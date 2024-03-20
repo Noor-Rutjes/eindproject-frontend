@@ -1,9 +1,10 @@
 .hamburger {
     display: flex;
+    width: 2rem;
     height: 2rem;
     justify-content: space-around;
     flex-flow: column nowrap;
-    position: absolute;
+    position: relative;
     z-index: 3;
     cursor: pointer;
     background-color: transparent;

@@ -1,14 +1,10 @@
 .navigation-container {
-    height: 50px;
 }
 
 .navigation {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 1em;
-    border-radius: 10px;
-    transition: visibility 0.3s linear;
+    justify-content: flex-start;
+    align-content: flex-start;
 }
 
 .navigation-closed {
@@ -19,7 +15,6 @@
     color: #FFFFFF;
     font-family: 'Rubik', 'Arial', sans-serif;
     font-size: 25px;
-    /*font-weight: 700;*/
     cursor: pointer;
     text-decoration: underline 0.15em rgba(0, 0, 0, 0);
     transition: text-decoration-color 300ms;
@@ -28,5 +23,3 @@
 .hamburger-container {
     margin: 0.5em;
 }
-
-

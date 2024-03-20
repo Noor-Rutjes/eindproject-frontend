@@ -1,6 +1,6 @@
 import './Button.css';
 
-function Button({ children, clickHandler, disabled, type = "button" }) {
+function Button({clickHandler, disabled, type = "button"}) {
     return (
         <button
             type={type}
@@ -8,7 +8,6 @@ function Button({ children, clickHandler, disabled, type = "button" }) {
             onClick={clickHandler}
             disabled={disabled}
         >
-            {children}
         </button>
     );
 }
