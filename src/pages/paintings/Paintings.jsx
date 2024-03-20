@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchPaintings } from "../../helpers/fetchPaintings.jsx"; // Aangepast om de fetchPaintings-functie rechtstreeks te importeren
 import './Paintings.css';
+import Button from "../../components/button/Button.jsx";'../../components/button/Button.jsx';
 
 function Paintings() {
     const apiKey = import.meta.env.VITE_API_KEY;
@@ -34,10 +35,17 @@ function Paintings() {
     return (
         <>
             <div className="button-container">
-                <button type="button" className="nav-button" onClick={() => setPage(prevPage => prevPage - 1)} disabled={page === 1}>vorige</button>
-                <button type="button" className="nav-button" onClick={() => setPage(prevPage => prevPage + 1)} disabled={(page * pageSize) >= totalResults}>volgende</button>
+                <Button
+                    onClick={() => setPage(prevPage => prevPage - 1)}
+                    disabled={page === 1}
+                    text="Vorige"
+                />
+                <Button
+                    onClick={() => setPage(prevPage => prevPage + 1)}
+                    disabled={page * pageSize >= totalResults}
+                    text="Volgende"
+                />
             </div>
-
             <div className="paintings-container">
                 {loading && <p>Loading...</p>}
                 {!loading && paintings.map((painting, index) => (

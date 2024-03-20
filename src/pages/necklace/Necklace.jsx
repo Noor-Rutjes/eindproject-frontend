@@ -3,6 +3,7 @@ import necklace from '../../assets/necklace.jpg';
 import { useFetchPaintings } from "../../helpers/fetchPaintings.jsx"; // Importeer de aangepaste hook
 import { dragStart, dragEnd } from "../../helpers/dragAndDrop.jsx";
 import './Necklace.css';
+import Button from "../../components/button/Button.jsx";
 
 function Necklace() {
     const apiKey = import.meta.env.VITE_API_KEY;
@@ -23,8 +24,16 @@ function Necklace() {
                 <div className="container">
                     <div className="paintings-overview">
                         <div className="button-container">
-                            <button type="button" className="nav-button" onClick={() => setPage(prevPage => prevPage - 1)} disabled={page === 1}>vorige</button>
-                            <button type="button" className="nav-button" onClick={() => setPage(prevPage => prevPage + 1)} disabled={(page * pageSize) >= totalResults}>volgende</button>
+                            <Button
+                                onClick={() => setPage(prevPage => prevPage - 1)}
+                                disabled={page === 1}
+                                text="Vorige"
+                            />
+                            <Button
+                                onClick={() => setPage(prevPage => prevPage + 1)}
+                                disabled={page * pageSize >= totalResults}
+                                text="Volgende"
+                            />
                         </div>
                         {loading && <p>Loading...</p>}
                         {!loading && paintings.map((painting, index) => (
