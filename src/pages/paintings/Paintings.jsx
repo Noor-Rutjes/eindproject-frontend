@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { fetchPaintings } from "../../helpers/fetchPaintings.jsx"; // Aangepast om de fetchPaintings-functie rechtstreeks te importeren
 import './Paintings.css';
 import Button from "../../components/button/Button.jsx";'../../components/button/Button.jsx';
+import useFavorites from "../../helpers/useFavorites.jsx";
+
 
 function Paintings() {
     const apiKey = import.meta.env.VITE_API_KEY;
+    const { favorites, toggleFavorite } = useFavorites();
     const [paintings, setPaintings] = useState([]);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
@@ -16,7 +19,7 @@ function Paintings() {
         const fetchData = async () => {
             try {
                 toggleLoading(true);
-                const result = await fetchPaintings(apiKey, page, pageSize); // Gebruik de fetchPaintings-functie
+                const result = await fetchPaintings(apiKey, page, pageSize);
                 setPaintings(result.paintings);
                 setTotalResults(result.totalResults);
                 toggleError(false);
@@ -59,6 +62,9 @@ function Paintings() {
                             src={painting.image.cdnUrl}
                             alt="schilderij"
                         />
+                        <button onClick={() => toggleFavorite(painting.id)}>
+                            {favorites.includes(painting.id) ? 'Unfavorite' : 'Favorite'}
+                        </button>
                     </div>
                 ))}
             </div>

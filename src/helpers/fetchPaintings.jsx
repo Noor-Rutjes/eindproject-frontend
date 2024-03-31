@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
 import axios from 'axios';
 
-export async function fetchPaintings(apiKey, page, pageSize) {
+export async function fetchPaintings(apiKey, page, pageSize, favorites = []) {
     console.log("fetchPaintings function called");
     const controller = new AbortController();
 
@@ -10,36 +9,19 @@ export async function fetchPaintings(apiKey, page, pageSize) {
             `https://www.rijksmuseum.nl/api/nl/usersets/4515733-bloemen?key=${apiKey}&format=json&page=${page}&pageSize=${pageSize}`,
             { signal: controller.signal }
         );
+
+        // Filter alleen favoriete schilderijen als er favorieten zijn
+        let paintings = response.data.userSet.setItems;
+        if (favorites.length > 0) {
+            paintings = paintings.filter(painting => favorites.includes(painting.id));
+        }
+
         return {
-            paintings: response.data.userSet.setItems,
+            paintings: paintings,
             totalResults: response.data.userSet.count
         };
-    } catch (e) {
-        if (axios.isCancel(e)) {
-            console.error('Request is canceled...');
-        } else {
-            console.error(e);
-        }
+    } catch (error) {
+        console.error("Error fetching paintings:", error);
         return { paintings: [], totalResults: 0 };
     }
-}
-
-export function useFetchPaintings(apiKey, page, pageSize, setPaintings, setTotalResults, toggleLoading, toggleError) {
-    useEffect(() => {
-        console.log("useFetchPaintings hook called");
-        const fetchData = async () => {
-            toggleError(false);
-            toggleLoading(true);
-
-            const { paintings, totalResults } = await fetchPaintings(apiKey, page, pageSize);
-            setPaintings(paintings);
-            setTotalResults(totalResults);
-
-            toggleLoading(false);
-        };
-
-        fetchData();
-
-        return () => {};
-    }, [apiKey, page, pageSize, setPaintings, setTotalResults, toggleLoading, toggleError]);
 }
