@@ -13,7 +13,7 @@ function Necklace() {
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
     const pageSize = 5;
-    const totalPages = Math.ceil(favorites.length / pageSize); // Correcte berekening van het totale aantal pagina's
+    const totalPages = Math.ceil(favorites.length / pageSize);
 
     // Definieer de functie fetchFavoritePaintings, die verantwoordelijk is voor het ophalen van favoriete schilderijen van de Rijksmuseum API.
     // Dit wordt uitgevoerd elke keer dat de apiKey, favorites, of page veranderen.
@@ -23,9 +23,12 @@ function Necklace() {
         setLoading(true);
 
         try {
-            const response = await axios.get(`https://www.rijksmuseum.nl/api/nl/usersets/4515733-bloemen?key=${apiKey}&format=json&page=${page}&pageSize=${pageSize}`);
+            const response = await axios.get(`https://www.rijksmuseum.nl/api/nl/usersets/4515733-bloemen?key=${apiKey}&format=json`);
+            console.log("API response:", response.data); // Log de API-reactie om te controleren of de juiste gegevens worden opgehaald
             const allPaintings = response.data.userSet.setItems;
+            console.log("All paintings:", allPaintings); // Log de volledige lijst met schilderijen om te controleren of alle schilderijen worden opgehaald
             const filteredFavoritePaintings = allPaintings.filter(painting => favorites.includes(painting.id));
+            console.log("Filtered favorite paintings:", filteredFavoritePaintings); // Log de gefilterde lijst met favoriete schilderijen
             setFavoritePaintings(filteredFavoritePaintings);
         } catch (error) {
             console.error("Error fetching favorite paintings:", error);
@@ -59,6 +62,7 @@ function Necklace() {
                         </div>
                             {loading && <p>Loading...</p>}
                             {!loading && favoritePaintings.map((painting, index) => (
+
                                 <div
                                     key={index}
                                     id={`painting-${index}`}

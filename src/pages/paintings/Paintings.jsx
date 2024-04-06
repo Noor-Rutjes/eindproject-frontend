@@ -24,6 +24,7 @@ function Paintings() {
                 setTotalResults(result.totalResults);
                 toggleError(false);
                 console.log("Fetched paintings:", result.paintings);
+                console.log("Total results: ", result.totalResults)
             } catch (error) {
                 console.error("Error fetching paintings:", error);
                 toggleError(true);
