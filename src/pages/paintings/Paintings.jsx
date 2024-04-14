@@ -11,9 +11,11 @@ function Paintings() {
     const [paintings, setPaintings] = useState([]);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-    const [page, setPage] = useState(1);
+    const [page, setPage] = useState(0);
     const [totalResults, setTotalResults] = useState(0);
     const pageSize = 8;
+    const totalPages = Math.ceil(totalResults / pageSize);
+
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,14 +42,22 @@ function Paintings() {
         <>
             <div className="button-container">
                 <Button
-                    onClick={() => setPage(prevPage => prevPage - 1)}
-                    disabled={page === 1}
+                    // onClick={() => setPage(prevPage => prevPage - 1)}
+                    // disabled={page === 1}
+                    // text="Vorige"
+                    onClick={() => setPage(prevPage => Math.max(prevPage - 1, 0))}
+                    disabled={page === 0}
                     text="Vorige"
+
                 />
                 <Button
-                    onClick={() => setPage(prevPage => prevPage + 1)}
-                    disabled={page * pageSize >= totalResults}
+                    // onClick={() => setPage(prevPage => prevPage + 1)}
+                    // disabled={page * pageSize >= totalResults}
+                    // text="Volgende"
+                    onClick={() => setPage(prevPage => Math.min(prevPage + 1, totalPages))}
+                    disabled={page === totalPages}
                     text="Volgende"
+
                 />
             </div>
             <div className="paintings-container">

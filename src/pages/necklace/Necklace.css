@@ -13,22 +13,31 @@
 }
 
 .necklace-image {
-    max-height: 100%;
-    width: auto;
+    height: 100%;
+    width: 80%;
     /*border: 1px solid green;*/
 }
 
 .paintings-overview {
+    height: 100%;
+    width: 20%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    overflow-y: scroll;
     background: radial-gradient(circle, rgba(125,126,125,1) 0%, rgba(7,3,34,1) 100%);
+}
+
+.painting {
+    padding: 10px 0px;
+    width: 140px;
+    height: 140px;
+
 }
 
 .painting-image {
     border-radius: 50%;
-    flex-shrink: 0;
     /*border: 1px solid red;*/
 }
 
@@ -42,27 +51,27 @@
 
 #box0 {
     bottom: 541px;
-    left: 363px;
+    left: 373px;
 }
 
 #box1 {
     bottom: 327px;
-    left: 442px;
+    left: 447px;
 }
 
 #box2 {
     bottom: 183px;
-    left: 624px;
+    left: 616px;
 }
 
 #box3 {
     bottom: 328px;
-    left: 813px;
+    left: 794px;
 }
 
 #box4 {
     bottom: 537px;
-    left: 883px;
+    left: 854px;
 }
 
 .opacity-dragging {

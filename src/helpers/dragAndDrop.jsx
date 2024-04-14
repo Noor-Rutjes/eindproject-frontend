@@ -50,6 +50,7 @@ export function drop(e) {
     const paintingElement = document.getElementById(paintingId);
     if (paintingElement) {
         paintingElement.classList.remove("opacity-dragging");
+        paintingElement.style.padding = '0';
         e.target.appendChild(paintingElement);
     }
 }
