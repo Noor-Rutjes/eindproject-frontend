@@ -14,8 +14,8 @@ function Necklace() {
     const [loading, toggleLoading] = useState(false);
     const [page, setPage] = useState(0);
     const pageSize = 33;
-    const [boxContents, setBoxContents] = useState(Array(5).fill(null)); // State voor de inhoud van de vakjes
-    const [activeBoxIndex, setActiveBoxIndex] = useState(-1); // State om bij te houden welke box actief is
+    const [boxContents, setBoxContents] = useState(Array(5).fill(null));
+    const [activeBoxIndex, setActiveBoxIndex] = useState(-1);
 
 
     useEffect(() => {
@@ -55,13 +55,10 @@ function Necklace() {
         const paintingToMove = favoritePaintings.find(painting => painting.id.toString() === paintingId);
 
         if (paintingToMove) {
-            // Verplaats vorige painting terug naar paintings-overview als er al een painting in de box zit
             if (boxContents[boxIndex]) {
                 const updatedBoxContents = [...boxContents];
-                const previousPainting =updatedBoxContents[boxIndex];
                 updatedBoxContents[boxIndex] = null;
                 setBoxContents(updatedBoxContents);
-                setFavoritePaintings(prevState =>[...prevState, previousPainting]);
             }
 
             // Plaats nieuwe painting in de box
