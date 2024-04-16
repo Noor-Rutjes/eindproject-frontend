@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { fetchPaintings } from "../../helpers/fetchPaintings.jsx"; // Aangepast om de fetchPaintings-functie rechtstreeks te importeren
+import { fetchPaintings } from "../../helpers/fetchPaintings.jsx";
 import './Paintings.css';
-import Button from "../../components/button/Button.jsx";'../../components/button/Button.jsx';
+import Button from "../../components/button/Button.jsx"
 import useFavorites from "../../helpers/useFavorites.jsx";
 
 
@@ -42,18 +42,12 @@ function Paintings() {
         <>
             <div className="button-container">
                 <Button
-                    // onClick={() => setPage(prevPage => prevPage - 1)}
-                    // disabled={page === 1}
-                    // text="Vorige"
                     onClick={() => setPage(prevPage => Math.max(prevPage - 1, 0))}
                     disabled={page === 0}
                     text="Vorige"
 
                 />
                 <Button
-                    // onClick={() => setPage(prevPage => prevPage + 1)}
-                    // disabled={page * pageSize >= totalResults}
-                    // text="Volgende"
                     onClick={() => setPage(prevPage => Math.min(prevPage + 1, totalPages))}
                     disabled={page === totalPages}
                     text="Volgende"
@@ -73,9 +67,12 @@ function Paintings() {
                             src={painting.image.cdnUrl}
                             alt="schilderij"
                         />
-                        <button onClick={() => toggleFavorite(painting.id)}>
-                            {favorites.includes(painting.id) ? 'Unfavorite' : 'Favorite'}
-                        </button>
+                        <div
+                            className="favorite-heart"
+                            onClick={() => toggleFavorite(painting.id)}
+                        >
+                            {favorites.includes(painting.id) ? '❤️' : '🤍'}
+                        </div>
                     </div>
                 ))}
             </div>
