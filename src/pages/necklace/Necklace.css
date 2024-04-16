@@ -33,11 +33,15 @@
     padding: 10px 0px;
     width: 140px;
     height: 140px;
+    /*border: 1px solid mediumpurple;*/
+
 
 }
 
 .painting-image {
     border-radius: 50%;
+    width: 138px;
+    height: 138px;
     /*border: 1px solid red;*/
 }
 
