@@ -25,12 +25,12 @@ function Navigation() {
                 </li>
                 <li className={hamburgerOpen ? "navigation" : "navigation-closed"}>
                     <NavLink className="navigation-link" to="/paintings">
-                        Paintings
+                        Schilderijen
                     </NavLink>
                 </li>
                 <li className={hamburgerOpen ? "navigation" : "navigation-closed"}>
                     <NavLink className="navigation-link" to="/necklace">
-                        Necklace
+                        Ketting
                     </NavLink>
                 </li>
             </ul>

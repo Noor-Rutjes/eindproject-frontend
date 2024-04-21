@@ -5,6 +5,7 @@ import Button from "../../components/button/Button.jsx"
 import useFavorites from "../../helpers/useFavorites.jsx";
 
 
+
 function Paintings() {
     const apiKey = import.meta.env.VITE_API_KEY;
     const { favorites, toggleFavorite } = useFavorites();
@@ -40,6 +41,7 @@ function Paintings() {
 
     return (
         <>
+            <div className="general-container">
             <div className="button-container">
                 <Button
                     onClick={() => setPage(prevPage => Math.max(prevPage - 1, 0))}
@@ -49,7 +51,7 @@ function Paintings() {
                 />
                 <Button
                     onClick={() => setPage(prevPage => Math.min(prevPage + 1, totalPages))}
-                    disabled={page === totalPages}
+                    disabled={page === totalPages -1}
                     text="Volgende"
 
                 />
@@ -75,6 +77,7 @@ function Paintings() {
                         </div>
                     </div>
                 ))}
+            </div>
             </div>
         </>
     );

@@ -1,4 +1,16 @@
+general-container {
+
+}
+
+.button-container {
+    padding-left: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
 .paintings-container {
+    padding: 0px 25px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -19,7 +31,7 @@
 .favorite-heart {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 15px;
     cursor: pointer;
     font-size: 24px;
     color: #e74c3c;

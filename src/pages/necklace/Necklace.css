@@ -42,6 +42,7 @@
     border-radius: 50%;
     width: 138px;
     height: 138px;
+    object-fit: cover;
     /*border: 1px solid red;*/
 }
 

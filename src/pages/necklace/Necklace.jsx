@@ -93,7 +93,6 @@ function Necklace() {
                                     className="painting-image"
                                     src={painting.image.cdnUrl}
                                     alt="schilderij"
-                                    style={{width: '100%', height: '100%', objectFit: 'cover'}}
                                 />
                             </div>
                         ))}

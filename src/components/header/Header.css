@@ -1,20 +1,15 @@
-/*@import url('https://fonts.googleapis.com/css2?family=Alegreya+SC&family=EB+Garamond&display=swap');*/
-
 #header {
     display: flex;
-    /*font-family: "Roboto Condensed", sans-serif;*/
-    /*font-weight: bold;*/
-    /*font-size: 600px;*/
 }
 .header-container {
-    min-height: 350px;
-    max-height: 350px;
+    min-height: 3em;
+    max-height: 3em;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     color: #FFFFFF;
-    font-size: 160px;
+    font-size: 120px;
 }
 
 .header-icon img {
