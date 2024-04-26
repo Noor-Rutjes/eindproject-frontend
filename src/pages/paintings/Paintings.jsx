@@ -47,7 +47,6 @@ function Paintings() {
                     onClick={() => setPage(prevPage => Math.max(prevPage - 1, 0))}
                     disabled={page === 0}
                     text="Vorige"
-
                 />
                 <Button
                     onClick={() => setPage(prevPage => Math.min(prevPage + 1, totalPages))}

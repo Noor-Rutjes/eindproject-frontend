@@ -1,9 +1,29 @@
 .navigation-container {
+margin: 10px;
 }
 
 .navigation {
     display: flex;
-    justify-content: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    list-style: none;
+    background-color: lightgray;
+    border-radius: 10px;
+    width: 50%;
+    position: absolute;
+    z-index: 1;
+}
+
+ul.navigation {
+    margin: 10px;
+    height: 30%;
+
+}
+
+li.navigation {
+    display: flex;
+    padding-left: 2em;
 }
 
 .navigation-closed {
@@ -11,6 +31,7 @@
 }
 
 .navigation-link {
+    display: flex;
     color: #FFFFFF;
     font-family: 'Rubik', 'Arial', sans-serif;
     font-size: 25px;

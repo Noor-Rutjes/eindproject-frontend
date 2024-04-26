@@ -2,6 +2,7 @@
     display: flex;
 }
 .header-container {
+    width: 100%;
     min-height: 3em;
     max-height: 3em;
     display: flex;

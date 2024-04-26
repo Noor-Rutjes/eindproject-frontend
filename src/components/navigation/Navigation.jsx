@@ -1,41 +1,66 @@
-import React, {useState} from "react";
-import {NavLink} from "react-router-dom";
-import Hamburger from "../hamburger/Hamburger.jsx";
+import React, {useState, useContext} from "react";
+import {NavLink, useNavigate} from "react-router-dom";
+import {AuthContext} from '../../context/AuthContext.jsx';
+import Hamburger from "./Hamburger.jsx";
 import './Navigation.css';
+import Button from "../button/Button.jsx";
 
 function Navigation() {
     const [hamburgerOpen, setHamburgerOpen] = useState(false);
-
     const toggleHamburger = () => {
         setHamburgerOpen(!hamburgerOpen)
-    }
+    };
+    const closeHamburger = () => {
+        setHamburgerOpen(false);
+    };
+    const navigationClass = hamburgerOpen ? "navigation" : "navigation-closed";
+
+    const {isAuth, logout} = useContext(AuthContext);
+    const navigate = useNavigate();
 
     return (
         <nav>
-            <div className="hamburger-container" onClick={toggleHamburger}>
-                <Hamburger isOpen={hamburgerOpen}/>
-            </div>
+            <div className="navigation-container">
+                <div className="hamburger-container" onClick={toggleHamburger}>
+                    <Hamburger isOpen={hamburgerOpen}/>
+                </div>
 
-            <ul className="navigation-container">
-                <li
-                    className={hamburgerOpen ? "navigation" : "navigation-closed"}>
-                    <NavLink className="navigation-link" to="/">
+                <ul className={navigationClass}>
+                <li>
+                    <NavLink className="navigation-link" to="/" onClick={closeHamburger}>
                         Home
                     </NavLink>
                 </li>
-                <li className={hamburgerOpen ? "navigation" : "navigation-closed"}>
-                    <NavLink className="navigation-link" to="/paintings">
+                <li>
+                    <NavLink className="navigation-link" to="/paintings" onClick={closeHamburger}>
                         Schilderijen
                     </NavLink>
                 </li>
-                <li className={hamburgerOpen ? "navigation" : "navigation-closed"}>
-                    <NavLink className="navigation-link" to="/necklace">
+                <li>
+                    <NavLink className="navigation-link" to="/necklace" onClick={closeHamburger}>
                         Ketting
                     </NavLink>
                 </li>
+                <li>
+                    {isAuth ? (
+                        <Button onClick={() => { logout(); closeHamburger(); }} text="Log uit" />
+                    ) : (
+                        <div>
+                            <Button
+                                onClick={() => { navigate("/signin"); closeHamburger(); }}
+                                text="Log in"
+                            />
+                            <Button
+                                onClick={() => { navigate("/signup"); closeHamburger(); }}
+                                text="Registreren"
+                            />
+                        </div>
+                    )}
+                </li>
             </ul>
+
+            </div>
         </nav>
     );
 }
-
 export default Navigation;
