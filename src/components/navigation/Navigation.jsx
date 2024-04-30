@@ -3,7 +3,7 @@ import {NavLink, useNavigate} from "react-router-dom";
 import {AuthContext} from '../../context/AuthContext.jsx';
 import Hamburger from "./Hamburger.jsx";
 import './Navigation.css';
-import Button from "../button/Button.jsx";
+import Button from "../../components/button/Button.jsx";
 
 function Navigation() {
     const [hamburgerOpen, setHamburgerOpen] = useState(false);
@@ -21,9 +21,6 @@ function Navigation() {
     return (
         <nav>
             <div className="navigation-container">
-                <div className="hamburger-container" onClick={toggleHamburger}>
-                    <Hamburger isOpen={hamburgerOpen}/>
-                </div>
 
                 <ul className={navigationClass}>
                 <li>
@@ -58,6 +55,9 @@ function Navigation() {
                     )}
                 </li>
             </ul>
+                <div className="hamburger-container" onClick={toggleHamburger}>
+                    <Hamburger isOpen={hamburgerOpen}/>
+                </div>
 
             </div>
         </nav>

@@ -30,7 +30,7 @@
 }
 
 .painting {
-    padding: 10px 0px;
+    /*padding: 10px 0px;*/
     width: 140px;
     height: 140px;
     /*border: 1px solid mediumpurple;*/
@@ -43,6 +43,7 @@
     width: 138px;
     height: 138px;
     object-fit: cover;
+    padding:5px;
     /*border: 1px solid red;*/
 }
 
