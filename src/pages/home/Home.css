@@ -1,7 +1,6 @@
 .hero-section {
     display: flex;
-    border-radius: 5px;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     font-family: 'Rubik', 'Arial', sans-serif;
     font-size: 15px;
     background: rgb(0, 0, 0);

@@ -42,7 +42,7 @@ function Home() {
                             <div>
                                 <Button
                                     onClick={() => {
-                                        navigate("/signin");
+                                        navigate("/signIn");
                                     }}
                                     text="Log in"
                                 />

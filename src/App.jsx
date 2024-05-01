@@ -5,8 +5,8 @@ import Necklace from './pages/necklace/Necklace.jsx';
 import Paintings from "./pages/paintings/Paintings.jsx";
 import Home from './pages/home/Home.jsx';
 import './App.css';
-import SignIn from "./pages/SignIn.jsx";
-import SignUp from "./pages/SignUp.jsx";
+import SignIn from "./pages/signIn/SignIn.jsx";
+import SignUp from "./pages/signUp/SignUp.jsx";
 import Profile from "./pages/Profile.jsx";
 import {AuthContext} from "./context/AuthContext.jsx";
 

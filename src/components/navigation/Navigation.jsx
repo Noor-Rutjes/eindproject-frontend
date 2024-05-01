@@ -44,7 +44,7 @@ function Navigation() {
                     ) : (
                         <div>
                             <Button
-                                onClick={() => { navigate("/signin"); closeHamburger(); }}
+                                onClick={() => { navigate("/signIn"); closeHamburger(); }}
                                 text="Log in"
                             />
                             <Button

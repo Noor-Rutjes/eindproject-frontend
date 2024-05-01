@@ -1,7 +1,11 @@
 import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext.jsx';
 import axios from 'axios';
+import ContentBlock from "../../components/contentBlock/ContentBlock.jsx";
+import model2 from "../../assets/model2.png";
+import Button from "../../components/button/Button.jsx";
+import "./SignIn.css";
 
 function SignIn() {
   const endpoint = "https://frontend-educational-backend.herokuapp.com/";
@@ -32,12 +36,19 @@ function SignIn() {
   }
 
   return (
-      <>
-        <h1>Inloggen</h1>
-        <form onSubmit={handleSubmit}>
+      <ContentBlock
+          title="Inloggen"
+          image={model2}
+          alt={"man met ketting"}
+      >
+
+        <form
+        className="form"
+            onSubmit={handleSubmit}>
           <label htmlFor="username-field">
             Gebruikersnaam:
             <input
+                className="form-input-field"
                 type="username"
                 id="username-field"
                 name="username"
@@ -49,6 +60,7 @@ function SignIn() {
           <label htmlFor="password-field">
             Wachtwoord:
             <input
+                className="form-input-field"
                 type="password"
                 id="password-field"
                 name="password"
@@ -58,16 +70,16 @@ function SignIn() {
           </label>
           {error && <p className="error">Combinatie van gebruikersnaam en wachtwoord is onjuist</p>}
 
-          <button
+          <Button
               type="submit"
-              className="form-button"
+              text={"Inloggen"}
           >
             Inloggen
-          </button>
+          </Button>
         </form>
 
         <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
-      </>
+</ContentBlock>
   );
 }
 

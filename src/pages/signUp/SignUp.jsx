@@ -1,6 +1,10 @@
 import {useState} from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import "./SignUp.css";
+import ContentBlock from "../../components/contentBlock/ContentBlock.jsx";
+import geit from "../../assets/geit.png";
+import Button from "../../components/button/Button.jsx";
 
 function SignUp() {
   const endpoint = "https://frontend-educational-backend.herokuapp.com/";
@@ -31,7 +35,7 @@ function SignUp() {
       // Om te zien hoe je een canceltoken implementeerd kun je de bonus-branch bekijken!
 
       // als alles goed gegaan is, linken we dyoor naar de login-pagina
-      navigate('/signin');
+      navigate('/signIn');
     } catch(e) {
       console.error(e);
       toggleError(true);
@@ -41,11 +45,17 @@ function SignUp() {
   }
 
   return (
-      <>
-        <form onSubmit={handleSubmit}>
+      <ContentBlock
+          title="Registreren"
+          image={geit}
+          alt={"geit met ketting"}
+      >
+
+      <form onSubmit={handleSubmit}>
           <label htmlFor="email-field">
-            Emailadres:
+            E-mailadres:
             <input
+                className="form-input-field"
                 type="email"
                 id="email-field"
                 name="email"
@@ -57,6 +67,7 @@ function SignUp() {
           <label htmlFor="username-field">
             Gebruikersnaam:
             <input
+                className="form-input-field"
                 type="text"
                 id="username-field"
                 value={username}
@@ -67,6 +78,7 @@ function SignUp() {
           <label htmlFor="password-field">
             Wachtwoord:
             <input
+                className="form-input-field"
                 type="password"
                 id="password-field"
                 name="password"
@@ -74,19 +86,25 @@ function SignUp() {
                 onChange={(e) => setPassword(e.target.value)}
             />
           </label>
-          {error && <p className="error">Dit account bestaat al. Probeer een ander emailadres.</p>}
-          <button
-              type="submit"
-              className="form-button"
-              disabled={loading}
-          >
-            Registreren
-          </button>
+          {error && <p className="error">Dit account bestaat al. Probeer een ander e-mail adres.</p>}
+          {/*<button*/}
+          {/*    type="submit"*/}
+          {/*    className="form-button"*/}
+          {/*    disabled={loading}*/}
+          {/*>*/}
+          {/*  Registreren*/}
+          {/*</button>*/}
 
-        </form>
+        <Button
+            type="submit"
+            text={"Registreren"}
+        />
 
-        <p>Heb je al een account? Je kunt je <Link to="/signin">hier</Link> inloggen.</p>
-      </>
+
+      </form>
+
+        <p>Heb je al een account? Je kunt <Link to="/signin">hier</Link> inloggen.</p>
+      </ContentBlock>
   );
 }
 

@@ -10,7 +10,7 @@ margin: 10px;
     align-items: center;
     list-style: none;
     background-color: lightgray;
-    border-radius: 5px;
+    /*border-radius: 5px;*/
     width: 100vh;
     position: absolute;
     z-index: 1;
