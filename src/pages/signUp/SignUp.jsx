@@ -48,7 +48,7 @@ function SignUp() {
       <ContentBlock
           title="Registreren"
           image={geit}
-          alt={"geit met ketting"}
+          alt={"geit die RijksBling ketting draagt"}
       >
 
       <form onSubmit={handleSubmit}>

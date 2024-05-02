@@ -1,21 +1,5 @@
-.hero-section {
-    display: flex;
-    /*border-radius: 5px;*/
-    font-family: 'Rubik', 'Arial', sans-serif;
-    font-size: 15px;
-    background: rgb(0, 0, 0);
-    background: linear-gradient(234deg, rgba(0, 0, 0, 1) 0%, rgba(218, 138, 54, 1) 35%, rgba(7, 3, 34, 1) 100%);}
-
     .hero-text {
-        font-size: 20px;
+        font-size: 25px;
+        /*width: 50vw;*/
     }
-
-    .hero-container{
-        margin: 44px;
-    }
-
-    .hero-container > * {
-        margin-bottom: 20px;
-    }
-
 

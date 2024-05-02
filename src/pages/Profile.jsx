@@ -36,7 +36,7 @@ function Profile() {
             <ContentBlock
                 title="Profielpagina"
                 image={model2}
-                alt={"man met ketting"}
+                alt={"man die RijksBling ketting draagt"}
             >
             <div>
                 <h2>Gegevens</h2>

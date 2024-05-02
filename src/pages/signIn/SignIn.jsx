@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext.jsx';
 import axios from 'axios';
 import ContentBlock from "../../components/contentBlock/ContentBlock.jsx";
-import model2 from "../../assets/model2.png";
+import bruid from "../../assets/bruid.png";
 import Button from "../../components/button/Button.jsx";
 import "./SignIn.css";
 
@@ -38,7 +38,7 @@ function SignIn() {
   return (
       <ContentBlock
           title="Inloggen"
-          image={model2}
+          image={bruid}
           alt={"man met ketting"}
       >
 

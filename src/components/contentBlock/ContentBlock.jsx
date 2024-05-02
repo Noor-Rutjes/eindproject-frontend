@@ -1,7 +1,6 @@
 import React from "react";
 import "./ContentBlock.css"
 
-
 function ContentBlock({image,alt,title, children}) {
     return (
         <section className="content-block">
