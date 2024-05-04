@@ -4,7 +4,6 @@ import necklace from '../../assets/necklace.jpg';
 import useFavorites from "../../helpers/useFavorites.jsx";
 import {dragStart, dragEnd} from "../../helpers/dragAndDrop.jsx";
 import './Necklace.css';
-import {array} from "prop-types";
 
 function Necklace() {
     const apiKey = import.meta.env.VITE_API_KEY;
@@ -75,58 +74,56 @@ function Necklace() {
 
 
     return (
-        <>
-            <div className="parent">
-                <div className="container">
-                    <div className="paintings-overview">
-                        {loading && <p>Loading...</p>}
-                        {!loading && favoritePaintings.map((painting, index) => (
+        <div className="parent">
+            <div className="container">
+                <div className="paintings-overview">
+                    {loading && <p>Loading...</p>}
+                    {!loading && favoritePaintings.map((painting, index) => (
+                        <div
+                            key={index}
+                            id={`painting-${index}`}
+                            draggable="true"
+                            onDragStart={(e) => handleDragStart(e, painting.id.toString())}
+                            onDragEnd={dragEnd}
+                        >
+                            <img
+                                className="painting-image"
+                                src={painting.image.cdnUrl}
+                                alt="schilderij"
+                            />
+                        </div>
+                    ))}
+                </div>
+            </div>
+
+            <div className="container">
+                <img className="necklace-image" src={necklace} alt="ketting"/>
+                {[...Array(5)].map((_, index) => (
+                    <div
+                        key={`box${index}`}
+                        className={`box`}
+                        id={`box${index}`}
+                        onDragOver={handleDragOver}
+                        onDrop={(e) => handleDrop(e, index)}
+                    >
+                        {boxContents[index] && (
                             <div
-                                key={index}
-                                id={`painting-${index}`}
-                                className="painting"
                                 draggable="true"
-                                onDragStart={(e) => handleDragStart(e, painting.id.toString())}
+                                onDragStart={(e) => handleDragStart(e, boxContents[index].id.toString())}
                                 onDragEnd={dragEnd}
                             >
                                 <img
-                                    className="painting-image"
-                                    src={painting.image.cdnUrl}
+                                    src={boxContents[index].image.cdnUrl}
                                     alt="schilderij"
+                                    className="painting-image"
+                                    style={{objectFit: 'cover'}}
                                 />
                             </div>
-                        ))}
+                        )}
                     </div>
-                    <img className="necklace-image" src={necklace} alt="ketting"/>
-                    <div className="boxes-container">
-                        {[...Array(5)].map((_, index) => (
-                            <div
-                                key={`box${index}`}
-                                className={`box`}
-                                id={`box${index}`}
-                                onDragOver={handleDragOver}
-                                onDrop={(e) => handleDrop(e, index)}
-                            >
-                                {boxContents[index] && (
-                                    <div
-                                        draggable="true"
-                                        onDragStart={(e) => handleDragStart(e, boxContents[index].id.toString())}
-                                        onDragEnd={dragEnd}
-                                    >
-                                        <img
-                                            src={boxContents[index].image.cdnUrl}
-                                            alt="schilderij"
-                                            className="painting-image"
-                                            style={{objectFit: 'cover'}}
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        ))}
-                    </div>
-                </div>
+                ))}
             </div>
-        </>
+        </div>
     );
 }
 

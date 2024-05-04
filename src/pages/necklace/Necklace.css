@@ -1,83 +1,75 @@
 .parent {
-    position: relative;
-    top: 0;
-    left: 0;
+    display: flex;
+    justify-content: center;
 }
 
 .container {
-    display: flex;
-    height: 1000px;
-    justify-content: center;
-    flex-wrap: wrap;
-    /*border: 1px solid pink;*/
+    position: relative;
 }
 
 .necklace-image {
-    height: 100%;
-    width: 80%;
+    position: relative;
+    width: 50vw;
+    height: auto;
     /*border: 1px solid green;*/
 }
 
 .paintings-overview {
-    height: 100%;
-    width: 20%;
+    width: 20vw;
+    height: 50vw;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     align-items: center;
     overflow-y: scroll;
     background: radial-gradient(circle, rgba(125,126,125,1) 0%, rgba(7,3,34,1) 100%);
 }
 
-.painting {
-    /*padding: 10px 0px;*/
-    width: 140px;
-    height: 140px;
-    /*border: 1px solid mediumpurple;*/
-
-
+.paintings-overview div {
+    margin-bottom: 1em;
 }
 
+.paintings-overview div:first-child {
+    margin-top: 1em;
+}
 .painting-image {
     border-radius: 50%;
-    width: 138px;
-    height: 138px;
+    width: 7vw;
+    height: 7vw;
     object-fit: cover;
-    padding:5px;
     /*border: 1px solid red;*/
 }
 
 .box {
     position: absolute;
     border-radius: 50%;
-    width: 138px;
-    height: 138px;
+    width: 14%;
+    height: 14%;
     /*border: 1px solid deepskyblue;*/
 }
 
 #box0 {
-    bottom: 541px;
-    left: 373px;
+    bottom: 54.5%;
+    left: 15.5%;
 }
 
 #box1 {
-    bottom: 327px;
-    left: 447px;
+    bottom: 33%;
+    left: 23.5%;
 }
 
 #box2 {
-    bottom: 183px;
-    left: 616px;
+    bottom: 19%;
+    left: 41.6%;
 }
 
 #box3 {
-    bottom: 328px;
-    left: 794px;
+    bottom: 33%;
+    left: 60.5%;
 }
 
 #box4 {
-    bottom: 537px;
-    left: 854px;
+    bottom: 54%;
+    left: 67.5%;
 }
 
 .opacity-dragging {
