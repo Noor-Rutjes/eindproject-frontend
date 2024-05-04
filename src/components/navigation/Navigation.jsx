@@ -21,7 +21,6 @@ function Navigation() {
     return (
         <nav>
             <div className="navigation-container">
-
                 <ul className={navigationClass}>
                 <li>
                     <NavLink className="navigation-link" to="/" onClick={closeHamburger}>

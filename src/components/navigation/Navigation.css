@@ -1,5 +1,6 @@
 .navigation-container {
-margin: 10px;
+    display: flex;
+    align-items: center;
 }
 
 .navigation {
@@ -11,14 +12,14 @@ margin: 10px;
     list-style: none;
     background-color: lightgray;
     /*border-radius: 5px;*/
-    width: 100vh;
+    width: 100vw;
     position: absolute;
     z-index: 1;
 }
 
 ul.navigation {
-    margin: 10px;
-    height: 30%;
+    /*margin: 10px;*/
+    /*height: 30%;*/
 }
 
 li.navigation {
@@ -41,5 +42,6 @@ li.navigation {
 }
 
 .hamburger-container {
-    margin: 0.5em;
+    width: 100vw;
+    /*margin: 0.5em;*/
 }
