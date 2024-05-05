@@ -3,29 +3,42 @@
     align-items: center;
 }
 
+.hamburger-container {
+    margin: 3vw;
+    position: fixed;
+    left: 0;
+    z-index: 2;
+}
+
 .navigation {
     overflow: visible;
     display: flex;
+    height: 100vh;
+    width: 40%;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    padding: 8% 0 0 12%;
     list-style: none;
-    background-color: lightgray;
-    /*border-radius: 5px;*/
-    width: 100vw;
-    position: absolute;
+    background-color: #616168;
     z-index: 1;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-image: url("src/assets/bigman.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position-y: bottom;
+    background-position-x: left;
 }
 
-ul.navigation {
-    /*margin: 10px;*/
-    /*height: 30%;*/
+.navigation li:nth-child(3) {
+    padding-bottom: 0.8em;
 }
 
-li.navigation {
-    display: flex;
-    padding-left: 2em;
-}
+    @media only screen and (max-width: 768px) {
+        .navigation {
+            background-image: none;
+        }
+    }
 
 .navigation-closed {
     display: none;
@@ -35,13 +48,8 @@ li.navigation {
     display: flex;
     color: #FFFFFF;
     font-family: 'Rubik', 'Arial', sans-serif;
-    font-size: 25px;
+    font-size: 1.5em;
     cursor: pointer;
     text-decoration: underline 0.15em rgba(0, 0, 0, 0);
     transition: text-decoration-color 300ms;
-}
-
-.hamburger-container {
-    width: 100vw;
-    /*margin: 0.5em;*/
 }

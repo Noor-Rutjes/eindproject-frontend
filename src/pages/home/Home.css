@@ -1,5 +1,12 @@
     .hero-text {
         font-size: 25px;
-        /*width: 50vw;*/
+    }
+
+    .hero-navigation {
+        display: flex;
+    }
+
+    .hero-navigation >p {
+        margin-left: 25px;
     }
 

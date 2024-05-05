@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext.jsx';
 import axios from 'axios';
 import ContentBlock from "../../components/contentBlock/ContentBlock.jsx";
-import bruid from "../../assets/bruid.png";
+import bride from "../../assets/bride.png";
 import Button from "../../components/button/Button.jsx";
 import "./SignIn.css";
 
@@ -38,8 +38,8 @@ function SignIn() {
   return (
       <ContentBlock
           title="Inloggen"
-          image={bruid}
-          alt={"man met ketting"}
+          image={bride}
+          alt={"bruid met ketting"}
       >
 
         <form
@@ -70,12 +70,12 @@ function SignIn() {
           </label>
           {error && <p className="error">Combinatie van gebruikersnaam en wachtwoord is onjuist</p>}
 
-          <Button
+          <button
               type="submit"
-              text={"Inloggen"}
+              className="nav-button"
           >
             Inloggen
-          </Button>
+          </button>
         </form>
 
         <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>

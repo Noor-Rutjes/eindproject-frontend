@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {AuthContext} from '../context/AuthContext.jsx';
 import axios from 'axios';
 import ContentBlock from "../components/contentBlock/ContentBlock.jsx";
-import model2 from "../assets/model2.png";
+import happywoman from "../assets/happywoman.png";
 
 function Profile() {
     const endpoint = "https://frontend-educational-backend.herokuapp.com/";
@@ -34,14 +34,15 @@ function Profile() {
 
     return (
             <ContentBlock
-                title="Profielpagina"
-                image={model2}
-                alt={"man die RijksBling ketting draagt"}
+                // title="Profielpagina"
+                image={happywoman}
+                alt={"vrouw die RijksBling ketting draagt"}
             >
+                <h1>Welkom, {user.username}!</h1>
             <div>
-                <h2>Gegevens</h2>
-                <p><strong>Gebruikersnaam:</strong> {user.username}</p>
-                <p><strong>Email:</strong> {user.email}</p>
+                {/*<h2>Gegevens</h2>*/}
+                {/*<p><strong>Gebruikersnaam:</strong> {user.username}</p>*/}
+                <p>je e-mailadres is: {user.email}</p>
               <p>Terug naar de <Link to="/">Homepagina</Link></p>
 
             </div>

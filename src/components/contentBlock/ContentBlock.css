@@ -1,11 +1,17 @@
 .content-block {
     display: flex;
+    flex-direction: row;
     width: 100vw;
     align-items: center;
     font-family: 'Rubik', 'Arial', sans-serif;
     font-size: 1em;
     background: rgb(0, 0, 0);
     background: linear-gradient(234deg, rgba(0, 0, 0, 1) 0%, rgba(218, 138, 54, 1) 35%, rgba(7, 3, 34, 1) 100%);
+}
+
+.content-block:nth-child(odd) {
+    flex-direction: row-reverse;
+    margin-top: 10vh;
 }
 
 .text-container > h1 {
@@ -16,18 +22,20 @@
     font-size: 1.5em;
 }
 
-.text-container{
-    margin: 44px;
+.text-container {
+    margin: 4vw;
 }
 
 .text-container > * {
     margin-bottom: 20px;
 }
- .image-container {
-     max-width: 25%;
- }
 
- .image-class {
-     max-width: 100%;
- }
+.image-container {
+    margin: 0 2vw;
+}
 
+@media only screen and (max-width: 768px) {
+    .image-container {
+        display: none;
+    }
+}

@@ -3,14 +3,14 @@ general-container {
 }
 
 .button-container {
-    padding-left: 25px;
+    padding-left: 10vw;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
 }
 
 .paintings-container {
-    padding: 0px 25px;
+    padding: 0 10vw;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -19,7 +19,7 @@ general-container {
 .painting-image-square {
     position: relative;
     display: inline-block;
-    width: calc(25% - 10px); /* 25% voor 4 afbeeldingen per rij, en 10px ruimte tussen de afbeeldingen */
+    width: calc(25% - 10px);
     margin-bottom: 20px;
 }
 

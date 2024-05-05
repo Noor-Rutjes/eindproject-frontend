@@ -1,19 +1,26 @@
 #header {
     display: flex;
+    width: 100vw;
 }
+
 .header-container {
-    width: 100%;
-    min-height: 3em;
-    max-height: 3em;
+    height: calc(100vw * .15);
+    width: 100vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     color: #FFFFFF;
-    font-size: 120px;
+    font-size: 10vw;
+    letter-spacing: 1vw;
 }
 
 .header-icon img {
-width: 250px;
+    width: 1em;
+    margin-left: 5vw;
 }
 
+.header-text a {
+    color: white;
+    text-decoration: none;
+}

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {fetchPaintings} from "../../helpers/fetchPaintings.jsx";
-import necklace from '../../assets/necklace.jpg';
+import necklace from '../../assets/necklace.png';
 import useFavorites from "../../helpers/useFavorites.jsx";
 import {dragStart, dragEnd} from "../../helpers/dragAndDrop.jsx";
 import './Necklace.css';
@@ -12,7 +12,7 @@ function Necklace() {
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
     const [page, setPage] = useState(0);
-    const pageSize = 33;
+    const pageSize = 100;
     const [boxContents, setBoxContents] = useState(Array(5).fill(null));
     const [activeBoxIndex, setActiveBoxIndex] = useState(-1);
 

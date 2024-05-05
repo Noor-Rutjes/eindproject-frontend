@@ -14,7 +14,6 @@ function Navigation() {
         setHamburgerOpen(false);
     };
     const navigationClass = hamburgerOpen ? "navigation" : "navigation-closed";
-
     const {isAuth, logout} = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -22,44 +21,54 @@ function Navigation() {
         <nav>
             <div className="navigation-container">
                 <ul className={navigationClass}>
-                <li>
-                    <NavLink className="navigation-link" to="/" onClick={closeHamburger}>
-                        Home
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink className="navigation-link" to="/paintings" onClick={closeHamburger}>
-                        Schilderijen
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink className="navigation-link" to="/necklace" onClick={closeHamburger}>
-                        Ketting
-                    </NavLink>
-                </li>
-                <li>
-                    {isAuth ? (
-                        <Button onClick={() => { logout(); closeHamburger(); }} text="Log uit" />
-                    ) : (
-                        <div>
-                            <Button
-                                onClick={() => { navigate("/signIn"); closeHamburger(); }}
-                                text="Log in"
-                            />
-                            <Button
-                                onClick={() => { navigate("/signup"); closeHamburger(); }}
-                                text="Registreren"
-                            />
-                        </div>
-                    )}
-                </li>
-            </ul>
-                <div className="hamburger-container" onClick={toggleHamburger}>
-                    <Hamburger isOpen={hamburgerOpen}/>
-                </div>
+                    <li>
+                        <NavLink className="navigation-link" to="/" onClick={closeHamburger}>
+                            Home
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className="navigation-link" to="/paintings" onClick={closeHamburger}>
+                            Schilderijen
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink className="navigation-link" to="/necklace" onClick={closeHamburger}>
+                            Ketting
+                        </NavLink>
+                    </li>
+                    <li>
+                        {isAuth ? (
+                            <Button onClick={() => {
+                                logout();
+                                closeHamburger();
+                            }} text="Log uit"/>
+                        ) : (
+                            <div>
+                                <Button
+                                    onClick={() => {
+                                        navigate("/signIn");
+                                        closeHamburger();
+                                    }}
+                                    text="Log in"
+                                />
+                                <Button
+                                    onClick={() => {
+                                        navigate("/signup");
+                                        closeHamburger();
+                                    }}
+                                    text="Registreren"
+                                />
+                            </div>
+                        )}
+                    </li>
+                </ul>
+            </div>
 
+            <div className="hamburger-container" onClick={toggleHamburger}>
+                <Hamburger isOpen={hamburgerOpen}/>
             </div>
         </nav>
     );
 }
+
 export default Navigation;

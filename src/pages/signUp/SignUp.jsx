@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import "./SignUp.css";
 import ContentBlock from "../../components/contentBlock/ContentBlock.jsx";
-import geit from "../../assets/geit.png";
+import geit from "../../assets/goat.png";
 import Button from "../../components/button/Button.jsx";
 
 function SignUp() {
@@ -87,20 +87,13 @@ function SignUp() {
             />
           </label>
           {error && <p className="error">Dit account bestaat al. Probeer een ander e-mail adres.</p>}
-          {/*<button*/}
-          {/*    type="submit"*/}
-          {/*    className="form-button"*/}
-          {/*    disabled={loading}*/}
-          {/*>*/}
-          {/*  Registreren*/}
-          {/*</button>*/}
-
-        <Button
-            type="submit"
-            text={"Registreren"}
-        />
-
-
+          <button
+              type="submit"
+              className="nav-button"
+              disabled={loading}
+          >
+            Registreren
+          </button>
       </form>
 
         <p>Heb je al een account? Je kunt <Link to="/signin">hier</Link> inloggen.</p>

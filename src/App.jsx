@@ -12,7 +12,6 @@ import {AuthContext} from "./context/AuthContext.jsx";
 
 function App() {
     const { isAuth } = useContext(AuthContext);
-
     return (
         <>
             <Header />
