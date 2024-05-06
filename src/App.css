@@ -1,7 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap');
 
+
 :root {
+    /*font-family: ;*/
     color: #E6E6EA;
+
+    --background-light: #616168;
+    --background-dark: #070322;
 }
 
 body {
@@ -9,7 +14,7 @@ body {
     justify-content: center;
     align-items: center;
     font-family: 'EB Garamond', serif;
-    color: #FFFFFF;
+    color: #E6E6EA;
     background-color: #070322;
 }
 
