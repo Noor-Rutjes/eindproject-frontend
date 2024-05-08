@@ -23,7 +23,7 @@ function Necklace() {
             toggleLoading(true);
 
             try {
-                const result = await fetchPaintings(apiKey, page, pageSize);
+                const result = await fetchPaintings(apiKey, page, pageSize,);
                 toggleError(false);
                 console.log("Fetched paintings:", result.paintings);
 

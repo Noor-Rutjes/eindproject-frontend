@@ -1,14 +1,13 @@
 import axios from 'axios';
 
-export async function fetchPaintings(apiKey, page, pageSize, favorites = []) {
+export async function fetchPaintings(apiKey, page, pageSize, category, favorites = []) {
     console.log("fetchPaintings function called");
     const controller = new AbortController();
 
     try {
-        const response = await axios.get(
-            `https://www.rijksmuseum.nl/api/nl/usersets/4515733-bloemen?key=${apiKey}&format=json&page=${page}&pageSize=${pageSize}`,
-            { signal: controller.signal }
-        );
+        let apiUrl = `https://www.rijksmuseum.nl/api/nl/usersets/${category}?key=${apiKey}&format=json&page=${page}&pageSize=${pageSize}`;
+
+        const response = await axios.get(apiUrl, { signal: controller.signal });
         console.log("response in fetchPaintings: ", response);
 
         let paintings = response.data.userSet.setItems;
@@ -17,8 +16,6 @@ export async function fetchPaintings(apiKey, page, pageSize, favorites = []) {
             paintings = paintings.filter(painting => favorites.includes(painting.id));
             console.log("filtered favorite paintings in fetchPaintings: ", paintings);
         }
-
-
 
         return {
             paintings: paintings,
