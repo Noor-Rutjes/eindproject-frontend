@@ -11,11 +11,11 @@ function Necklace() {
     const [favoritePaintings, setFavoritePaintings] = useState([]);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-    const [page, setPage] = useState(0);
+    const page = 0;
     const pageSize = 100;
     const [boxContents, setBoxContents] = useState(Array(5).fill(null));
     const [activeBoxIndex, setActiveBoxIndex] = useState(-1);
-
+    let category = '';
 
     useEffect(() => {
         const fetchFavoritePaintings = async () => {
@@ -23,13 +23,18 @@ function Necklace() {
             toggleLoading(true);
 
             try {
-                const result = await fetchPaintings(apiKey, page, pageSize,);
+                const result1 = await fetchPaintings(apiKey, page, pageSize, category='4515733-bloemen');
                 toggleError(false);
-                console.log("Fetched paintings:", result.paintings);
 
-                const filteredFavoritePaintings = result.paintings.filter(painting => favorites.includes(painting.id));
-                console.log("Filtered favorite paintings:", filteredFavoritePaintings);
+                const result2 = await fetchPaintings(apiKey, page, pageSize, category='4515733-portretten');
+                toggleError(false);
+
+                const filteredFavoritePaintings1 = result1.paintings.filter(painting => favorites.includes(painting.id));
+                const filteredFavoritePaintings2 = result2.paintings.filter(painting => favorites.includes(painting.id));
+
+                const filteredFavoritePaintings = filteredFavoritePaintings1.concat(filteredFavoritePaintings2);
                 setFavoritePaintings(filteredFavoritePaintings);
+
             } catch (error) {
                 console.error("Error fetching paintings:", error);
                 toggleError(true);
@@ -40,9 +45,6 @@ function Necklace() {
 
         fetchFavoritePaintings();
     }, [apiKey, favorites, page, pageSize]);
-
-    const totalPages = Math.ceil(favorites.length / pageSize);
-    console.log("total pages: " + totalPages);
 
     const handleDragStart = (e, id) => {
         e.dataTransfer.setData('text/plain', id);
@@ -71,7 +73,6 @@ function Necklace() {
     const handleDragOver = (e) => {
         e.preventDefault();
     };
-
 
     return (
         <div className="parent">

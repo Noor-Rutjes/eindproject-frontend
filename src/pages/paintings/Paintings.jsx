@@ -10,11 +10,12 @@ function Paintings() {
     const [paintings, setPaintings] = useState([]);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-    const [page, setPage] = useState(0);
-    const [totalResults, setTotalResults] = useState(0);
+    // const [page, setPage] = useState(0);
+    // const [totalResults, setTotalResults] = useState(0);
     const pageSize = 100;
-    const totalPages = Math.ceil(totalResults / pageSize);
-    const [category, setCategory] = useState('4515733-bloemen'); // Standaardcategorie
+    const page = 0;
+    // const totalPages = Math.ceil(totalResults / pageSize);
+    let [category, setCategory] = useState('4515733-bloemen'); // Standaardcategorie
 
 
     useEffect(() => {
@@ -23,7 +24,7 @@ function Paintings() {
                 toggleLoading(true);
                 const result = await fetchPaintings(apiKey, page, pageSize, category);
                 setPaintings(result.paintings);
-                setTotalResults(result.totalResults);
+                // setTotalResults(result.totalResults);
                 toggleError(false);
                 console.log("Fetched paintings:", result.paintings);
                 console.log("Total results: ", result.totalResults)
@@ -41,7 +42,7 @@ function Paintings() {
     // Functie om categorie te wijzigen
     const changeCategory = (newCategory) => {
         setCategory(newCategory);
-        setPage(0); // Reset de paginering naar de eerste pagina bij het veranderen van categorie
+        // setPage(0); // Reset de paginering naar de eerste pagina bij het veranderen van categorie
     }
 
     return (
