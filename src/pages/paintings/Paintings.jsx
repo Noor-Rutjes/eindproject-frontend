@@ -1,66 +1,65 @@
-import React, {useState, useEffect} from 'react';
-import {fetchPaintings} from "../../helpers/fetchPaintings.jsx";
-import './Paintings.css';
-import Button from "../../components/button/Button.jsx"
+import React, { useState, useEffect } from 'react';
 import useFavorites from "../../helpers/useFavorites.jsx";
+import { fetchPaintings } from "../../helpers/fetchPaintings.jsx";
+import { CATEGORIES, getCategoryName } from "../../constants/paintingCategories.jsx";
+import Button from "../../components/button/Button.jsx";
+import './Paintings.css';
 
 function Paintings() {
     const apiKey = import.meta.env.VITE_API_KEY;
-    const {favorites, toggleFavorite} = useFavorites();
+    const { favorites, toggleFavorite } = useFavorites();
     const [paintings, setPaintings] = useState([]);
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
-    // const [page, setPage] = useState(0);
-    // const [totalResults, setTotalResults] = useState(0);
     const pageSize = 100;
     const page = 0;
-    // const totalPages = Math.ceil(totalResults / pageSize);
-    let [category, setCategory] = useState('4515733-bloemen'); // Standaardcategorie
-
+    const [category, setCategory] = useState(CATEGORIES[0]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 toggleLoading(true);
+                // Fetch paintings from the API
                 const result = await fetchPaintings(apiKey, page, pageSize, category);
+                // Update the state of paintings
                 setPaintings(result.paintings);
-                // setTotalResults(result.totalResults);
                 toggleError(false);
                 console.log("Fetched paintings:", result.paintings);
-                console.log("Total results: ", result.totalResults)
             } catch (error) {
                 console.error("Error fetching paintings:", error);
+                // Set error status in case of error while fetching paintings
                 toggleError(true);
             } finally {
                 toggleLoading(false);
             }
         };
 
+        // Fetch paintings when category, page, or pageSize changes
         fetchData();
     }, [apiKey, page, pageSize, category]);
 
-    // Functie om categorie te wijzigen
+    // Function to change category
     const changeCategory = (newCategory) => {
+        // Update the current category
         setCategory(newCategory);
-        // setPage(0); // Reset de paginering naar de eerste pagina bij het veranderen van categorie
     }
 
     return (
         <>
             <div className="general-container">
                 <div className="button-container">
-                    <Button
-                        onClick={() => changeCategory('4515733-bloemen')}
-                        text="Bloemen"
-                    />
-                    <Button
-                        onClick={() => changeCategory('4515733-portretten')}
-                        text="Portretten"
-                    />
-
+                    {/* Generate buttons for all categories */}
+                    {CATEGORIES.map(category => (
+                        <Button
+                            key={category}
+                            onClick={() => changeCategory(category)}
+                            text={getCategoryName(category)} // Use getCategoryName function to get the category name
+                        />
+                    ))}
                 </div>
                 <div className="paintings-container">
                     {loading && <p>Loading...</p>}
+                    {/* Display the paintings once they are loaded */}
                     {!loading && paintings.map((painting, index) => (
                         <div
                             key={painting.id}
@@ -70,12 +69,13 @@ function Paintings() {
                             <img
                                 className="painting-square"
                                 src={painting.image.cdnUrl}
-                                alt="schilderij"
+                                alt="painting"
                             />
                             <div
                                 className="favorite-heart"
                                 onClick={() => toggleFavorite(painting.id)}
                             >
+                                {/* Show a red heart if the painting is a favorite */}
                                 {favorites.includes(painting.id) ? '❤️' : '🤍'}
                             </div>
                         </div>
