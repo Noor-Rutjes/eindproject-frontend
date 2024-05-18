@@ -1,7 +1,7 @@
 export const CATEGORIES = [
     '4515733-bloemen',
     '4515733-portretten',
-    '4515733-dieren'
+    // '26137-schepen',
 ];
 
 export function getCategoryName(category) {

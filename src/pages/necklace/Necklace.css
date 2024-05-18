@@ -1,13 +1,14 @@
 .parent {
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
 .container {
     position: relative;
 }
 
-.necklace-image {
+.necklace {
     position: relative;
     width: 50vw;
     height: auto;
@@ -39,7 +40,7 @@
     /*border: 1px solid red;*/
 }
 
-.box {
+.dropBox {
     position: absolute;
     border-radius: 50%;
     width: 14%;
@@ -47,31 +48,28 @@
     /*border: 1px solid deepskyblue;*/
 }
 
-#box0 {
+#dropBox0 {
     bottom: 54.5%;
     left: 15.5%;
 }
 
-#box1 {
+#dropBox1 {
     bottom: 33%;
     left: 23.5%;
 }
 
-#box2 {
+#dropBox2 {
     bottom: 19%;
     left: 41.6%;
 }
 
-#box3 {
+#dropBox3 {
     bottom: 33%;
     left: 60.5%;
 }
 
-#box4 {
+#dropBox4 {
     bottom: 54%;
     left: 67.5%;
 }
 
-.opacity-dragging {
-    opacity: 0.5;
-}
