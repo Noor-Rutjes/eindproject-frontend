@@ -1,0 +1,21 @@
+/*.form-input-field {*/
+/*    width: 100%;*/
+/*    margin: 0.5em 0 1em 0;*/
+/*    height: 35px;*/
+/*    border-radius: 10px;*/
+/*    padding-left: 10px;*/
+/*}*/
+
+.password-container {
+    display: flex;
+    align-items: center;
+}
+
+.password-container .checkbox-label {
+    margin-left: 1em;
+}
+
+#show-password{
+    margin:0.5em;
+}
+

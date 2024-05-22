@@ -1,86 +1,69 @@
-import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { AuthContext } from '../../context/AuthContext.jsx';
+import React, {useState, useContext} from 'react';
+import {AuthContext} from '../../context/AuthContext';
+import {Link} from 'react-router-dom';
 import axios from 'axios';
-import ContentBlock from "../../components/contentBlock/ContentBlock.jsx";
+import './SignIn.css';
 import bride from "../../assets/bride.png";
-import Button from "../../components/button/Button.jsx";
-import "./SignIn.css";
+import ContentBlock from "../../components/contentBlock/ContentBlock.jsx";
 
 function SignIn() {
-  const endpoint = "https://frontend-educational-backend.herokuapp.com/";
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, toggleError] = useState(false);
-  const { login } = useContext(AuthContext);
+    // const apiKeyBackend = import.meta.env.VITE_BACKEND_API_KEY;
+    // console.log('API Key:', apiKeyBackend); // Voeg deze regel toe
+    const [formData, setFormData] = useState({
+        username: '',
+        password: '',
+    });
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    toggleError(false);
+    const {login} = useContext(AuthContext);
 
-    try {
-      const result = await axios.post(`${endpoint}api/auth/signin`, {
-        "username": username,
-        "password": password,
-      });
-      // log het resultaat in de console
-      console.log(result.data);
-
-      // geef de JWT token aan de login-functie van de context mee
-      login(result.data.accessToken);
-
-    } catch(e) {
-      console.error(e);
-      toggleError(true);
+    async function handleFormSubmit(event) {
+        event.preventDefault();
+        try {
+            const response = await axios.post('https://api.datavortex.nl/rijksbling/users/authenticate', {
+                username: formData.username,
+                password: formData.password,
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Api-Key': import.meta.env.VITE_BACKEND_API_KEY,
+                }
+            });
+            login(response.data.jwt);
+        } catch (e) {
+            console.error('Fout bij inloggen: ', e);
+        }
     }
-  }
 
-  return (
-      <ContentBlock
-          title="Inloggen"
-          image={bride}
-          alt={"bruid met ketting"}
-      >
+    return (
+        <ContentBlock
+            title="Inloggen"
+            image={bride}
+            alt={"bruid met ketting"}
+        >
 
-        <form
-        className="form"
-            onSubmit={handleSubmit}>
-          <label htmlFor="username-field">
-            Gebruikersnaam:
-            <input
-                className="form-input-field"
-                type="username"
-                id="username-field"
-                name="username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-            />
-          </label>
+            <form onSubmit={handleFormSubmit}>
+                <input
+                    className="form-input-field"
+                    type="text"
+                    name="username"
+                    value={formData.username}
+                    onChange={(e) => setFormData({...formData, username: e.target.value})}
+                    placeholder="Gebruikersnaam"
+                />
+                <input
+                    className="form-input-field"
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={(e) => setFormData({...formData, password: e.target.value})}
+                    placeholder="Wachtwoord"
+                />
+                <button type="submit" className='nav-button'>Inloggen</button>
+                <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
+            </form>
+        </ContentBlock>
 
-          <label htmlFor="password-field">
-            Wachtwoord:
-            <input
-                className="form-input-field"
-                type="password"
-                id="password-field"
-                name="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
-          </label>
-          {error && <p className="error">Combinatie van gebruikersnaam en wachtwoord is onjuist</p>}
-
-          <button
-              type="submit"
-              className="nav-button"
-          >
-            Inloggen
-          </button>
-        </form>
-
-        <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
-</ContentBlock>
-  );
+    );
 }
 
 export default SignIn;

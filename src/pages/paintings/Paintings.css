@@ -1,6 +1,6 @@
-general-container {
+/*general-container {*/
 
-}
+/*}*/
 
 .button-container {
     padding-left: 10vw;
@@ -46,5 +46,5 @@ general-container {
 }
 
 .favorite-heart:hover {
-    color: #c0392b;
+    color: black;
 }

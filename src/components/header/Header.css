@@ -10,8 +10,8 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    /*color: #FFFFFF;*/
-    font-size: 10vw;
+    /*font-size: 10vw;*/
+    font-size: calc(50px + 6vw);
     letter-spacing: 1vw;
 }
 
@@ -23,4 +23,10 @@
 .header-text a {
     color: #E6E6EA;
     text-decoration: none;
+}
+
+@media only screen and (max-width: 768px) {
+    .header-icon img {
+        display: none;
+    }
 }

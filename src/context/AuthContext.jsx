@@ -3,109 +3,85 @@ import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
 
-export const AuthContext = createContext( {} );
+export const AuthContext = createContext({});
 
-function AuthContextProvider( { children } ) {
-  const endpoint = "https://frontend-educational-backend.herokuapp.com/";
-  const [ isAuth, toggleIsAuth ] = useState( {
+function AuthContextProvider({ children }) {
+  const endpoint = "https://api.datavortex.nl/rijksbling";
+  const [isAuth, setIsAuth] = useState({
     isAuth: false,
     user: null,
     status: 'pending',
-  } );
+  });
   const navigate = useNavigate();
 
-  // MOUNTING EFFECT
-  useEffect( () => {
-    // haal de JWT op uit Local Storage
-    const token = localStorage.getItem( 'token' );
-
-    // als er WEL een token is, haal dan opnieuw de gebruikersdata op
-    if ( token ) {
-      const decoded = jwtDecode( token );
-      void fetchUserData( decoded.sub, token );
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decoded = jwtDecode(token);
+      fetchUserData(decoded.sub, token);
     } else {
-      // als er GEEN token is doen we niks, en zetten we de status op 'done'
-      toggleIsAuth( {
+      setIsAuth({
         isAuth: false,
         user: null,
         status: 'done',
-      } );
+      });
     }
-  }, [] );
+  }, []);
 
-  function login( JWT ) {
-    // zet de token in de Local Storage
-    localStorage.setItem( 'token', JWT );
-    // decode de token zodat we de ID van de gebruiker hebben en data kunnen ophalen voor de context
-    const decoded = jwtDecode( JWT );
-
-    // geef de ID, token en redirect-link mee aan de fetchUserData functie (staat hieronder)
-    void fetchUserData( decoded.sub, JWT, '/profile' );
-    // link de gebruiker door naar de profielpagina
-    // navigate('/profile');
+  async function login(JWT) {
+    localStorage.setItem('token', JWT);
+    const decoded = jwtDecode(JWT);
+    await fetchUserData(decoded.sub, JWT, '/profile');
   }
 
   function logout() {
     localStorage.clear();
-    toggleIsAuth( {
+    setIsAuth({
       isAuth: false,
       user: null,
       status: 'done',
-    } );
-
-    console.log( 'Gebruiker is uitgelogd!' );
-    navigate( '/' );
+    });
+    navigate('/');
   }
 
-  // Omdat we deze functie in login- en het mounting-effect gebruiken, staat hij hier gedeclareerd!
-  async function fetchUserData( id, token, redirectUrl ) {
+  async function fetchUserData(username, token, redirectUrl) {
     try {
-      // haal gebruikersdata op met de token en id van de gebruiker
-      const result = await axios.get( `${endpoint}api/user`, {
+      const result = await axios.get(`${endpoint}/users/${username}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${ token }`,
+          Authorization: `Bearer ${token}`,
         },
-      } );
-
-      // zet de gegevens in de state
-      toggleIsAuth( {
-        ...isAuth,
+      });
+      setIsAuth({
         isAuth: true,
         user: {
           username: result.data.username,
           email: result.data.email,
-          id: result.data.id,
         },
         status: 'done',
-      } );
-
-      // als er een redirect URL is meegegeven (bij het mount-effect doen we dit niet) linken we hiernnaartoe door
-      // als we de history.push in de login-functie zouden zetten, linken we al door voor de gebuiker is opgehaald!
-      if ( redirectUrl ) {
-        navigate( redirectUrl );
+      });
+      if (redirectUrl) {
+        navigate(redirectUrl);
       }
-
-    } catch ( e ) {
-      console.error( e );
-      // ging er iets mis? Plaatsen we geen data in de state
-      toggleIsAuth( {
+    } catch (e) {
+      console.error(e);
+      setIsAuth({
         isAuth: false,
         user: null,
         status: 'done',
-      } );
+      });
     }
   }
 
   const contextData = {
     ...isAuth,
     login,
-    logout
+    logout,
   };
 
   return (
-      <AuthContext.Provider value={ contextData }>
-        { isAuth.status === 'done' ? children : <p>Loading...</p> }
+      <AuthContext.Provider value={contextData}>
+        {isAuth.status === 'done' ? children : <p>Loading...</p>}
       </AuthContext.Provider>
   );
 }

@@ -23,6 +23,7 @@
     /*-webkit-text-size-adjust: 100%;*/
 }
 
+
 a {
     /*font-weight: 500;*/
     /*color: #646cff;*/
@@ -76,3 +77,16 @@ button:focus-visible {
 /*        background-color: #f9f9f9;*/
 /*    }*/
 /*}*/
+
+.error {
+    background-color: red;
+    margin: 1em 0;
+}
+
+.form-input-field {
+    width: 100%;
+    margin: 0.5em 0 1em 0;
+    height: 2.5em;
+    border-radius: 10px;
+    padding-left: 1em;
+}
