@@ -4,6 +4,8 @@ import necklace from '../../assets/necklace.png';
 import useFavorites from "../../helpers/useFavorites.jsx";
 import { fetchFavoritePaintings } from "../../helpers/fetchPaintings.jsx";
 import { dragStart, dragEnd, drop } from "../../helpers/dragAndDrop.jsx";
+import { captureNecklaceCreation, downloadImage } from '../../helpers/captureNecklaceCreation.jsx';
+import Button from "../../components/button/Button.jsx";
 
 function Necklace() {
     const apiKey = import.meta.env.VITE_API_KEY;
@@ -15,6 +17,7 @@ function Necklace() {
     const pageSize = 100;
     const [dropBoxContents, setDropBoxContents] = useState(Array(5).fill(null));
     const [activeDropBoxIndex, setActiveDropBoxIndex] = useState(-1);
+    const [screenshotLoading, setScreenshotLoading] = useState(false);
 
     useEffect(() => {
         const fetchFavoritePaintingsHelper = async () => {
@@ -56,10 +59,31 @@ function Necklace() {
         }
     };
 
+    const handleScreenshot = async () => {
+        setScreenshotLoading(true);
+        try {
+            const dataUrl = await captureNecklaceCreation('necklace-container');
+            if (dataUrl) {
+                // Voor nu lokaal downloaden om te verifiëren
+                downloadImage(dataUrl, 'screenshot.png');
+                console.log("Screenshot gemaakt en gedownload.");
+            }
+        } catch (error) {
+            console.error('Error taking screenshot:', error);
+        } finally {
+            setScreenshotLoading(false);
+        }
+    };
+
     return (
         <div className="parent">
+            {screenshotLoading && <div className="loading-message">Ontwerp wordt opgeslagen...</div>}
             <div className="container">
                 <div className="paintings-overview">
+                    <Button
+                        onClick={handleScreenshot}
+                        text="Ontwerp opslaan"
+                    />
                     {loading && <p>Loading...</p>}
                     {!loading && favoritePaintings.map((painting, index) => (
                         <div
@@ -79,7 +103,7 @@ function Necklace() {
                 </div>
             </div>
 
-            <div className="container">
+            <div className="container" id="necklace-container">
                 <img className="necklace" src={necklace} alt="ketting" />
                 {[...Array(5)].map((_, index) => (
                     <div
