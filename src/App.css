@@ -3,8 +3,7 @@
 
 :root {
     /*font-family: ;*/
-    color: #E6E6EA;
-
+    --text-color: #E6E6EA;
     --background-light: #616168;
     --background-dark: #070322;
 }

@@ -36,13 +36,13 @@ function Home() {
                                 onClick={() => {
                                     navigate("/signIn");
                                 }}
-                                text="Log in"
+                                text="Inloggen"
                             />
                             <Button
                                 onClick={() => {
                                     navigate("/signup");
                                 }}
-                                text="Registreer"
+                                text="Registreren"
                             />
                             <p>Bekijk de <Link to="/paintings">Schilderijen</Link></p>
                         </div>

@@ -3,6 +3,7 @@ import {AuthContext} from '../context/AuthContext';
 import ContentBlock from "../components/contentBlock/ContentBlock.jsx";
 import {Link} from "react-router-dom";
 import happywoman from "../assets/happywoman.png";
+import Button from "../components/button/Button.jsx";
 
 function Profile() {
     const {user, logout} = useContext(AuthContext);
@@ -27,7 +28,10 @@ function Profile() {
                 <p>je e-mailadres is: {user.email}</p>
                 <p>Terug naar de <Link to="/">Homepagina</Link></p>
             </div>
-            <button className='nav-button' onClick={logout}>Uitloggen</button>
+            <Button
+                onClick={logout}
+                text="Uitloggen"
+            />
 
             {/*Als er keys in ons object zitten hebben we data, en dan renderen we de content*/}
             {/*{Object.keys(profileData).length > 0 &&*/}
