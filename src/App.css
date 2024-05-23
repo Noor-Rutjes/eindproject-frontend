@@ -12,6 +12,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    /*font-family: 'EB Garamond', serif;*/
     font-family: 'EB Garamond', serif;
     color: #E6E6EA;
     background-color: #070322;
