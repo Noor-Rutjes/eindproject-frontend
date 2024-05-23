@@ -34,7 +34,6 @@
     width: 7vw;
     height: 7vw;
     object-fit: cover;
-    /*border: 1px solid red;*/
 }
 
 .dropBox {
@@ -98,10 +97,8 @@
     left: 60%;
     font-family: 'Rubik', 'Arial', sans-serif;
     transform: translate(-50%, -50%);
-    /*background-color: rgba(0, 0, 0, 0.8);*/
     background-color: #e74c3c;
-    /*color: white;*/
     padding: 5em;
     border-radius: 5px;
-    z-index: 1000;
+    z-index: 1;
 }

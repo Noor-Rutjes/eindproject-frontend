@@ -3,11 +3,11 @@
     margin-bottom: 10px;
     width: 100px;
     border: 1px solid transparent;
-    background-color: #070322;
-    color: white;
+    background-color: var(--background-dark);
+    color: var(--text-color);
     font-family: 'Rubik', 'Arial', sans-serif;
     outline: none;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .nav-button:hover {
@@ -15,7 +15,7 @@
 }
 
 .nav-button:disabled {
-    background-color: #545760;
+    background-color: var(--background-light);
     cursor: not-allowed;
 }
 

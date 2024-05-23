@@ -10,7 +10,6 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    /*font-size: 10vw;*/
     font-size: calc(50px + 6vw);
     letter-spacing: 1vw;
 }
@@ -21,7 +20,8 @@
 }
 
 .header-text a {
-    color: #E6E6EA;
+    font-family: 'EB Garamond', serif;
+    color: var(--text-color);
     text-decoration: none;
 }
 
