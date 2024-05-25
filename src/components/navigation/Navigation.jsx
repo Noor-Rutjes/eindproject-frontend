@@ -46,17 +46,17 @@ function Navigation() {
                             <div>
                                 <Button
                                     onClick={() => {
-                                        navigate("/signIn");
-                                        closeHamburger();
-                                    }}
-                                    text="Inloggen"
-                                />
-                                <Button
-                                    onClick={() => {
                                         navigate("/signup");
                                         closeHamburger();
                                     }}
                                     text="Registreren"
+                                />
+                                <Button
+                                    onClick={() => {
+                                        navigate("/signIn");
+                                        closeHamburger();
+                                    }}
+                                    text="Inloggen"
                                 />
                             </div>
                         )}

@@ -1,12 +1,16 @@
 #category-button-container {
-    padding-left: 10vw;
+    padding: 1vh 10.5vw 1vh 10.5vw;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
 }
 
 #category-button-container .nav-button{
     border: 1px solid var(--text-color);
+}
+
+#category-button-container > div >p .nav-button {
+    margin-left: 8px;
 }
 
 .paintings-container {

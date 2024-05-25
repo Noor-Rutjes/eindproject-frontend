@@ -20,7 +20,8 @@ function Profile() {
 
     return (
         <ContentBlock
-            image={happywoman}
+            mediaType="image"
+            mediaSrc={happywoman}
             alt={"vrouw die RijksBling ketting draagt"}
         >
             <h1>Welkom, {user.username}!</h1>

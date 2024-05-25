@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+
 import useFavorites from "../../helpers/useFavorites.jsx";
 import { fetchPaintings } from "../../helpers/fetchPaintings.jsx";
 import { CATEGORIES, getCategoryName } from "../../constants/paintingCategories.jsx";
@@ -48,6 +50,7 @@ function Paintings() {
         <>
             <div className="general-container">
                 <div id="category-button-container">
+                    <div>
                     {/* Generate buttons for all categories */}
                     {CATEGORIES.map(category => (
                         <Button
@@ -56,6 +59,15 @@ function Paintings() {
                             text={getCategoryName(category)} // Use getCategoryName function to get the category name
                         />
                     ))}
+                    </div>
+                    <div>
+                    <p>
+                        Klaar met selecteren? Ga naar de
+                        <Link to="/necklace">
+                            <Button text="Ketting" />
+                        </Link>
+                    </p>
+                    </div>
                 </div>
                 <div className="paintings-container">
                     {loading && <p>Loading...</p>}

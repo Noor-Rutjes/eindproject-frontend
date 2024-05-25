@@ -102,3 +102,12 @@
     border-radius: 5px;
     z-index: 1;
 }
+
+#screenshot-button {
+    position: absolute;
+    bottom: 3%;
+    left: 83.5%;
+    background-color: transparent;
+    border: 1px solid var(--text-color);
+    margin: 0;
+}

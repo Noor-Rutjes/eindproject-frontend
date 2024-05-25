@@ -15,7 +15,8 @@ function Home() {
         <>
             <ContentBlock
                 title="Ontwerp je eigen sieraad bij RijksBling!"
-                image={happyman}
+                mediaType="image"
+                mediaSrc={happyman}
                 alt={"blije man die RijksBling ketting vasthoudt"}
             >
                 <div className="hero-text">
@@ -34,17 +35,16 @@ function Home() {
                         <div className="hero-navigation">
                             <Button
                                 onClick={() => {
-                                    navigate("/signIn");
-                                }}
-                                text="Inloggen"
-                            />
-                            <Button
-                                onClick={() => {
                                     navigate("/signup");
                                 }}
                                 text="Registreren"
                             />
-                            <p>Bekijk de <Link to="/paintings">Schilderijen</Link></p>
+                            <Button
+                                onClick={() => {
+                                    navigate("/signIn");
+                                }}
+                                text="Inloggen"
+                            />
                         </div>
                     )}
                 </nav>
@@ -52,13 +52,17 @@ function Home() {
 
             <ContentBlock
                 title="Hoe werkt het?"
+                mediaType="video"
+                mediaSrc="src/assets/rijksbling-demo.mp4"
             >
                 <div className="hero-text">
-                    <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab accusamus aliquam aliquid at
-                        commodi consequuntur corporis debitis deleniti doloremque dolorum ea et expedita harum illo
-                        illum impedit, in ipsa ipsum iste laborum molestiae nulla optio provident quidem quisquam quod
-                        reiciendis repudiandae sapiente sit tenetur unde vel veniam vitae. Aspernatur, quasi.
+                    <p>Blader door onze collectie schilderijen en selecteer je favorieten.</p>
+                    <p>Heb je je keuze gemaakt?
+                        Ga dan naar de volgende pagina,
+                        waar je jouw gekozen kunstwerken kunt plaatsen en rangschikken
+                        om je eigen unieke ketting te creëren.
                     </p>
+                    <p>Klik <Link to="/paintings">hier </Link>om de schilderijen te bekijken.</p>
                 </div>
             </ContentBlock>
         </>

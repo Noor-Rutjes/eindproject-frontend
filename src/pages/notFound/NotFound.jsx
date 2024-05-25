@@ -8,7 +8,8 @@ function NotFound() {
     return (
         <ContentBlock
             title="Sorry! Deze pagina bestaat niet (meer)."
-            image={image}
+            mediaType="image"
+            mediaSrc={image}
             alt={"melding pagina niet gevonden"}
             id={"not-found-page"}
         >

@@ -37,10 +37,10 @@ function SignIn() {
     return (
         <ContentBlock
             title="Inloggen"
-            image={bride}
-            alt={"bruid met ketting"}
+            mediaType="image"
+            mediaSrc={bride}
+            alt={"bruid die RijksBling ketting draagt"}
         >
-
             <form onSubmit={handleFormSubmit}>
                 <input
                     className="form-input-field"

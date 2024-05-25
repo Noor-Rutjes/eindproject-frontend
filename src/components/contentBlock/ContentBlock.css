@@ -19,12 +19,16 @@
     margin-bottom: 1.5vh;
 }
 
-.image-container {
+.media-container {
     margin: 0 2vw;
 }
 
+.media-container >video {
+    margin: 2vw;
+}
+
 @media only screen and (max-width: 768px) {
-    .image-container {
+    .media-container {
         display: none;
     }
 }

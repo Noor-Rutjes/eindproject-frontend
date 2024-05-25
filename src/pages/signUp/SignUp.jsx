@@ -53,7 +53,8 @@ function SignUp() {
     return (
         <ContentBlock
             title="Registreren"
-            image={geit}
+            mediaType="image"
+            mediaSrc={geit}
             alt={"geit die RijksBling ketting draagt"}
         >
             <form onSubmit={handleSubmit}>
