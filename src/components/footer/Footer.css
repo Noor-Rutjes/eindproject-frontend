@@ -1,0 +1,13 @@
+#footer {
+    padding: 5vh;
+    display: flex;
+    align-items: center;
+    height: calc(100vw * .05);
+}
+
+#footer p {
+        font-size: 0.7em;
+}
+ #footer a {
+    margin-left: 1em;
+   }

@@ -3,8 +3,6 @@
     flex-direction: row;
     width: 100vw;
     align-items: center;
-    font-size: 1em;
-    background: rgb(0, 0, 0);
     background: linear-gradient(234deg, rgba(0, 0, 0, 1) 0%, rgba(218, 138, 54, 1) 35%, rgba(7, 3, 34, 1) 100%);
 }
 
@@ -13,20 +11,12 @@
     margin-top: 10vh;
 }
 
-.text-container > h1 {
-    font-size: 2em;
-}
-
-.text-container > h2 {
-    font-size: 1.5em;
-}
-
 .text-container {
     margin: 4vw;
 }
 
 .text-container > * {
-    margin-bottom: 20px;
+    margin-bottom: 1.5vh;
 }
 
 .image-container {

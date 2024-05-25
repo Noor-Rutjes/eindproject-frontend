@@ -1,9 +1,9 @@
 import React from "react";
 import "./ContentBlock.css"
 
-function ContentBlock({image, alt, title, children}) {
+function ContentBlock({image, alt, title, children, id}) {
     return (
-        <section className="content-block">
+        <section className="content-block" id={id}>
             <div className="image-container">
                 <img
                     src={image}

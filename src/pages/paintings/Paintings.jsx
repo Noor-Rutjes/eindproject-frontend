@@ -47,7 +47,7 @@ function Paintings() {
     return (
         <>
             <div className="general-container">
-                <div className="button-container">
+                <div id="category-button-container">
                     {/* Generate buttons for all categories */}
                     {CATEGORIES.map(category => (
                         <Button

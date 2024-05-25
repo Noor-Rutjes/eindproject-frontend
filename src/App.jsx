@@ -9,6 +9,8 @@ import SignIn from "./pages/signIn/SignIn.jsx";
 import SignUp from "./pages/signUp/SignUp.jsx";
 import Profile from "./pages/Profile.jsx";
 import {AuthContext} from "./context/AuthContext.jsx";
+import Footer from "./components/footer/Footer.jsx";
+import NotFound from "./pages/notFound/NotFound.jsx";
 
 function App() {
     const { isAuth } = useContext(AuthContext);
@@ -22,7 +24,9 @@ function App() {
                         <Route path="/profile" element={isAuth ? <Profile /> : <Navigate to="/login"/>}/>
                         <Route path="/signin" element={<SignIn />}/>
                         <Route path="/signup" element={<SignUp />}/>
-                    </Routes>
+                        <Route path="/*" element={<NotFound />}/>
+                        </Routes>
+            <Footer />
         </>
     );
 }

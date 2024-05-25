@@ -112,7 +112,6 @@ function SignUp() {
                     Registreren
                 </button>
             </form>
-
             <p>Heb je al een account? Je kunt <Link to="/signin">hier</Link> inloggen.</p>
         </ContentBlock>
     );
