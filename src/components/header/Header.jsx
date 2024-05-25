@@ -1,23 +1,44 @@
+import React, { useState } from "react";
 import icon from "../../assets/logo-header.png";
+import iconHover from "../../assets/logo-header-horror.png";
 import "./Header.css";
 import Navigation from "../navigation/Navigation.jsx";
-import {Link} from "react-router-dom";
-import React from "react";
+import { Link } from "react-router-dom";
 
 function Header() {
-    return (<>
-        <header id="header">
-            <Navigation/>
-            <div className="header-container">
-                <div className="header-text">
-                    <p><Link to="/">RijksBling</Link></p>
+    const [isHovered, setIsHovered] = useState(false);
+
+    return (
+        <>
+            <header id="header">
+                <Navigation />
+                <div className="header-container">
+                    <div className="header-text">
+                        <p><Link to="/">RijksBling</Link></p>
+                    </div>
+                    <div
+                        className="header-icon"
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                    >
+                        <img
+                            src={isHovered ? iconHover : icon}
+                            alt="logo RijksBling"
+                        />
+                        <div className="tooltip">© 2024 RijksBling. Alle rechten voorbehouden.
+
+                            De inhoud van deze website, inclusief maar niet beperkt tot teksten,
+                            afbeeldingen, grafieken, en videos, is eigendom van RijksBling en is
+                            beschermd door auteursrecht en andere intellectuele eigendomswetten.
+                            Het is niet toegestaan om enige inhoud van deze website te kopiëren,
+                            reproduceren, herpubliceren, uploaden, posten, over te brengen, of
+                            distribueren zonder voorafgaande schriftelijke toestemming van
+                            RijksBling.</div>
+                    </div>
                 </div>
-                <div className="header-icon">
-                    <img src={icon} alt="logo RijksBling"/>
-                </div>
-            </div>
-        </header>
-    </>);
+            </header>
+        </>
+    );
 }
 
 export default Header;

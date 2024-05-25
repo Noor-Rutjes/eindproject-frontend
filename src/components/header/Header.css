@@ -34,3 +34,31 @@
         display: none;
     }
 }
+
+.header-icon {
+    font-size: calc(50px + 6vw);
+
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip {
+    display: none;
+    background-color: var(--text-color);
+    color: var(--background-dark);
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 30%;
+    right: 0%;
+    transform: translateX(-50%);
+    border: 1px solid var(--background-dark);
+    width: 25vw;
+    font-size: 14px;
+}
+
+.header-icon:hover .tooltip {
+    display: block;
+}
