@@ -6,7 +6,7 @@
 }
 
 #category-button-container .nav-button{
-    border: 1px solid var(--text-color);
+    border: 1px solid var(--gray-light);
 }
 
 #category-button-container > div >p .nav-button {

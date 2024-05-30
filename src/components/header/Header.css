@@ -21,13 +21,13 @@
 
 .header-text a {
     font-family: 'EB Garamond', serif;
-    color: var(--text-color);
+    color: var(--gray-light);
     text-decoration: none;
     margin-right: 2vw;
 }
 
 .header-text a:hover {
-        color: var(--text-color);
+        color: var(--gray-light);
 }
 
 @media only screen and (max-width: 768px) {
@@ -44,8 +44,8 @@
 
 .tooltip {
     display: none;
-    background-color: var(--text-color);
-    color: var(--background-dark);
+    background-color: var(--gray-light);
+    color: var(--blue-dark);
     text-align: center;
     border-radius: 6px;
     padding: 5px;
@@ -54,7 +54,7 @@
     top: 30%;
     right: 0%;
     transform: translateX(-50%);
-    border: 1px solid var(--background-dark);
+    border: 1px solid var(--blue-dark);
     width: 25vw;
     font-size: 14px;
     letter-spacing:0;

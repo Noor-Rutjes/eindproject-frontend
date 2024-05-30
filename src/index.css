@@ -8,7 +8,7 @@
     padding: 0;
     margin: 0;
     scrollbar-width: thin;
-    scrollbar-color: var(--text-color) var(--background-dark);
+    scrollbar-color: var(--gray-light) var(--blue-dark);
 }
 
 /* ----------------------------------- 1.2 Colors ------------------------------------ */
@@ -16,10 +16,11 @@
 :root {
     color-scheme: light dark;
 
-    --text-color: #E6E6EA;
+    --gray-light: #E6E6EA;
     --warning-color: #e74c3c;
-    --background-light: #616168;
-    --background-dark: #070322;
+    --gray-dark: #616168;
+    --blue-dark: #070322;
+
     --box-shadow-dark: 0 2.8px 2.2px rgba(20, 10, 92, 0.034),
     0 6.7px 5.3px rgba(20, 10, 92, 0.048),
     0 12.5px 10px rgba(20, 10, 92, 0.06),
@@ -29,8 +30,8 @@
 }
 
 body {
-    color: var(--text-color);
-    background-color: var(--background-dark);
+    color: var(--gray-light);
+    background-color: var(--blue-dark);
 }
 
 /* ------------------------------- 2. Typography ----------------------------------- */
@@ -55,7 +56,7 @@ a {
 }
 
 a:hover {
-    color: var(--background-dark);
+    color: var(--blue-dark);
 }
 
 /* ------------------------------- 3. Layout --------------------------------------- */

@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-
+import { Link } from 'react-router-dom';
+import './Paintings.css';
+import Button from "../../components/button/Button.jsx";
+import { CATEGORIES, getCategoryName } from "../../constants/paintingCategories.jsx";
 import useFavorites from "../../helpers/useFavorites.jsx";
 import { fetchPaintings } from "../../helpers/fetchPaintings.jsx";
-import { CATEGORIES, getCategoryName } from "../../constants/paintingCategories.jsx";
-import Button from "../../components/button/Button.jsx";
-import './Paintings.css';
 
 function Paintings() {
     const apiKey = import.meta.env.VITE_API_KEY;
-    const { favorites, toggleFavorite } = useFavorites();
     const [paintings, setPaintings] = useState([]);
-    const [error, toggleError] = useState(false);
-    const [loading, toggleLoading] = useState(false);
+    const { favorites, toggleFavorite } = useFavorites();
+    const [category, setCategory] = useState(CATEGORIES[0]);
     const pageSize = 100;
     const page = 0;
-    const [category, setCategory] = useState(CATEGORIES[0]);
+    const [error, toggleError] = useState(false);
+    const [loading, toggleLoading] = useState(false);
+
 
     useEffect(() => {
         const fetchData = async () => {

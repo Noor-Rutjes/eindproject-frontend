@@ -23,3 +23,20 @@ export const downloadImage = (dataUrl, filename) => {
     link.href = dataUrl;
     link.click();
 };
+
+export const captureAndDownloadNecklace = async (elementId, buttonId, filename) => {
+    const button = document.getElementById(buttonId);
+    button.style.display = 'none'; // Verberg de knop voordat je een screenshot maakt
+
+    try {
+        const dataUrl = await captureNecklaceCreation(elementId);
+        if (dataUrl) {
+            downloadImage(dataUrl, filename);
+            console.log("Screenshot gemaakt en gedownload.");
+        }
+    } catch (error) {
+        console.error('Error bij het maken van de screenshot:', error);
+    } finally {
+        button.style.display = 'block'; // Toon de knop weer na het maken van de screenshot
+    }
+};

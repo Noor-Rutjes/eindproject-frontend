@@ -18,7 +18,7 @@
     flex-direction: column;
     padding: 5% 0 0 12%;
     list-style: none;
-    background-color: var(--background-light);
+    background-color: var(--gray-dark);
     z-index: 1;
     position: fixed;
     left: 0;
@@ -49,7 +49,7 @@
 
 .navigation-link {
     display: flex;
-    color: var(--text-color);
+    color: var(--gray-light);
     font-size: 1.5em;
     cursor: pointer;
     text-decoration: underline 0.15em rgba(0, 0, 0, 0);

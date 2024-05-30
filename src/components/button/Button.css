@@ -3,8 +3,8 @@
     margin-bottom: 10px;
     width: 100px;
     border: 1px solid transparent;
-    background-color: var(--background-dark);
-    color: var(--text-color);
+    background-color: var(--blue-dark);
+    color: var(--gray-light);
     font-family: 'Rubik', 'Arial', sans-serif;
     outline: none;
     border-radius: 7px;
@@ -15,7 +15,7 @@
 }
 
 .nav-button:disabled {
-    background-color: var(--background-light);
+    background-color: var(--gray-dark);
     cursor: not-allowed;
 }
 
