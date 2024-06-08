@@ -1,9 +1,9 @@
-import './Home.css';
 import React, {useContext} from "react";
-import happyman from '../../assets/happyman.png';
-import Button from "../../components/button/Button.jsx";
 import {Link, useNavigate} from "react-router-dom";
 import {AuthContext} from "../../context/AuthContext.jsx";
+import './Home.css';
+import happyman from '../../assets/happyman.png';
+import Button from "../../components/button/Button.jsx";
 import ContentBlock from "../../components/contentBlock/ContentBlock.jsx";
 
 
@@ -30,7 +30,9 @@ function Home() {
                     {isAuth ? (
                         <Button onClick={() => {
                             logout();
-                        }} text="Log uit"/>
+                        }}
+                                text="Log uit"
+                                type="button"/>
                     ) : (
                         <div className="hero-navigation">
                             <Button
@@ -38,12 +40,14 @@ function Home() {
                                     navigate("/signup");
                                 }}
                                 text="Registreren"
+                                type="button"
                             />
                             <Button
                                 onClick={() => {
                                     navigate("/signIn");
                                 }}
                                 text="Inloggen"
+                                type="button"
                             />
                         </div>
                     )}

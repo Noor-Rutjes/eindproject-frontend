@@ -1,27 +1,22 @@
-import React, {useState, useContext} from 'react';
-import {AuthContext} from '../../context/AuthContext';
-import {Link} from 'react-router-dom';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './SignIn.css';
+import AuthForm from '../../components/authForm/AuthForm.jsx';
+import { AuthContext } from '../../context/AuthContext';
+import ContentBlock from '../../components/contentBlock/ContentBlock.jsx';
 import bride from "../../assets/bride.png";
-import ContentBlock from "../../components/contentBlock/ContentBlock.jsx";
+import './SignIn.css';
 
 function SignIn() {
-    // const apiKeyBackend = import.meta.env.VITE_BACKEND_API_KEY;
-    // console.log('API Key:', apiKeyBackend); // Voeg deze regel toe
-    const [formData, setFormData] = useState({
-        username: '',
-        password: '',
-    });
+    const { login } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState('');
 
-    const {login} = useContext(AuthContext);
-
-    async function handleFormSubmit(event) {
-        event.preventDefault();
+    async function handleSignIn(data) {
         try {
             const response = await axios.post('https://api.datavortex.nl/rijksbling/users/authenticate', {
-                username: formData.username,
-                password: formData.password,
+                username: data.username,
+                password: data.password,
             }, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -29,40 +24,30 @@ function SignIn() {
                 }
             });
             login(response.data.jwt);
+            navigate('/');
         } catch (e) {
             console.error('Fout bij inloggen: ', e);
+            setErrorMessage('Gebruikersnaam en wachtwoord komen niet overeen.');
         }
     }
 
     return (
         <ContentBlock
-            title="Inloggen"
             mediaType="image"
             mediaSrc={bride}
             alt={"bruid die RijksBling ketting draagt"}
         >
-            <form onSubmit={handleFormSubmit}>
-                <input
-                    className="form-input-field"
-                    type="text"
-                    name="username"
-                    value={formData.username}
-                    onChange={(e) => setFormData({...formData, username: e.target.value})}
-                    placeholder="Gebruikersnaam"
-                />
-                <input
-                    className="form-input-field"
-                    type="password"
-                    name="password"
-                    value={formData.password}
-                    onChange={(e) => setFormData({...formData, password: e.target.value})}
-                    placeholder="Wachtwoord"
-                />
-                <button type="submit" className='nav-button'>Inloggen</button>
-                <p>Heb je nog geen account? <Link to="/signup">Registreer</Link> je dan eerst.</p>
-            </form>
+            <AuthForm
+                onSubmit={handleSignIn}
+                title="Inloggen"
+                redirectPath="/signup"
+                linkTextBegin="Heb je nog geen account? Je kan je "
+                linkTextEnd=" registreren."
+                linkTo="/signup"
+                buttonText="Inloggen"
+                errorMessage={errorMessage}
+            />
         </ContentBlock>
-
     );
 }
 

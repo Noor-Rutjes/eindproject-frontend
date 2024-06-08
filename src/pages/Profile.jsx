@@ -1,9 +1,9 @@
 import React, {useContext, useEffect} from 'react';
-import {AuthContext} from '../context/AuthContext';
-import ContentBlock from "../components/contentBlock/ContentBlock.jsx";
 import {Link} from "react-router-dom";
 import happywoman from "../assets/happywoman.png";
 import Button from "../components/button/Button.jsx";
+import {AuthContext} from '../context/AuthContext';
+import ContentBlock from "../components/contentBlock/ContentBlock.jsx";
 
 function Profile() {
     const {user, logout} = useContext(AuthContext);
@@ -30,18 +30,10 @@ function Profile() {
                 <p>Terug naar de <Link to="/">Homepagina</Link></p>
             </div>
             <Button
+                type="button"
                 onClick={logout}
                 text="Uitloggen"
             />
-
-            {/*Als er keys in ons object zitten hebben we data, en dan renderen we de content*/}
-            {/*{Object.keys(profileData).length > 0 &&*/}
-            {/*    <section>*/}
-            {/*      <h2>Strikt geheime profiel-content</h2>*/}
-            {/*      <h3>{profileData.title}</h3>*/}
-            {/*      <p>{profileData.content}</p>*/}
-            {/*    </section>*/}
-            {/*}*/}
         </ContentBlock>
     );
 }

@@ -23,7 +23,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    background-image: url("src/assets/bigman.png");
+    background-image: url("../../../assets/bigman.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position-y: bottom;

@@ -54,6 +54,7 @@ function Paintings() {
                     {/* Generate buttons for all categories */}
                     {CATEGORIES.map(category => (
                         <Button
+                            type="button"
                             key={category}
                             onClick={() => changeCategory(category)}
                             text={getCategoryName(category)} // Use getCategoryName function to get the category name
@@ -64,7 +65,7 @@ function Paintings() {
                     <p>
                         Klaar met selecteren? Ga naar de
                         <Link to="/necklace">
-                            <Button text="Ketting" />
+                            <Button type="button" text="Ketting" />
                         </Link>
                     </p>
                     </div>

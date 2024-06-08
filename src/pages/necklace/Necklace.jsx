@@ -118,6 +118,7 @@ function Necklace() {
             <div className="container" id="necklace-container">
                 <img className="necklace" src={necklace} alt="ketting" />
                 <Button
+                    type="button"
                     id="screenshot-button"
                     onClick={handleScreenshot}
                     text="Download ontwerp"

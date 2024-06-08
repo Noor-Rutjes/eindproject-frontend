@@ -1,8 +1,8 @@
 import React from "react";
+import {Link} from "react-router-dom";
 import "./NotFound.css";
 import image from '../../assets/404.png';
 import ContentBlock from "../../components/contentBlock/ContentBlock.jsx";
-import {Link} from "react-router-dom";
 
 function NotFound() {
     return (

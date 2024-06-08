@@ -1,9 +1,9 @@
 import React, {useState, useContext} from "react";
 import {NavLink, useNavigate} from "react-router-dom";
-import {AuthContext} from '../../context/AuthContext.jsx';
-import Hamburger from "./Hamburger.jsx";
+import {AuthContext} from '../../../context/AuthContext.jsx';
 import './Navigation.css';
-import Button from "../../components/button/Button.jsx";
+import Hamburger from "../hamburger/Hamburger.jsx";
+import Button from "../../button/Button.jsx";
 
 function Navigation() {
     const [hamburgerOpen, setHamburgerOpen] = useState(false);
@@ -41,7 +41,9 @@ function Navigation() {
                             <Button onClick={() => {
                                 logout();
                                 closeHamburger();
-                            }} text="Uitloggen"/>
+                            }}
+                                    text="Uitloggen"
+                                    type="button"/>
                         ) : (
                             <div>
                                 <Button
@@ -50,6 +52,7 @@ function Navigation() {
                                         closeHamburger();
                                     }}
                                     text="Registreren"
+                                    type="button"
                                 />
                                 <Button
                                     onClick={() => {
@@ -57,6 +60,7 @@ function Navigation() {
                                         closeHamburger();
                                     }}
                                     text="Inloggen"
+                                    type="button"
                                 />
                             </div>
                         )}
