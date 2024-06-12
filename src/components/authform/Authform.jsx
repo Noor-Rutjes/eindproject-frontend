@@ -1,49 +1,57 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import './AuthForm.css';
+import Button from "../button/Button.jsx";
 
-function AuthForm({ onSubmit, title, linkTextBegin, linkTextEnd, linkTo, buttonText, errorMessage }) {
-    const { register, handleSubmit, formState: { errors } } = useForm();
+function AuthForm({ onSubmit, title, linkTextBegin, linkTextEnd, linkTo, buttonText, errorMessage, fields, onInputChange }) {
+    const { register, handleSubmit, formState: { errors }, getValues, setValue, trigger } = useForm();
+
+    // This is an extra function to validate fields when the Enter key is pressed
+    const handleKeyDown = async (event) => {
+        if (event.key === 'Enter') {
+            // Explicitly trigger validation for all fields
+            const fieldNames = fields.map(field => field.name);
+            for (const name of fieldNames) {
+                await trigger(name); // Validate each field individually
+            }
+        }
+    };
 
     return (
         <div className="auth-form">
             <h2>{title}</h2>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <input
-                        className="form-input-field"
-                        type="text"
-                        placeholder="Gebruikersnaam"
-                        {...register('username', { required: true })}
-                    />
-                    {errors.username && <span className="error">Gebruikersnaam is verplicht</span>}
-                </div>
-                <div>
-                    <input
-                        className="form-input-field"
-                        type="password"
-                        placeholder="Wachtwoord"
-                        {...register('password', { required: true, minLength: 6 })}
-                    />
-                    {errors.password && <span className="error">Wachtwoord moet minstens 6 tekens bevatten</span>}
-                </div>
-                {title === "Registreren" && (
-                    <div>
+            {/* Form that is submitted with handleSubmit, which calls onSubmit */}
+            <form onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown}>
+                {fields.map(({ name, type, placeholder, validation, ariaLabel }) => (
+                    <div key={name}>
                         <input
                             className="form-input-field"
-                            type="email"
-                            placeholder="E-mailadres"
-                            {...register('email', { required: true, pattern: /\S+@\S+\.\S+/ })}
+                            type={type}
+                            placeholder={placeholder}
+                            aria-label={ariaLabel} // Add the aria-label for accessibility
+                            {...register(name, {
+                                ...validation,
+                                // Execute custom validation function if it exists
+                                validate: validation.validate ? value => validation.validate(value, getValues()) : undefined,
+                            })}
+                            // Check if onInputChange is passed before calling it
+                            onChange={e => {
+                                if (onInputChange) {
+                                    onInputChange(e);
+                                }
+                                // Explicitly update the value
+                                setValue(name, e.target.value);
+                            }}
                         />
-                        {errors.email && <span className="error">Voer een geldig e-mailadres in</span>}
+                        {/* Show error message if it exists for the field */}
+                        {errors[name] && <span className="error">{errors[name].message}</span>}
                     </div>
-                )}
+                ))}
+                {/* Show general error message if it exists */}
                 {errorMessage && <div className="error">{errorMessage}</div>}
-                <button type="submit" className='nav-button'>{buttonText}</button>
+                <Button type="submit" text={buttonText} />
             </form>
             <p>{linkTextBegin} <Link to={linkTo}>hier</Link>{linkTextEnd}</p>
-
         </div>
     );
 }
