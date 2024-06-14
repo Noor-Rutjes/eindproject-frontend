@@ -8,8 +8,8 @@ import Home from './pages/home/Home.jsx';
 import Paintings from "./pages/paintings/Paintings.jsx";
 import Necklace from './pages/necklace/Necklace.jsx';
 import Profile from "./pages/Profile.jsx";
-import SignIn from "./pages/signIn/SignIn.jsx";
-import SignUp from "./pages/signUp/SignUp.jsx";
+import SignIn from "./pages/SignIn.jsx";
+import SignUp from "./pages/SignUp.jsx";
 import NotFound from "./pages/notFound/NotFound.jsx";
 
 function App() {

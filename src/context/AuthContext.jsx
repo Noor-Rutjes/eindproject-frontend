@@ -2,12 +2,13 @@ import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
 import axios from 'axios';
+import { isTokenValid } from '../helpers/authHelpers.jsx';
 
 export const AuthContext = createContext({});
 
 function AuthContextProvider({ children }) {
   const endpoint = "https://api.datavortex.nl/rijksbling";
-  const [isAuth, setIsAuth] = useState({
+  const [authState, setAuthState] = useState({
     isAuth: false,
     user: null,
     status: 'pending',
@@ -17,10 +18,14 @@ function AuthContextProvider({ children }) {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      const decoded = jwtDecode(token);
-      fetchUserData(decoded.sub, token);
+      if (isTokenValid(token)) {
+        const decoded = jwtDecode(token);
+        fetchUserData(decoded.sub, token);
+      } else {
+        handleSessionExpiry();
+      }
     } else {
-      setIsAuth({
+      setAuthState({
         isAuth: false,
         user: null,
         status: 'done',
@@ -35,13 +40,14 @@ function AuthContextProvider({ children }) {
   }
 
   function logout() {
-    localStorage.clear();
-    setIsAuth({
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    setAuthState({
       isAuth: false,
       user: null,
       status: 'done',
     });
-    navigate('/');
+    navigate('/signIn');
   }
 
   async function fetchUserData(username, token, redirectUrl) {
@@ -52,7 +58,7 @@ function AuthContextProvider({ children }) {
           Authorization: `Bearer ${token}`,
         },
       });
-      setIsAuth({
+      setAuthState({
         isAuth: true,
         user: {
           username: result.data.username,
@@ -64,24 +70,25 @@ function AuthContextProvider({ children }) {
         navigate(redirectUrl);
       }
     } catch (e) {
-      console.error(e);
-      setIsAuth({
-        isAuth: false,
-        user: null,
-        status: 'done',
-      });
+      console.error('Error fetching user data:', e);
+      handleSessionExpiry();
     }
   }
 
+  function handleSessionExpiry() {
+    logout();
+    alert('Je sessie is verlopen. Log opnieuw in om verder te gaan.');
+  }
+
   const contextData = {
-    ...isAuth,
+    ...authState,
     login,
     logout,
   };
 
   return (
       <AuthContext.Provider value={contextData}>
-        {isAuth.status === 'done' ? children : <p>Loading...</p>}
+        {authState.status === 'done' ? children : <p>Loading...</p>}
       </AuthContext.Provider>
   );
 }

@@ -75,8 +75,14 @@ function Necklace() {
 
     const handleScreenshot = async () => {
         if (!isAuth) {
+            console.log("User is not authenticated");
             alert('Je moet ingelogd zijn om het ontwerp te kunnen downloaden.');
-            navigate('/signin'); // Navigeer naar de inlogpagina
+            navigate('/signIn');
+            return;
+        }
+
+        if (dropBoxContents.includes(null)) {
+            alert('Alle 5 medaillons moeten gevuld zijn voordat je het ontwerp kunt downloaden.');
             return;
         }
 

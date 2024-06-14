@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import Button from "../button/Button.jsx";
+import Button from "./button/Button.jsx";
 
 function AuthForm({ onSubmit, title, linkTextBegin, linkTextEnd, linkTo, buttonText, errorMessage, fields, onInputChange }) {
     const { register, handleSubmit, formState: { errors }, getValues, setValue, trigger } = useForm();
@@ -22,13 +22,13 @@ function AuthForm({ onSubmit, title, linkTextBegin, linkTextEnd, linkTo, buttonT
             <h2>{title}</h2>
             {/* Form that is submitted with handleSubmit, which calls onSubmit */}
             <form onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown}>
-                {fields.map(({ name, type, placeholder, validation, ariaLabel }) => (
+                {fields.map(({ name, type, placeholder, validation, ariaLabel, autocomplete }) => (
                     <div key={name}>
                         <input
                             className="form-input-field"
                             type={type}
                             placeholder={placeholder}
-                            aria-label={ariaLabel} // Add the aria-label for accessibility
+                            aria-label={ariaLabel}
                             {...register(name, {
                                 ...validation,
                                 // Execute custom validation function if it exists
@@ -42,6 +42,7 @@ function AuthForm({ onSubmit, title, linkTextBegin, linkTextEnd, linkTo, buttonT
                                 // Explicitly update the value
                                 setValue(name, e.target.value);
                             }}
+                            autoComplete={autocomplete}
                         />
                         {/* Show error message if it exists for the field */}
                         {errors[name] && <span className="error">{errors[name].message}</span>}

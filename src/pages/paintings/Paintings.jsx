@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Paintings.css';
 import Button from "../../components/button/Button.jsx";
-import { CATEGORIES, getCategoryName } from "../../constants/paintingCategories.jsx";
 import useFavorites from "../../helpers/useFavorites.jsx";
+import { CATEGORIES, getCategoryName } from "../../constants/paintingCategories.jsx";
 import { fetchPaintings } from "../../helpers/fetchPaintings.jsx";
 
 function Paintings() {
