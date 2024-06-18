@@ -13,11 +13,11 @@ function NotFound() {
             alt={"melding pagina niet gevonden"}
             id={"not-found-page"}
         >
-            <p>Ga terug naar de <a href="javascript:history.back()">vorige pagina, </a>
+            <p>Ga terug naar de <a href="#" onClick={(e) => { e.preventDefault(); window.history.back(); }}>vorige pagina, </a>
                 ga naar de <Link to="/">homepagina </Link>
                 of neem <a href="mailto:rijksbling@gmail.com">contact </a>met ons op.</p>
-        < /ContentBlock>
-    )
+        </ContentBlock>
+    );
 }
 
 export default NotFound;

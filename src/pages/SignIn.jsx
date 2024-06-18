@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext.jsx';
 import AuthForm from '../components/Authform.jsx';
 import ContentBlock from '../components/contentBlock/ContentBlock.jsx';
 import bride from "../assets/bride.png";
-import { authenticateUser, handleSignInError } from '../helpers/authHelpers.jsx';
+import { authenticateUser, handleError } from '../helpers/authHelpers';
 
 function SignIn() {
     const { login } = useContext(AuthContext);
@@ -21,7 +21,7 @@ function SignIn() {
             login(response.data.jwt);
             navigate('/');
         } catch (e) {
-            handleSignInError(e, setErrorMessage);
+            handleError(e, setErrorMessage, 'inloggen');
         }
     }
 
