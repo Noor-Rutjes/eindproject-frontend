@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Necklace.css';
 import necklace from '../../assets/necklace.png';
@@ -23,57 +23,51 @@ function Necklace() {
     const navigate = useNavigate();
     const { isAuth } = useContext(AuthContext);
 
-    useEffect(() => {
-        const fetchFavoritePaintingsHelper = async () => {
-            try {
-                toggleLoading(true);
-                const result = await fetchFavoritePaintings(apiKey, favorites, page, pageSize);
-                setFavoritePaintings(result);
-                toggleError(false);
-            } catch (error) {
-                console.error("Error fetching favorite paintings:", error);
-                toggleError(true);
-            } finally {
-                toggleLoading(false);
-            }
-        };
-        fetchFavoritePaintingsHelper();
+    const fetchFavoritePaintingsHelper = useCallback(async () => {
+        try {
+            toggleLoading(true);
+            const result = await fetchFavoritePaintings(apiKey, favorites, page, pageSize);
+            setFavoritePaintings(result);
+            toggleError(false);
+        } catch (error) {
+            console.error("Error fetching favorite paintings:", error);
+            toggleError(true);
+        } finally {
+            toggleLoading(false);
+        }
     }, [apiKey, favorites, page, pageSize]);
 
     useEffect(() => {
-        // Bepaal de hoogte van de header
+        fetchFavoritePaintingsHelper();
+    }, [fetchFavoritePaintingsHelper]);
+
+    useEffect(() => {
         const headerHeight = document.querySelector('header')?.offsetHeight || 0;
-        // Scroll naar beneden zodat de header niet zichtbaar is
         window.scrollTo({
             top: headerHeight,
             behavior: 'smooth'
         });
     }, []);
 
-    const handleDragStart = (e, id) => {
+    const handleDragStart = useCallback((e, id) => {
         dragStart(e, id);
-    };
+    }, []);
 
-    const handleDrop = (e, dropBoxIndex) => {
+    const handleDrop = useCallback((e, dropBoxIndex) => {
         drop(e);
         const paintingId = e.dataTransfer.getData('text/plain');
         const paintingToMove = favoritePaintings.find(painting => painting.id.toString() === paintingId);
 
         if (paintingToMove) {
-            if (dropBoxContents[dropBoxIndex]) {
-                const updatedDropBoxContents = [...dropBoxContents];
-                updatedDropBoxContents[dropBoxIndex] = null;
-                setDropBoxContents(updatedDropBoxContents);
-            }
-
-            const updatedDropBoxContents = [...dropBoxContents];
-            updatedDropBoxContents[dropBoxIndex] = paintingToMove;
+            const updatedDropBoxContents = dropBoxContents.map((content, index) =>
+                index === dropBoxIndex ? paintingToMove : content
+            );
             setDropBoxContents(updatedDropBoxContents);
             setActiveDropBoxIndex(dropBoxIndex);
         }
-    };
+    }, [dropBoxContents, favoritePaintings]);
 
-    const handleScreenshot = async () => {
+    const handleScreenshot = useCallback(async () => {
         if (!isAuth) {
             console.log("User is not authenticated");
             alert('Je moet ingelogd zijn om het ontwerp te kunnen downloaden.');
@@ -95,7 +89,7 @@ function Necklace() {
         } finally {
             setScreenshotLoading(false);
         }
-    };
+    }, [isAuth, dropBoxContents, navigate]);
 
     return (
         <div className="parent">

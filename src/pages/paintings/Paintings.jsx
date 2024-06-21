@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import './Paintings.css';
 import Button from "../../components/button/Button.jsx";
@@ -16,83 +16,77 @@ function Paintings() {
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
 
-
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                toggleLoading(true);
-                // Fetch paintings from the API
-                const result = await fetchPaintings(apiKey, page, pageSize, category);
-                // Update the state of paintings
-                setPaintings(result.paintings);
-                toggleError(false);
-                console.log("Fetched paintings:", result.paintings);
-            } catch (error) {
-                console.error("Error fetching paintings:", error);
-                // Set error status in case of error while fetching paintings
-                toggleError(true);
-            } finally {
-                toggleLoading(false);
-            }
-        };
-
-        // Fetch paintings when category, page, or pageSize changes
-        fetchData();
+    const fetchData = useCallback(async () => {
+        try {
+            toggleLoading(true);
+            const result = await fetchPaintings(apiKey, page, pageSize, category);
+            setPaintings(result.paintings);
+            toggleError(false);
+            console.log("Fetched paintings:", result.paintings);
+        } catch (error) {
+            console.error("Error fetching paintings:", error);
+            toggleError(true);
+        } finally {
+            toggleLoading(false);
+        }
     }, [apiKey, page, pageSize, category]);
 
-    // Function to change category
-    const changeCategory = (newCategory) => {
-        // Update the current category
+    useEffect(() => {
+        fetchData();
+    }, [fetchData]);
+
+    const changeCategory = useCallback((newCategory) => {
         setCategory(newCategory);
-    }
+    }, []);
+
+    const paintingsList = useMemo(() => {
+        return paintings.map((painting, index) => (
+            <div
+                key={painting.id}
+                id={`painting-${index}`}
+                className="painting-image-square"
+            >
+                <img
+                    className="painting-square"
+                    src={painting.image.cdnUrl}
+                    alt="painting"
+                />
+                <div
+                    className="favorite-heart"
+                    onClick={() => toggleFavorite(painting.id)}
+                >
+                    {favorites.includes(painting.id) ? '❤️' : '🤍'}
+                </div>
+            </div>
+        ));
+    }, [paintings, favorites, toggleFavorite]);
 
     return (
         <>
             <div className="general-container">
                 <div id="category-button-container">
                     <div>
-                    {/* Generate buttons for all categories */}
-                    {CATEGORIES.map(category => (
-                        <Button
-                            type="button"
-                            key={category}
-                            onClick={() => changeCategory(category)}
-                            text={getCategoryName(category)} // Use getCategoryName function to get the category name
-                        />
-                    ))}
+                        {CATEGORIES.map(category => (
+                            <Button
+                                type="button"
+                                key={category}
+                                onClick={() => changeCategory(category)}
+                                text={getCategoryName(category)}
+                            />
+                        ))}
                     </div>
                     <div>
-                    <p>
-                        Klaar met selecteren? Ga naar de
-                        <Link to="/necklace">
-                            <Button type="button" text="Ketting" />
-                        </Link>
-                    </p>
+                        <p>
+                            Klaar met selecteren? Ga naar de
+                            <Link to="/necklace">
+                                <Button type="button" text="Ketting" />
+                            </Link>
+                        </p>
                     </div>
                 </div>
                 <div className="paintings-container">
                     {loading && <p>Loading...</p>}
-                    {/* Display the paintings once they are loaded */}
-                    {!loading && paintings.map((painting, index) => (
-                        <div
-                            key={painting.id}
-                            id={`painting-${index}`}
-                            className="painting-image-square"
-                        >
-                            <img
-                                className="painting-square"
-                                src={painting.image.cdnUrl}
-                                alt="painting"
-                            />
-                            <div
-                                className="favorite-heart"
-                                onClick={() => toggleFavorite(painting.id)}
-                            >
-                                {/* Show a red heart if the painting is a favorite */}
-                                {favorites.includes(painting.id) ? '❤️' : '🤍'}
-                            </div>
-                        </div>
-                    ))}
+                    {!loading && paintingsList}
                 </div>
             </div>
         </>
