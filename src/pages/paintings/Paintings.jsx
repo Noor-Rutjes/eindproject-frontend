@@ -1,10 +1,13 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import './Paintings.css';
 import Button from "../../components/button/Button.jsx";
 import useFavorites from "../../helpers/useFavorites.jsx";
 import { CATEGORIES, getCategoryName } from "../../constants/paintingCategories.jsx";
 import { fetchPaintings } from "../../helpers/fetchPaintings.jsx";
+
+// Component voor lazy loading van schilderijen
+const LazyPainting = React.lazy(() => import('../../components/LazyPainting.jsx'));
 
 function Paintings() {
     const apiKey = import.meta.env.VITE_API_KEY;
@@ -41,23 +44,14 @@ function Paintings() {
 
     const paintingsList = useMemo(() => {
         return paintings.map((painting, index) => (
-            <div
-                key={painting.id}
-                id={`painting-${index}`}
-                className="painting-image-square"
-            >
-                <img
-                    className="painting-square"
-                    src={painting.image.cdnUrl}
-                    alt="painting"
+            <Suspense fallback={<div>Loading...</div>} key={painting.id}>
+                <LazyPainting
+                    painting={painting}
+                    index={index}
+                    toggleFavorite={toggleFavorite}
+                    favorites={favorites}
                 />
-                <div
-                    className="favorite-heart"
-                    onClick={() => toggleFavorite(painting.id)}
-                >
-                    {favorites.includes(painting.id) ? '❤️' : '🤍'}
-                </div>
-            </div>
+            </Suspense>
         ));
     }, [paintings, favorites, toggleFavorite]);
 

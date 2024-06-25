@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode }   from 'jwt-decode';
 import axios from 'axios';
 import { isTokenValid } from '../helpers/authHelpers.jsx';
 
@@ -17,6 +17,7 @@ function AuthContextProvider({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+    console.log("Token fetched from localStorage on init:", token); // Log the token fetched
     if (token) {
       if (isTokenValid(token)) {
         const decoded = jwtDecode(token);
@@ -35,6 +36,7 @@ function AuthContextProvider({ children }) {
 
   async function login(JWT) {
     localStorage.setItem('token', JWT);
+    console.log("Token saved to localStorage on login:", JWT); // Log the token saved
     const decoded = jwtDecode(JWT);
     await fetchUserData(decoded.sub, JWT, '/profile');
   }
