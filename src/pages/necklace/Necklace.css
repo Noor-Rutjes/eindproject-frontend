@@ -36,12 +36,16 @@
     object-fit: cover;
 }
 
+.painting-image.dragging {
+    opacity: 0.5;
+    filter: brightness(1.2);
+}
+
 .dropBox {
     position: absolute;
     border-radius: 50%;
     width: 14%;
     height: 14%;
-    /*border: 1px solid deepskyblue;*/
 }
 
 #dropBox0 {
@@ -69,6 +73,27 @@
     left: 67.5%;
 }
 
+.loading-message {
+    position: absolute;
+    top: 30%;
+    left: 60%;
+    font-family: 'Rubik', 'Arial', sans-serif;
+    transform: translate(-50%, -50%);
+    background-color: #e74c3c;
+    padding: 2em;
+    border-radius: 5px;
+    z-index: 1;
+}
+
+#screenshot-button {
+    position: absolute;
+    bottom: 3%;
+    right: 3%;
+    background-color: transparent;
+    border: 1px solid var(--gray-light);
+    margin: 0;
+}
+
 @media only screen and (max-width: 768px) {
     .parent {
         height: 80vw;
@@ -89,25 +114,4 @@
         width: 11vw;
         height: 11vw;
     }
-}
-
-.loading-message {
-    position: absolute;
-    top: 30%;
-    left: 60%;
-    font-family: 'Rubik', 'Arial', sans-serif;
-    transform: translate(-50%, -50%);
-    background-color: #e74c3c;
-    padding: 5em;
-    border-radius: 5px;
-    z-index: 1;
-}
-
-#screenshot-button {
-    position: absolute;
-    bottom: 3%;
-    left: 83.5%;
-    background-color: transparent;
-    border: 1px solid var(--gray-light);
-    margin: 0;
 }

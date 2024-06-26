@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useCallback, useMemo, useContext } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Necklace.css';
 import necklace from '../../assets/necklace.png';
 import Button from "../../components/button/Button.jsx";
-import useFavorites from "../../helpers/useFavorites.jsx";
-import { fetchFavoritePaintings } from "../../helpers/fetchPaintings.jsx";
-import { dragStart, dragEnd, drop } from "../../helpers/dragAndDrop.jsx";
+import useFavorites from '../../helpers/useFavorites.jsx';
+import { fetchFavoritePaintings } from '../../helpers/fetchPaintings.jsx';
 import { captureAndDownloadNecklace } from '../../helpers/captureNecklaceCreation.jsx';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -50,11 +49,32 @@ function Necklace() {
     }, []);
 
     const handleDragStart = useCallback((e, id) => {
-        dragStart(e, id);
+        e.dataTransfer.setData('text/plain', id);
+        e.target.classList.add('dragging');
+
+        // Creëer een kopie van het element dat gesleept wordt
+        const dragImage = e.target.cloneNode(true);
+        dragImage.style.position = "absolute";
+        dragImage.style.top = "-9999px"; // Positioneer het buiten het zicht
+        document.body.appendChild(dragImage);
+
+        // Bereken de offset van het cursorpunt binnen het element
+        const offsetX = e.clientX - e.target.getBoundingClientRect().left;
+        const offsetY = e.clientY - e.target.getBoundingClientRect().top;
+        e.dataTransfer.setDragImage(dragImage, offsetX, offsetY);
+
+        // Verwijder het dragImage na een kleine vertraging
+        setTimeout(() => {
+            document.body.removeChild(dragImage);
+        }, 0);
+    }, []);
+
+    const handleDragEnd = useCallback((e) => {
+        e.target.classList.remove('dragging');
     }, []);
 
     const handleDrop = useCallback((e, dropBoxIndex) => {
-        drop(e);
+        e.preventDefault();
         const paintingId = e.dataTransfer.getData('text/plain');
         const paintingToMove = favoritePaintings.find(painting => painting.id.toString() === paintingId);
 
@@ -103,7 +123,7 @@ function Necklace() {
                             id={`painting-${index}`}
                             draggable="true"
                             onDragStart={(e) => handleDragStart(e, painting.id.toString())}
-                            onDragEnd={dragEnd}
+                            onDragEnd={handleDragEnd}
                         >
                             <img
                                 className="painting-image"
@@ -136,7 +156,7 @@ function Necklace() {
                             <div
                                 draggable="true"
                                 onDragStart={(e) => handleDragStart(e, dropBoxContents[index].id.toString())}
-                                onDragEnd={dragEnd}
+                                onDragEnd={handleDragEnd}
                             >
                                 <img
                                     src={dropBoxContents[index].image.cdnUrl}
