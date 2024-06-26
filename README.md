@@ -17,21 +17,22 @@ Blader door onze collectie schilderijen en selecteer je favorieten. Heb je je ke
 Deze webapplicatie is gemaakt als integrale eindopdracht voor de leerlijn Frontend van het bootcamp [Full Stack Developer](https://www.novi.nl/full-stack-developer/) van [NOVI Hogeschool](https://www.novi.nl/).
 
 ## Screenshot
-![Screenshot van de applicatie](src/assets/screenshot.png)
+![Screenshot van de applicatie](src/assets/readme/screenshot.png)
 
 ## Benodigdheden
 
 Om de applicatie te draaien is het volgende nodig:
 
 - Een IDE, zoals [WebStorm](https://www.jetbrains.com/webstorm/), zodat je de broncode kunt bekijken en de applicatie lokaal kan laten draaien.
-- Installatie van [NodeJS](https://nodejs.org/en), voor het gebruiken en managen van dependencies. Type na installatie in de terminal van de IDE het commando node -v en vervolgens npm -v. Indien er een versienummer verschijnt, is Node.js correct geïnstalleerd.
+- Installatie van [NodeJS](https://nodejs.org/en), voor het gebruiken en managen van dependencies. Type na installatie in de terminal van de IDE:
+```bash
+node -v
+npm -v
+```
+Indien er een versienummer verschijnt, is Node.js correct geïnstalleerd.
 - Een web browser, zoals [Google Chrome](https://www.google.com/intl/nl_nl/chrome/).
 - Een API key van de [NOVI Educational Backend](https://novi.datavortex.nl/).
 - Een API key van het [Rijksmuseum](https://data.rijksmuseum.nl/user-generated-content/api/).
-
-
-Open de link in WebStorm als "Nieuw Project From Version Control"
-Open het project in een nieuwe window en vertrouw dit project. Het project wordt geladen.
 
 ## De applicatie draaien
 

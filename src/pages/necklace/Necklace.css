@@ -77,9 +77,8 @@
     position: absolute;
     top: 30%;
     left: 60%;
-    font-family: 'Rubik', 'Arial', sans-serif;
     transform: translate(-50%, -50%);
-    background-color: #e74c3c;
+    background-color: var(--warning-color);
     padding: 2em;
     border-radius: 5px;
     z-index: 1;

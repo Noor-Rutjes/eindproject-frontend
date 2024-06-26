@@ -23,7 +23,7 @@
     position: fixed;
     left: 0;
     top: 0;
-    background-image: url("../../../assets/bigman.png");
+    background-image: url("../../../assets/navigation/bigman.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position-y: bottom;
@@ -37,7 +37,7 @@
     @media only screen and (max-width: 768px) {
         .navigation {
             background-image: none;
-            .nav-button + .nav-button {
+            .button + .button {
                 margin-left: 0;
             }
         }

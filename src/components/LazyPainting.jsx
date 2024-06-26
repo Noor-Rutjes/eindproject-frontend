@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 
 function LazyPainting({ painting, index, toggleFavorite, favorites }) {
     return (
@@ -20,5 +21,18 @@ function LazyPainting({ painting, index, toggleFavorite, favorites }) {
         </div>
     );
 }
+
+// PropTypes for typechecking
+LazyPainting.propTypes = {
+    painting: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        image: PropTypes.shape({
+            cdnUrl: PropTypes.string.isRequired,
+        }).isRequired,
+    }).isRequired,
+    index: PropTypes.number.isRequired,
+    toggleFavorite: PropTypes.func.isRequired,
+    favorites: PropTypes.arrayOf(PropTypes.string).isRequired,
+};
 
 export default LazyPainting;

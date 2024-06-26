@@ -1,4 +1,4 @@
-.nav-button {
+.button {
     padding: 8px;
     margin-bottom: 10px;
     width: 100px;
@@ -10,15 +10,15 @@
     border-radius: 7px;
 }
 
-.nav-button:hover {
+.button:hover {
     cursor: pointer;
 }
 
-.nav-button:disabled {
+.button:disabled {
     background-color: var(--gray-dark);
     cursor: not-allowed;
 }
 
-.nav-button + .nav-button {
+.button + .button {
     margin-left: 8px;
 }

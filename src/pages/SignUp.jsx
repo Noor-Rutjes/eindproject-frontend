@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthForm from '../components/Authform.jsx';
 import ContentBlock from '../components/contentBlock/ContentBlock.jsx';
-import geit from "../assets/goat.png";
+import geit from "../assets/contentBlock/goat.png";
 import { registerUser, handleError } from '../helpers/authHelpers';
 
 function SignUp() {
@@ -15,7 +15,6 @@ function SignUp() {
         { name: 'confirmPassword', type: 'password', placeholder: 'Bevestig wachtwoord', validation: { required: 'Bevestig wachtwoord is verplicht', validate: (value, context) => value === context.password || 'De wachtwoorden komen niet overeen' }, ariaLabel: 'Bevestig wachtwoord', autocomplete: 'new-password' }
     ];
 
-    // Handle the sign-up form submission
     async function handleSignUp(data) {
         try {
             await registerUser(data);

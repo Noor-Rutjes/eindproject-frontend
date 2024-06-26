@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Necklace.css';
-import necklace from '../../assets/necklace.png';
+import necklace from '../../assets/necklace/necklace.png';
 import Button from "../../components/button/Button.jsx";
 import useFavorites from '../../helpers/useFavorites.jsx';
 import { fetchFavoritePaintings } from '../../helpers/fetchPaintings.jsx';
@@ -22,6 +22,7 @@ function Necklace() {
     const navigate = useNavigate();
     const { isAuth } = useContext(AuthContext);
 
+    // Helper function to fetch favorite paintings
     const fetchFavoritePaintingsHelper = useCallback(async () => {
         try {
             toggleLoading(true);
@@ -40,6 +41,7 @@ function Necklace() {
         fetchFavoritePaintingsHelper();
     }, [fetchFavoritePaintingsHelper]);
 
+    // Scroll to top of page on component mount
     useEffect(() => {
         const headerHeight = document.querySelector('header')?.offsetHeight || 0;
         window.scrollTo({
@@ -52,18 +54,18 @@ function Necklace() {
         e.dataTransfer.setData('text/plain', id);
         e.target.classList.add('dragging');
 
-        // Creëer een kopie van het element dat gesleept wordt
+        // Create a clone of the dragging element
         const dragImage = e.target.cloneNode(true);
         dragImage.style.position = "absolute";
         dragImage.style.top = "-9999px"; // Positioneer het buiten het zicht
         document.body.appendChild(dragImage);
 
-        // Bereken de offset van het cursorpunt binnen het element
+        // Calculate cursor offset within the element
         const offsetX = e.clientX - e.target.getBoundingClientRect().left;
         const offsetY = e.clientY - e.target.getBoundingClientRect().top;
         e.dataTransfer.setDragImage(dragImage, offsetX, offsetY);
 
-        // Verwijder het dragImage na een kleine vertraging
+        // Remove the dragImage after a slight delay
         setTimeout(() => {
             document.body.removeChild(dragImage);
         }, 0);
@@ -87,6 +89,7 @@ function Necklace() {
         }
     }, [dropBoxContents, favoritePaintings]);
 
+    // Handle screenshot download
     const handleScreenshot = useCallback(async () => {
         if (!isAuth) {
             console.log("User is not authenticated");

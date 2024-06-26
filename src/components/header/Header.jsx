@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import icon from "../../assets/logo-header.png";
-import iconHover from "../../assets/logo-header-horror.png";
+import icon from "../../assets/header/logo-header.png";
+import iconHover from "../../assets/header/logo-header-horror.png";
 import "./Header.css";
 import Navigation from "../navigation/navigation/Navigation.jsx";
 

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext.jsx';
 import AuthForm from '../components/Authform.jsx';
 import ContentBlock from '../components/contentBlock/ContentBlock.jsx';
-import bride from "../assets/bride.png";
+import bride from "../assets/contentBlock/bride.png";
 import { authenticateUser, handleError } from '../helpers/authHelpers';
 
 function SignIn() {

@@ -6,12 +6,6 @@
         display: flex;
     }
 
-    /*.hero-navigation >p {*/
-    /*    margin-left: 25px;*/
-    /*}*/
-
     .demo-container {
         display: flex;
-        /*align-items: center;*/
-        /*align-content: space-between;*/
     }

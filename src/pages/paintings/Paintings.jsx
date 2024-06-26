@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useCallback, useMemo, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import './Paintings.css';
-import Button from "../../components/button/Button.jsx";
-import useFavorites from "../../helpers/useFavorites.jsx";
-import { CATEGORIES, getCategoryName } from "../../constants/paintingCategories.jsx";
-import { fetchPaintings } from "../../helpers/fetchPaintings.jsx";
+import Button from '../../components/button/Button.jsx';
+import useFavorites from '../../helpers/useFavorites.jsx';
+import { CATEGORIES, getCategoryName } from '../../constants/paintingCategories.jsx';
+import { fetchPaintings } from '../../helpers/fetchPaintings.jsx';
 
-// Component voor lazy loading van schilderijen
 const LazyPainting = React.lazy(() => import('../../components/LazyPainting.jsx'));
 
 function Paintings() {
@@ -19,13 +18,13 @@ function Paintings() {
     const [error, toggleError] = useState(false);
     const [loading, toggleLoading] = useState(false);
 
+    // Function to fetch paintings based on the selected category
     const fetchData = useCallback(async () => {
         try {
             toggleLoading(true);
             const result = await fetchPaintings(apiKey, page, pageSize, category);
             setPaintings(result.paintings);
             toggleError(false);
-            console.log("Fetched paintings:", result.paintings);
         } catch (error) {
             console.error("Error fetching paintings:", error);
             toggleError(true);
@@ -34,6 +33,7 @@ function Paintings() {
         }
     }, [apiKey, page, pageSize, category]);
 
+    // Fetch data when component mounts or category changes
     useEffect(() => {
         fetchData();
     }, [fetchData]);
@@ -79,7 +79,7 @@ function Paintings() {
                     </div>
                 </div>
                 <div className="paintings-container">
-                    {loading && <p>Loading...</p>}
+                    {loading && <div className="spinner">Loading...</div>}
                     {!loading && paintingsList}
                 </div>
             </div>

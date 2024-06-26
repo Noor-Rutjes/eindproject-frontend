@@ -6,6 +6,6 @@ export const CATEGORIES = [
 
 export function getCategoryName(category) {
     const parts = category.split('-');
-    const name = parts[1]; // Gebruik de tekst na het koppelteken
-    return name.charAt(0).toUpperCase() + name.slice(1); // Maak de eerste letter hoofdletter
+    const name = parts[1]; // Use the text after the hyphen
+    return name.charAt(0).toUpperCase() + name.slice(1); // Capitalize the first letter
 }

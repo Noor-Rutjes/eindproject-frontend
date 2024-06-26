@@ -6,7 +6,7 @@ import Button from "./button/Button.jsx";
 function AuthForm({ onSubmit, title, linkTextBegin, linkTextEnd, linkTo, buttonText, errorMessage, fields, onInputChange }) {
     const { register, handleSubmit, formState: { errors }, getValues, setValue, trigger } = useForm();
 
-    // This is an extra function to validate fields when the Enter key is pressed
+    // Extra function to validate fields when the Enter key is pressed
     const handleKeyDown = async (event) => {
         if (event.key === 'Enter') {
             // Explicitly trigger validation for all fields

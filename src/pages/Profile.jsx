@@ -1,6 +1,6 @@
 import React, {useContext, useEffect} from 'react';
 import {Link} from "react-router-dom";
-import happywoman from "../assets/happywoman.png";
+import happywoman from "../assets/contentBlock/happywoman.png";
 import Button from "../components/button/Button.jsx";
 import {AuthContext} from '../context/AuthContext';
 import ContentBlock from "../components/contentBlock/ContentBlock.jsx";

@@ -14,9 +14,14 @@
     letter-spacing: 1vw;
 }
 
+.header-icon {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+}
+
 .header-icon img {
     height: 90%;
-    /*margin-left: 5vw;*/
 }
 
 .header-text a {
@@ -28,18 +33,6 @@
 
 .header-text a:hover {
         color: var(--gray-light);
-}
-
-@media only screen and (max-width: 768px) {
-    .header-icon img {
-        display: none;
-    }
-}
-
-.header-icon {
-    position: relative;
-    display: inline-block;
-    height: 100%;
 }
 
 .tooltip {
@@ -62,4 +55,10 @@
 
 .header-icon:hover .tooltip {
     display: block;
+}
+
+@media only screen and (max-width: 768px) {
+    .header-icon img {
+        display: none;
+    }
 }

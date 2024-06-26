@@ -3,6 +3,7 @@ import { jwtDecode } from 'jwt-decode';
 
 const endpoint = "https://api.datavortex.nl/rijksbling";
 
+// Authenticate user with provided credentials
 export async function authenticateUser(data) {
     return await axios.post(`${endpoint}/users/authenticate`, {
         username: data.username,
@@ -15,6 +16,7 @@ export async function authenticateUser(data) {
     });
 }
 
+// Register a new user with provided information
 export async function registerUser(data) {
     return await axios.post(`${endpoint}/users`, {
         username: data.username,
@@ -29,6 +31,7 @@ export async function registerUser(data) {
     });
 }
 
+// Handle errors based on context and set error message accordingly
 export function handleError(e, setErrorMessage, context) {
     console.error(`Fout bij ${context}: `, e);
 
@@ -66,7 +69,7 @@ export function handleError(e, setErrorMessage, context) {
     setErrorMessage('Er is iets misgegaan. Probeer het later opnieuw.');
 }
 
-// Helper functie om te controleren of een token geldig is
+// Check if a token is valid by decoding and comparing expiration time
 export function isTokenValid(token) {
     if (!token) {
         return false;

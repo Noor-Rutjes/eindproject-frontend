@@ -1,7 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
 import "./NotFound.css";
-import image from '../../assets/404.png';
+import image from '../../assets/contentBlock/404.png';
 import ContentBlock from "../../components/contentBlock/ContentBlock.jsx";
 
 function NotFound() {
