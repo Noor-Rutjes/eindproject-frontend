@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useState, useEffect, useCallback, useContext, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Necklace.css';
 import necklace from '../../assets/necklace/necklace.png';
@@ -7,6 +7,7 @@ import useFavorites from '../../helpers/useFavorites.jsx';
 import { fetchFavoritePaintings } from '../../helpers/fetchPaintings.jsx';
 import { captureAndDownloadNecklace } from '../../helpers/captureNecklaceCreation.jsx';
 import { AuthContext } from '../../context/AuthContext';
+import { dragStart, dragEnd, handleDrop } from '../../helpers/dragAndDrop.jsx'; // Import helper functions
 
 function Necklace() {
     const apiKey = import.meta.env.VITE_API_KEY;
@@ -21,27 +22,36 @@ function Necklace() {
     const [screenshotLoading, setScreenshotLoading] = useState(false);
     const navigate = useNavigate();
     const { isAuth } = useContext(AuthContext);
+    const necklaceRef = useRef(null);
+    const buttonRef = useRef(null);
 
-    // Helper function to fetch favorite paintings
-    const fetchFavoritePaintingsHelper = useCallback(async () => {
+    const fetchFavoritePaintingsHelper = useCallback(async (controller) => {
         try {
             toggleLoading(true);
-            const result = await fetchFavoritePaintings(apiKey, favorites, page, pageSize);
+            const result = await fetchFavoritePaintings(apiKey, favorites, page, pageSize, controller.signal);
             setFavoritePaintings(result);
             toggleError(false);
         } catch (error) {
-            console.error("Error fetching favorite paintings:", error);
-            toggleError(true);
+            if (error.name === 'AbortError') {
+                console.log('Fetch aborted');
+            } else {
+                console.error("Error fetching favorite paintings:", error);
+                toggleError(true);
+            }
         } finally {
             toggleLoading(false);
         }
     }, [apiKey, favorites, page, pageSize]);
 
     useEffect(() => {
-        fetchFavoritePaintingsHelper();
+        const controller = new AbortController();
+        fetchFavoritePaintingsHelper(controller);
+
+        return () => {
+            controller.abort(); // Abort the fetch request on component unmount
+        };
     }, [fetchFavoritePaintingsHelper]);
 
-    // Scroll to top of page on component mount
     useEffect(() => {
         const headerHeight = document.querySelector('header')?.offsetHeight || 0;
         window.scrollTo({
@@ -50,49 +60,14 @@ function Necklace() {
         });
     }, []);
 
-    const handleDragStart = useCallback((e, id) => {
-        e.dataTransfer.setData('text/plain', id);
-        e.target.classList.add('dragging');
-
-        // Create a clone of the dragging element
-        const dragImage = e.target.cloneNode(true);
-        dragImage.style.position = "absolute";
-        dragImage.style.top = "-9999px"; // Positioneer het buiten het zicht
-        document.body.appendChild(dragImage);
-
-        // Calculate cursor offset within the element
-        const offsetX = e.clientX - e.target.getBoundingClientRect().left;
-        const offsetY = e.clientY - e.target.getBoundingClientRect().top;
-        e.dataTransfer.setDragImage(dragImage, offsetX, offsetY);
-
-        // Remove the dragImage after a slight delay
-        setTimeout(() => {
-            document.body.removeChild(dragImage);
-        }, 0);
-    }, []);
-
-    const handleDragEnd = useCallback((e) => {
-        e.target.classList.remove('dragging');
-    }, []);
-
-    const handleDrop = useCallback((e, dropBoxIndex) => {
-        e.preventDefault();
-        const paintingId = e.dataTransfer.getData('text/plain');
-        const paintingToMove = favoritePaintings.find(painting => painting.id.toString() === paintingId);
-
-        if (paintingToMove) {
-            const updatedDropBoxContents = dropBoxContents.map((content, index) =>
-                index === dropBoxIndex ? paintingToMove : content
-            );
-            setDropBoxContents(updatedDropBoxContents);
-            setActiveDropBoxIndex(dropBoxIndex);
-        }
+    const handleDragStart = useCallback((e, id) => dragStart(e, id), []);
+    const handleDragEnd = useCallback((e) => dragEnd(e), []);
+    const handleDropHandler = useCallback((e, dropBoxIndex) => {
+        handleDrop(e, dropBoxIndex, dropBoxContents, setDropBoxContents, setActiveDropBoxIndex, favoritePaintings);
     }, [dropBoxContents, favoritePaintings]);
 
-    // Handle screenshot download
     const handleScreenshot = useCallback(async () => {
         if (!isAuth) {
-            console.log("User is not authenticated");
             alert('Je moet ingelogd zijn om het ontwerp te kunnen downloaden.');
             navigate('/signIn');
             return;
@@ -106,7 +81,7 @@ function Necklace() {
         setScreenshotLoading(true);
 
         try {
-            await captureAndDownloadNecklace('necklace-container', 'screenshot-button', 'screenshot.png');
+            await captureAndDownloadNecklace(necklaceRef, buttonRef, 'RijksBling ontwerp.png');
         } catch (error) {
             console.error('Error bij het downloaden van het ontwerp:', error);
         } finally {
@@ -115,15 +90,15 @@ function Necklace() {
     }, [isAuth, dropBoxContents, navigate]);
 
     return (
-        <div className="parent">
+        <main className="parent">
             {screenshotLoading && <div className="loading-message">Ontwerp wordt gedownload...</div>}
-            <div className="container">
-                <div className="paintings-overview">
+            <section className="container">
+                <section className="paintings-overview">
                     {loading && <p>Loading...</p>}
                     {!loading && favoritePaintings.map((painting, index) => (
-                        <div
+                        <article
                             key={index}
-                            id={`painting-${index}`}
+                            data-id={painting.id.toString()}
                             draggable="true"
                             onDragStart={(e) => handleDragStart(e, painting.id.toString())}
                             onDragEnd={handleDragEnd}
@@ -133,16 +108,17 @@ function Necklace() {
                                 src={painting.image.cdnUrl}
                                 alt="schilderij"
                             />
-                        </div>
+                        </article>
                     ))}
-                </div>
-            </div>
+                </section>
+            </section>
 
-            <div className="container" id="necklace-container">
+            <section className="container" ref={necklaceRef} id="necklace-container">
                 <img className="necklace" src={necklace} alt="ketting" />
                 <Button
                     type="button"
                     id="screenshot-button"
+                    ref={buttonRef}
                     onClick={handleScreenshot}
                     text="Download ontwerp"
                 />
@@ -150,13 +126,13 @@ function Necklace() {
                 {[...Array(5)].map((_, index) => (
                     <div
                         key={`dropBox${index}`}
-                        className={`dropBox`}
+                        className="dropBox"
                         id={`dropBox${index}`}
-                        onDrop={(e) => handleDrop(e, index)}
+                        onDrop={(e) => handleDropHandler(e, index)}
                         onDragOver={(e) => e.preventDefault()}
                     >
                         {dropBoxContents[index] && (
-                            <div
+                            <article
                                 draggable="true"
                                 onDragStart={(e) => handleDragStart(e, dropBoxContents[index].id.toString())}
                                 onDragEnd={handleDragEnd}
@@ -167,12 +143,12 @@ function Necklace() {
                                     className="painting-image"
                                     style={{ objectFit: 'cover' }}
                                 />
-                            </div>
+                            </article>
                         )}
                     </div>
                 ))}
-            </div>
-        </div>
+            </section>
+        </main>
     );
 }
 

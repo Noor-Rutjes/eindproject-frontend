@@ -2,13 +2,13 @@ import React from "react";
 import PropTypes from 'prop-types';
 import './Button.css';
 
-function Button({ type, onClick, disabled, text, id }) {
+const Button = React.forwardRef(({ type, onClick, disabled, text, id }, ref) => {
     return (
-        <button type={type} className="button" id={id} onClick={onClick} disabled={disabled}>
+        <button type={type} className="button" id={id} onClick={onClick} disabled={disabled} ref={ref}>
             {text}
         </button>
     );
-}
+});
 
 // Adding PropTypes for typechecking
 Button.propTypes = {
@@ -25,5 +25,8 @@ Button.defaultProps = {
     disabled: false,
     id: '',
 };
+
+// Adding displayName for better debugging (and to satisfy ESLint)
+Button.displayName = 'Button';
 
 export default Button;

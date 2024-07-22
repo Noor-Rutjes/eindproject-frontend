@@ -13,7 +13,6 @@ function useFavorites() {
 
     const toggleFavorite = useCallback((paintingId) => {
         if (!isAuth) {
-            console.log("User is not authenticated");
             alert('Je moet ingelogd zijn om schilderijen te selecteren.');
             navigate('/signIn');
             return;

@@ -19,15 +19,17 @@ function Paintings() {
     const [loading, toggleLoading] = useState(false);
 
     // Function to fetch paintings based on the selected category
-    const fetchData = useCallback(async () => {
+    const fetchData = useCallback(async (controller) => {
         try {
             toggleLoading(true);
-            const result = await fetchPaintings(apiKey, page, pageSize, category);
+            const result = await fetchPaintings(apiKey, page, pageSize, category, controller.signal);
             setPaintings(result.paintings);
             toggleError(false);
         } catch (error) {
-            console.error("Error fetching paintings:", error);
-            toggleError(true);
+            if (error.name !== 'AbortError') {
+                console.error("Error fetching paintings:", error);
+                toggleError(true);
+            }
         } finally {
             toggleLoading(false);
         }
@@ -35,7 +37,12 @@ function Paintings() {
 
     // Fetch data when component mounts or category changes
     useEffect(() => {
-        fetchData();
+        const controller = new AbortController();
+        fetchData(controller);
+
+        return () => {
+            controller.abort(); // Cleanup function to abort the request
+        };
     }, [fetchData]);
 
     const changeCategory = useCallback((newCategory) => {

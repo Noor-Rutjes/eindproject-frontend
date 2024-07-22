@@ -1,13 +1,11 @@
 import html2canvas from 'html2canvas';
 
 // Capture the creation displayed in an element as a data URL
-export const captureNecklaceCreation = async (elementId) => {
-    const element = document.getElementById(elementId);
-
+export const captureNecklaceCreation = async (elementRef) => {
     try {
-        const canvas = await html2canvas(element, {
+        const canvas = await html2canvas(elementRef.current, {
             useCORS: true,
-            logging: true,
+            logging: false,
             allowTaint: false,
             backgroundColor: null
         });
@@ -27,13 +25,12 @@ export const downloadImage = (dataUrl, filename) => {
 };
 
 // Capture the creation and immediately download it as an image
-export const captureAndDownloadNecklace = async (elementId, buttonId, filename) => {
-    const button = document.getElementById(buttonId);
+export const captureAndDownloadNecklace = async (elementRef, buttonRef, filename) => {
+    const button = buttonRef.current;
     button.style.display = 'none'; // Hide the button before capturing the screenshot
 
-
     try {
-        const dataUrl = await captureNecklaceCreation(elementId);
+        const dataUrl = await captureNecklaceCreation(elementRef);
         if (dataUrl) {
             downloadImage(dataUrl, filename);
         }
