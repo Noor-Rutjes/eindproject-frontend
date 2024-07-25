@@ -3,8 +3,8 @@ import "./ContentBlock.css";
 
 function ContentBlock({ mediaType, mediaSrc, alt, title, children, id }) {
     return (
-        <section className="content-block" id={id}>
-            <div className="media-container">
+        <article className="content-block" id={id}>
+            <figure className="media-container">
                 {mediaType === "image" ? (
                     <img
                         src={mediaSrc}
@@ -16,12 +16,12 @@ function ContentBlock({ mediaType, mediaSrc, alt, title, children, id }) {
                         Je browser ondersteunt de video tag niet.
                     </video>
                 ) : null}
-            </div>
-            <article className="text-container">
-                <h1>{title}</h1>
+            </figure>
+            <section className="text-container">
+                {title && <h1>{title}</h1>}
                 {children}
-            </article>
-        </section>
+            </section>
+        </article>
     );
 }
 

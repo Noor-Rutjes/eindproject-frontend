@@ -10,6 +10,7 @@ function SignIn() {
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+
     const fields = [
         { name: 'username', type: 'text', placeholder: 'Gebruikersnaam', validation: { required: 'Gebruikersnaam is verplicht' }, ariaLabel: 'Gebruikersnaam', autocomplete: 'username' },
         { name: 'password', type: 'password', placeholder: 'Wachtwoord', validation: { required: 'Wachtwoord is verplicht' }, ariaLabel: 'Wachtwoord', autocomplete: 'password' }
@@ -29,18 +30,20 @@ function SignIn() {
         <ContentBlock
             mediaType="image"
             mediaSrc={bride}
-            alt={"bruid die RijksBling ketting draagt"}
+            alt="Bruid die RijksBling ketting draagt"
+            title="Inloggen"
         >
-            <AuthForm
-                onSubmit={handleSignIn}
-                title="Inloggen"
-                linkTextBegin="Heb je nog geen account? Je kan je "
-                linkTextEnd=" registreren."
-                linkTo="/signup"
-                buttonText="Inloggen"
-                errorMessage={errorMessage}
-                fields={fields}
-            />
+            <section className="form-container">
+                <AuthForm
+                    onSubmit={handleSignIn}
+                    linkTextBegin="Heb je nog geen account? Je kan je "
+                    linkTextEnd=" registreren."
+                    linkTo="/signup"
+                    buttonText="Inloggen"
+                    errorMessage={errorMessage}
+                    fields={fields}
+                />
+            </section>
         </ContentBlock>
     );
 }

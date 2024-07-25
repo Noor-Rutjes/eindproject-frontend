@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthForm from '../components/Authform.jsx';
 import ContentBlock from '../components/contentBlock/ContentBlock.jsx';
@@ -8,6 +8,7 @@ import { registerUser, handleError } from '../helpers/authHelpers';
 function SignUp() {
     const navigate = useNavigate();
     const [errorMessage, setErrorMessage] = useState('');
+
     const fields = [
         { name: 'username', type: 'text', placeholder: 'Gebruikersnaam', validation: { required: 'Gebruikersnaam is verplicht', minLength: { value: 4, message: 'Gebruikersnaam moet minstens 4 tekens bevatten' } }, ariaLabel: 'Gebruikersnaam', autocomplete: 'username' },
         { name: 'email', type: 'email', placeholder: 'E-mailadres', validation: { required: 'E-mailadres is verplicht', pattern: { value: /\S+@\S+\.\S+/, message: 'Voer een geldig e-mailadres in' } }, ariaLabel: 'E-mailadres', autocomplete: 'email' },
@@ -28,19 +29,21 @@ function SignUp() {
         <ContentBlock
             mediaType="image"
             mediaSrc={geit}
-            alt={"geit die RijksBling ketting draagt"}
+            alt="Geit die RijksBling ketting draagt"
+            title="Registreren"
         >
-            <AuthForm
-                onSubmit={handleSignUp}
-                title="Registreren"
-                linkTextBegin="Heb je al een account? Je kan "
-                linkTextEnd=" inloggen."
-                linkTo="/signin"
-                buttonText="Registreren"
-                errorMessage={errorMessage}
-                fields={fields}
-                onInputChange={() => setErrorMessage('')}
-            />
+            <section>
+                <AuthForm
+                    onSubmit={handleSignUp}
+                    linkTextBegin="Heb je al een account? Je kan "
+                    linkTextEnd=" inloggen."
+                    linkTo="/signin"
+                    buttonText="Registreren"
+                    errorMessage={errorMessage}
+                    fields={fields}
+                    onInputChange={() => setErrorMessage('')}
+                />
+            </section>
         </ContentBlock>
     );
 }

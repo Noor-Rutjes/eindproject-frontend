@@ -3,20 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import './Necklace.css';
 import necklace from '../../assets/necklace/necklace.png';
 import Button from "../../components/button/Button.jsx";
-import useFavorites from '../../helpers/useFavorites.jsx';
-import { fetchFavoritePaintings } from '../../helpers/fetchPaintings.jsx';
-import { captureAndDownloadNecklace } from '../../helpers/captureNecklaceCreation.jsx';
+import useFavorites from '../../hooks/useFavorites';
+import useFetchFavoritePaintings from '../../hooks/useFetchFavoritePaintings';
+import { captureAndDownloadNecklace } from '../../helpers/captureNecklaceCreation';
 import { AuthContext } from '../../context/AuthContext';
-import { dragStart, dragEnd, handleDrop } from '../../helpers/dragAndDrop.jsx'; // Import helper functions
+import { dragStart, dragEnd, handleDrop } from '../../helpers/dragAndDrop';
 
 function Necklace() {
     const apiKey = import.meta.env.VITE_API_KEY;
     const { favorites } = useFavorites();
-    const [favoritePaintings, setFavoritePaintings] = useState([]);
-    const [error, toggleError] = useState(false);
-    const [loading, toggleLoading] = useState(false);
-    const page = 0;
-    const pageSize = 100;
+    const { favoritePaintings, error, loading } = useFetchFavoritePaintings(apiKey, favorites);
     const [dropBoxContents, setDropBoxContents] = useState(Array(5).fill(null));
     const [activeDropBoxIndex, setActiveDropBoxIndex] = useState(-1);
     const [screenshotLoading, setScreenshotLoading] = useState(false);
@@ -24,33 +20,6 @@ function Necklace() {
     const { isAuth } = useContext(AuthContext);
     const necklaceRef = useRef(null);
     const buttonRef = useRef(null);
-
-    const fetchFavoritePaintingsHelper = useCallback(async (controller) => {
-        try {
-            toggleLoading(true);
-            const result = await fetchFavoritePaintings(apiKey, favorites, page, pageSize, controller.signal);
-            setFavoritePaintings(result);
-            toggleError(false);
-        } catch (error) {
-            if (error.name === 'AbortError') {
-                console.log('Fetch aborted');
-            } else {
-                console.error("Error fetching favorite paintings:", error);
-                toggleError(true);
-            }
-        } finally {
-            toggleLoading(false);
-        }
-    }, [apiKey, favorites, page, pageSize]);
-
-    useEffect(() => {
-        const controller = new AbortController();
-        fetchFavoritePaintingsHelper(controller);
-
-        return () => {
-            controller.abort(); // Abort the fetch request on component unmount
-        };
-    }, [fetchFavoritePaintingsHelper]);
 
     useEffect(() => {
         const headerHeight = document.querySelector('header')?.offsetHeight || 0;
@@ -94,7 +63,9 @@ function Necklace() {
             {screenshotLoading && <div className="loading-message">Ontwerp wordt gedownload...</div>}
             <section className="container">
                 <section className="paintings-overview">
-                    {loading && <p>Loading...</p>}
+                    {loading && <div className="spinner">Loading...</div>}
+
+                    {/*{loading && <p>Loading...</p>}*/}
                     {!loading && favoritePaintings.map((painting, index) => (
                         <article
                             key={index}

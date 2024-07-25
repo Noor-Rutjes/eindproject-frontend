@@ -1,10 +1,9 @@
-import {useState, useEffect, useContext, useMemo, useCallback} from 'react';
+import { useState, useEffect, useContext, useMemo, useCallback } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
 function useFavorites() {
     const navigate = useNavigate();
-
     const { isAuth } = useContext(AuthContext);
     const [favorites, setFavorites] = useState(() => {
         const storedFavorites = localStorage.getItem('favorites');
@@ -18,12 +17,14 @@ function useFavorites() {
             return;
         }
 
-        if (favorites.includes(paintingId)) {
-            setFavorites(favorites.filter(id => id !== paintingId));
-        } else {
-            setFavorites([...favorites, paintingId]);
-        }
-    }, [favorites, isAuth, navigate]);
+        setFavorites(prevFavorites => {
+            if (prevFavorites.includes(paintingId)) {
+                return prevFavorites.filter(id => id !== paintingId);
+            } else {
+                return [...prevFavorites, paintingId];
+            }
+        });
+    }, [isAuth, navigate]);
 
     useEffect(() => {
         localStorage.setItem('favorites', JSON.stringify(favorites));

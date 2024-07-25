@@ -1,49 +1,21 @@
-import React, { useState, useEffect, useCallback, useMemo, Suspense } from 'react';
+import React, { useState, useCallback, useMemo, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import './Paintings.css';
 import Button from '../../components/button/Button.jsx';
-import useFavorites from '../../helpers/useFavorites.jsx';
+import useFavorites from '../../hooks/useFavorites';
 import { CATEGORIES, getCategoryName } from '../../constants/paintingCategories.jsx';
-import { fetchPaintings } from '../../helpers/fetchPaintings.jsx';
+import useFetchPaintings from '../../hooks/useFetchPaintings';
 
 const LazyPainting = React.lazy(() => import('../../components/LazyPainting.jsx'));
 
 function Paintings() {
     const apiKey = import.meta.env.VITE_API_KEY;
-    const [paintings, setPaintings] = useState([]);
     const { favorites, toggleFavorite } = useFavorites();
     const [category, setCategory] = useState(CATEGORIES[0]);
     const pageSize = 100;
     const page = 0;
-    const [error, toggleError] = useState(false);
-    const [loading, toggleLoading] = useState(false);
 
-    // Function to fetch paintings based on the selected category
-    const fetchData = useCallback(async (controller) => {
-        try {
-            toggleLoading(true);
-            const result = await fetchPaintings(apiKey, page, pageSize, category, controller.signal);
-            setPaintings(result.paintings);
-            toggleError(false);
-        } catch (error) {
-            if (error.name !== 'AbortError') {
-                console.error("Error fetching paintings:", error);
-                toggleError(true);
-            }
-        } finally {
-            toggleLoading(false);
-        }
-    }, [apiKey, page, pageSize, category]);
-
-    // Fetch data when component mounts or category changes
-    useEffect(() => {
-        const controller = new AbortController();
-        fetchData(controller);
-
-        return () => {
-            controller.abort(); // Cleanup function to abort the request
-        };
-    }, [fetchData]);
+    const { paintings, error, loading } = useFetchPaintings(apiKey, favorites, page, pageSize, category, false);
 
     const changeCategory = useCallback((newCategory) => {
         setCategory(newCategory);
@@ -64,7 +36,7 @@ function Paintings() {
 
     return (
         <>
-            <div className="general-container">
+            <section className="general-container">
                 <div id="category-button-container">
                     <div>
                         {CATEGORIES.map(category => (
@@ -85,11 +57,11 @@ function Paintings() {
                         </p>
                     </div>
                 </div>
-                <div className="paintings-container">
+                <section className="paintings-container">
                     {loading && <div className="spinner">Loading...</div>}
                     {!loading && paintingsList}
-                </div>
-            </div>
+                </section>
+            </section>
         </>
     );
 }
