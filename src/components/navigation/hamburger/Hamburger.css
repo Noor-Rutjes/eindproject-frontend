@@ -1,17 +1,19 @@
-.hamburger {
+#hamburger-button {
+    padding: 0; /* Override button padding */
+    margin-bottom: 0; /* Override button margin */
+    width: auto; /* Override button width */
+    background-color: transparent; /* Override button background */
     display: flex;
-    width: 2rem;
-    height: 2rem;
-    justify-content: space-around;
-    flex-flow: column nowrap;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 1.5rem;
     position: relative;
     z-index: 3;
-    cursor: pointer;
-    background-color: transparent;
     border: none;
+    cursor: pointer;
 }
 
-.burger {
+#hamburger-button .burger {
     width: 2rem;
     height: 0.25rem;
     border-radius: 10px;
@@ -20,16 +22,20 @@
     transition: all 0.3s linear;
 }
 
-.burger-top {
+/* Space between the top and center burger bars */
+#hamburger-button .burger-top {
+    margin-bottom: 0.25rem; /* Adjust space as needed */
     transform: rotate(45deg);
 }
 
-.burger-center {
+/* Space between the center and bottom burger bars */
+#hamburger-button .burger-center {
+    margin: 0.25rem 0; /* Adjust space as needed */
     transform: translateX(100%);
     opacity: 0;
 }
 
-.burger-bottom {
+/* Bottom burger bar transformation */
+#hamburger-button .burger-bottom {
     transform: rotate(-45deg);
 }
-

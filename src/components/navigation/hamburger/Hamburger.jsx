@@ -1,13 +1,19 @@
 import React from "react";
-import "./Hamburger.css"
+import "./Hamburger.css";
+import Button from "../../button/Button.jsx";
 
-function Hamburger({isOpen}) {
+function Hamburger({ isOpen }) {
     return (
-        <button className="hamburger">
+        <Button
+            type="button"
+            id="hamburger-button"
+            text=""
+        >
             <div className={isOpen ? "burger burger-top" : "burger"}></div>
             <div className={isOpen ? "burger burger-center" : "burger"}></div>
             <div className={isOpen ? "burger burger-bottom" : "burger"}></div>
-        </button>
+        </Button>
     );
 }
+
 export default Hamburger;

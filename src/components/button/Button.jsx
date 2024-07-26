@@ -2,31 +2,40 @@ import React from "react";
 import PropTypes from 'prop-types';
 import './Button.css';
 
-const Button = React.forwardRef(({ type, onClick, disabled, text, id }, ref) => {
+const Button = React.forwardRef(({ type, onClick, disabled, text, id, className, children }, ref) => {
     return (
-        <button type={type} className="button" id={id} onClick={onClick} disabled={disabled} ref={ref}>
+        <button
+            type={type}
+            className={`button ${className}`}
+            id={id}
+            onClick={onClick}
+            disabled={disabled}
+            ref={ref}
+        >
             {text}
+            {children}
         </button>
     );
 });
 
-// Adding PropTypes for typechecking
 Button.propTypes = {
     type: PropTypes.string,
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
-    text: PropTypes.string.isRequired,
+    text: PropTypes.string,
     id: PropTypes.string,
+    className: PropTypes.string,
+    children: PropTypes.node,
 };
 
-// Setting default props
 Button.defaultProps = {
     type: 'button',
     disabled: false,
     id: '',
+    className: '',
+    text: '',
 };
 
-// Adding displayName for better debugging (and to satisfy ESLint)
 Button.displayName = 'Button';
 
 export default Button;

@@ -50,7 +50,7 @@ function Necklace() {
         setScreenshotLoading(true);
 
         try {
-            await captureAndDownloadNecklace(necklaceRef, buttonRef, 'RijksBling ontwerp.png');
+            await captureAndDownloadNecklace(necklaceRef, 'RijksBling_ontwerp.png');
         } catch (error) {
             console.error('Error bij het downloaden van het ontwerp:', error);
         } finally {
@@ -65,7 +65,6 @@ function Necklace() {
                 <section className="paintings-overview">
                     {loading && <div className="spinner">Loading...</div>}
 
-                    {/*{loading && <p>Loading...</p>}*/}
                     {!loading && favoritePaintings.map((painting, index) => (
                         <article
                             key={index}

@@ -22,10 +22,7 @@ export const downloadImage = (dataUrl, filename) => {
     link.click();
 };
 
-export const captureAndDownloadNecklace = async (elementRef, buttonRef, filename) => {
-    const button = buttonRef.current;
-    button.style.visibility = 'hidden';
-
+export const captureAndDownloadNecklace = async (elementRef, filename) => {
     try {
         const dataUrl = await captureNecklaceCreation(elementRef);
         if (dataUrl) {
@@ -33,7 +30,5 @@ export const captureAndDownloadNecklace = async (elementRef, buttonRef, filename
         }
     } catch (error) {
         console.error('Error bij het maken van de screenshot:', error);
-    } finally {
-        button.style.visibility = 'visible';
     }
 };

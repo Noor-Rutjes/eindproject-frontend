@@ -21,7 +21,7 @@ function Home() {
                 <section className="hero-text">
                     <p>Ben je een liefhebber van de kunst in het Rijksmuseum en op zoek naar iets écht bijzonders?</p>
                     <p>Met onze online ontwerptool voor sieraden kan jij jouw eigen unieke creatie maken met schilderijen uit het Rijksmuseum.</p>
-                    <p>Het is eenvoudig - jij kiest de schilderijen, wij maken de ketting. Registreer je en probeer het uit!</p>
+                    <p>Het is eenvoudig - jij kiest de schilderijen, wij maken de ketting. Registreer je en probeer het eens uit!</p>
                 </section>
                 <nav className="hero-navigation">
                     {isAuth ? (
