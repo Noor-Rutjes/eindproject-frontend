@@ -5,6 +5,8 @@ import Button from '../../components/button/Button.jsx';
 import useFavorites from '../../hooks/useFavorites';
 import { CATEGORIES, getCategoryName } from '../../constants/paintingCategories.jsx';
 import useFetchPaintings from '../../hooks/useFetchPaintings';
+import Modal from '../../components/modal/Modal.jsx';
+import { fetchPaintingDetails } from '../../helpers/fetchPaintings';
 
 const LazyPainting = React.lazy(() => import('../../components/LazyPainting.jsx'));
 
@@ -14,6 +16,8 @@ function Paintings() {
     const [category, setCategory] = useState(CATEGORIES[0]);
     const pageSize = 100;
     const page = 0;
+    const [selectedPainting, setSelectedPainting] = useState(null);
+    const [paintingDetails, setPaintingDetails] = useState(null);
 
     const { paintings, error, loading } = useFetchPaintings(apiKey, favorites, page, pageSize, category, false);
 
@@ -21,14 +25,33 @@ function Paintings() {
         setCategory(newCategory);
     }, []);
 
+
+
+
+    const openModal = async (painting) => {
+        setSelectedPainting(painting);
+        try {
+            const details = await fetchPaintingDetails(apiKey, painting.objectNumber);
+            setPaintingDetails(details);
+        } catch (error) {
+            console.error('Error fetching painting details:', error);
+        }
+    };
+
+    const closeModal = () => {
+        setSelectedPainting(null);
+        setPaintingDetails(null);
+    };
+
     const paintingsList = useMemo(() => {
         return paintings.map((painting, index) => (
-            <Suspense fallback={<div>Loading...</div>} key={painting.id}>
+            <Suspense fallback={<div>Loading...</div>} key={painting.objectNumber}>
                 <LazyPainting
                     painting={painting}
                     index={index}
                     toggleFavorite={toggleFavorite}
                     favorites={favorites}
+                    onClick={() => openModal(painting)}
                 />
             </Suspense>
         ));
@@ -62,6 +85,9 @@ function Paintings() {
                     {!loading && paintingsList}
                 </section>
             </section>
+            {paintingDetails && (
+                <Modal show={!!selectedPainting} onClose={closeModal} painting={paintingDetails} />
+            )}
         </>
     );
 }

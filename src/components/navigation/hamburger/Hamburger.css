@@ -22,20 +22,17 @@
     transition: all 0.3s linear;
 }
 
-/* Space between the top and center burger bars */
 #hamburger-button .burger-top {
-    margin-bottom: 0.25rem; /* Adjust space as needed */
+    margin-bottom: 0.25rem;
     transform: rotate(45deg);
 }
 
-/* Space between the center and bottom burger bars */
 #hamburger-button .burger-center {
-    margin: 0.25rem 0; /* Adjust space as needed */
+    margin: 0.25rem 0;
     transform: translateX(100%);
     opacity: 0;
 }
 
-/* Bottom burger bar transformation */
 #hamburger-button .burger-bottom {
     transform: rotate(-45deg);
 }

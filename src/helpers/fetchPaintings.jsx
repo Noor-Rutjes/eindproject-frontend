@@ -14,9 +14,35 @@ async function handleFetch(url, signal) {
 export async function fetchPaintings(apiKey, page, pageSize, category, signal) {
     const apiUrl = `https://www.rijksmuseum.nl/api/nl/usersets/${category}?key=${apiKey}&format=json&page=${page}&pageSize=${pageSize}`;
     const data = await handleFetch(apiUrl, signal);
+
     return {
         paintings: data.userSet.setItems,
         totalResults: data.userSet.count
+    };
+}
+
+export async function fetchPaintingDetails(apiKey, objectNumber, signal) {
+    const detailUrl = `https://www.rijksmuseum.nl/api/nl/collection/${objectNumber}`;
+    const details = await axios.get(detailUrl, {
+        params: {
+            key: apiKey,
+            imgonly: "True",
+            q: objectNumber
+        },
+        signal
+    });
+
+    const paintingDetails = details.data.artObject;
+
+    return {
+        id: objectNumber,
+        title: paintingDetails.title,
+        artist: paintingDetails.principalOrFirstMaker,
+        year: paintingDetails.dating.presentingDate,
+        description: paintingDetails.description,
+        characteristics: paintingDetails.physicalMedium,
+        dimensions: paintingDetails.subTitle,
+        image: paintingDetails.webImage.url,
     };
 }
 
