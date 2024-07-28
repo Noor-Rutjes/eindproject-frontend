@@ -3,38 +3,71 @@ import { useNavigate } from 'react-router-dom';
 import './Necklace.css';
 import necklace from '../../assets/necklace/necklace.png';
 import Button from "../../components/button/Button.jsx";
-import useFavorites from '../../hooks/useFavorites';
-import useFetchFavoritePaintings from '../../hooks/useFetchFavoritePaintings';
 import { captureAndDownloadNecklace } from '../../helpers/captureNecklaceCreation';
 import { AuthContext } from '../../context/AuthContext';
 import { dragStart, dragEnd, handleDrop } from '../../helpers/dragAndDrop';
+import { fetchFavoritePaintings } from '../../helpers/fetchPaintings';
 
 function Necklace() {
+
     const apiKey = import.meta.env.VITE_API_KEY;
-    const { favorites } = useFavorites();
-    const { favoritePaintings, error, loading } = useFetchFavoritePaintings(apiKey, favorites);
-    const [dropBoxContents, setDropBoxContents] = useState(Array(5).fill(null));
-    const [activeDropBoxIndex, setActiveDropBoxIndex] = useState(-1);
-    const [screenshotLoading, setScreenshotLoading] = useState(false);
-    const navigate = useNavigate();
     const { isAuth } = useContext(AuthContext);
+    const navigate = useNavigate();
     const necklaceRef = useRef(null);
     const buttonRef = useRef(null);
 
+    // State hooks
+    const [favorites, setFavorites] = useState(() => {
+        // Get the initial favorites from localStorage
+        const storedFavorites = localStorage.getItem('favorites');
+        return storedFavorites ? JSON.parse(storedFavorites) : [];
+    });
+    const [favoritePaintings, setFavoritePaintings] = useState([]);
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [dropBoxContents, setDropBoxContents] = useState(Array(5).fill(null));
+    const [activeDropBoxIndex, setActiveDropBoxIndex] = useState(-1);
+    const [screenshotLoading, setScreenshotLoading] = useState(false);
+
+    // Fetch favorite paintings
+    const fetchFavoritePaintingsHelper = useCallback(async (controller) => {
+        try {
+            setLoading(true);
+            const result = await fetchFavoritePaintings(apiKey, favorites, 0, 100, controller.signal);
+            setFavoritePaintings(result);
+            setError(false);
+        } catch (error) {
+            if (error.name !== 'AbortError') {
+                console.error("Error fetching favorite paintings:", error);
+                setError(true);
+            }
+        } finally {
+            setLoading(false);
+        }
+    }, [apiKey, favorites]);
+
     useEffect(() => {
-        const headerHeight = document.querySelector('header')?.offsetHeight || 0;
-        window.scrollTo({
-            top: headerHeight,
-            behavior: 'smooth'
-        });
+        const controller = new AbortController();
+        fetchFavoritePaintingsHelper(controller);
+
+        return () => {
+            controller.abort(); // Cleanup the abort controller when component unmounts
+        };
+    }, [fetchFavoritePaintingsHelper]);
+
+    const handleDragStart = useCallback((e, id) => {
+        dragStart(e, id);
     }, []);
 
-    const handleDragStart = useCallback((e, id) => dragStart(e, id), []);
-    const handleDragEnd = useCallback((e) => dragEnd(e), []);
+    const handleDragEnd = useCallback((e) => {
+        dragEnd(e);
+    }, []);
+
     const handleDropHandler = useCallback((e, dropBoxIndex) => {
         handleDrop(e, dropBoxIndex, dropBoxContents, setDropBoxContents, setActiveDropBoxIndex, favoritePaintings);
     }, [dropBoxContents, favoritePaintings]);
 
+    // Function to handle screenshot process
     const handleScreenshot = useCallback(async () => {
         if (!isAuth) {
             alert('Je moet ingelogd zijn om het ontwerp te kunnen downloaden.');
@@ -47,9 +80,14 @@ function Necklace() {
             return;
         }
 
+        if (buttonRef.current) {
+            buttonRef.current.classList.add('hidden'); // Hide the button during screenshot capture
+        }
+
         setScreenshotLoading(true);
 
         try {
+            // Capture and download the necklace design
             await captureAndDownloadNecklace(necklaceRef, 'RijksBling_ontwerp.png');
         } catch (error) {
             console.error('Error bij het downloaden van het ontwerp:', error);
@@ -99,7 +137,7 @@ function Necklace() {
                         className="dropBox"
                         id={`dropBox${index}`}
                         onDrop={(e) => handleDropHandler(e, index)}
-                        onDragOver={(e) => e.preventDefault()}
+                        onDragOver={(e) => e.preventDefault()} // Allow drop by preventing default behavior
                     >
                         {dropBoxContents[index] && (
                             <article

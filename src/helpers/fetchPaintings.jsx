@@ -1,16 +1,7 @@
-import axios from 'axios';
+import { handleFetch, fetchWithParams } from './apiHelpers';
 import { CATEGORIES } from '../constants/paintingCategories';
 
-async function handleFetch(url, signal) {
-    try {
-        const response = await axios.get(url, { signal });
-        return response.data;
-    } catch (error) {
-        console.error('Error fetching data:', error);
-        throw error;
-    }
-}
-
+// Fetch a list of paintings based on parameters
 export async function fetchPaintings(apiKey, page, pageSize, category, signal) {
     const apiUrl = `https://www.rijksmuseum.nl/api/nl/usersets/${category}?key=${apiKey}&format=json&page=${page}&pageSize=${pageSize}`;
     const data = await handleFetch(apiUrl, signal);
@@ -21,18 +12,17 @@ export async function fetchPaintings(apiKey, page, pageSize, category, signal) {
     };
 }
 
+// Fetch details of a specific painting
 export async function fetchPaintingDetails(apiKey, objectNumber, signal) {
     const detailUrl = `https://www.rijksmuseum.nl/api/nl/collection/${objectNumber}`;
-    const details = await axios.get(detailUrl, {
-        params: {
-            key: apiKey,
-            imgonly: "True",
-            q: objectNumber
-        },
-        signal
-    });
+    const params = {
+        key: apiKey,
+        imgonly: "True",
+        q: objectNumber
+    };
 
-    const paintingDetails = details.data.artObject;
+    const data = await fetchWithParams(detailUrl, params, signal);
+    const paintingDetails = data.artObject;
 
     return {
         id: objectNumber,
@@ -46,6 +36,7 @@ export async function fetchPaintingDetails(apiKey, objectNumber, signal) {
     };
 }
 
+// Fetch a list of favorite paintings based on the user's favorites
 export async function fetchFavoritePaintings(apiKey, favorites, page, pageSize, signal) {
     let favoritePaintings = [];
     for (const category of CATEGORIES) {

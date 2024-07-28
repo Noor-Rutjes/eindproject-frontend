@@ -1,34 +1,83 @@
-import React, { useState, useCallback, useMemo, Suspense } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useCallback, useMemo, useEffect, Suspense, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import './Paintings.css';
 import Button from '../../components/button/Button.jsx';
-import useFavorites from '../../hooks/useFavorites';
 import { CATEGORIES, getCategoryName } from '../../constants/paintingCategories.jsx';
-import useFetchPaintings from '../../hooks/useFetchPaintings';
 import Modal from '../../components/modal/Modal.jsx';
-import { fetchPaintingDetails } from '../../helpers/fetchPaintings';
+import { fetchPaintings, fetchPaintingDetails } from '../../helpers/fetchPaintings';
+import { AuthContext } from '../../context/AuthContext';
 
 const LazyPainting = React.lazy(() => import('../../components/LazyPainting.jsx'));
 
 function Paintings() {
     const apiKey = import.meta.env.VITE_API_KEY;
-    const { favorites, toggleFavorite } = useFavorites();
+    const { isAuth } = useContext(AuthContext);
+    const navigate = useNavigate();
     const [category, setCategory] = useState(CATEGORIES[0]);
     const pageSize = 100;
     const page = 0;
     const [selectedPainting, setSelectedPainting] = useState(null);
     const [paintingDetails, setPaintingDetails] = useState(null);
+    const [paintings, setPaintings] = useState([]);
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    const { paintings, error, loading } = useFetchPaintings(apiKey, favorites, page, pageSize, category, false);
+    const [favorites, setFavorites] = useState(() => {
+        const savedFavorites = localStorage.getItem('favorites');
+        return savedFavorites ? JSON.parse(savedFavorites) : [];
+    });
 
+    // Fetch paintings based on the current category and page
+    const fetchData = useCallback(async (controller) => {
+        try {
+            setLoading(true);
+            const result = await fetchPaintings(apiKey, page, pageSize, category, controller.signal);
+            setPaintings(result.paintings || []);
+            setError(false);
+        } catch (error) {
+            if (error.name !== 'AbortError') {
+                console.error("Error fetching paintings:", error);
+                setError(true);
+            }
+        } finally {
+            setLoading(false);
+        }
+    }, [apiKey, page, pageSize, category]);
+
+    useEffect(() => {
+        const controller = new AbortController();
+        fetchData(controller);
+
+        return () => {
+            controller.abort(); // Cleanup the abort controller when component unmounts
+        };
+    }, [fetchData]);
+
+    // Change the current category of paintings
     const changeCategory = useCallback((newCategory) => {
         setCategory(newCategory);
     }, []);
 
+    // Toggle a painting between favorite and non-favorite
+    const handleToggleFavorite = useCallback((paintingId) => {
+        if (!isAuth) {
+            alert('Je moet ingelogd zijn om schilderijen te selecteren.');
+            navigate('/signIn');
+            return;
+        }
 
+        setFavorites(prevFavorites => {
+            const newFavorites = prevFavorites.includes(paintingId)
+                ? prevFavorites.filter(id => id !== paintingId)
+                : [...prevFavorites, paintingId];
 
+            localStorage.setItem('favorites', JSON.stringify(newFavorites));
+            return newFavorites;
+        });
+    }, [isAuth, navigate]);
 
-    const openModal = async (painting) => {
+    // Open a modal to show painting details
+    const openModal = useCallback(async (painting) => {
         setSelectedPainting(painting);
         try {
             const details = await fetchPaintingDetails(apiKey, painting.objectNumber);
@@ -36,26 +85,28 @@ function Paintings() {
         } catch (error) {
             console.error('Error fetching painting details:', error);
         }
-    };
+    }, [apiKey]);
 
+    // Close the modal and clear painting details
     const closeModal = () => {
         setSelectedPainting(null);
         setPaintingDetails(null);
     };
 
+    // Create a list of paintings with lazy loading
     const paintingsList = useMemo(() => {
         return paintings.map((painting, index) => (
             <Suspense fallback={<div>Loading...</div>} key={painting.objectNumber}>
                 <LazyPainting
                     painting={painting}
                     index={index}
-                    toggleFavorite={toggleFavorite}
+                    toggleFavorite={handleToggleFavorite}
                     favorites={favorites}
                     onClick={() => openModal(painting)}
                 />
             </Suspense>
         ));
-    }, [paintings, favorites, toggleFavorite]);
+    }, [paintings, favorites, handleToggleFavorite, openModal]);
 
     return (
         <>
@@ -82,6 +133,7 @@ function Paintings() {
                 </div>
                 <section className="paintings-container">
                     {loading && <div className="spinner">Loading...</div>}
+                    {error && <div className="error">Er is een fout opgetreden bij het ophalen van de schilderijen.</div>}
                     {!loading && paintingsList}
                 </section>
             </section>

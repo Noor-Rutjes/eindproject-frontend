@@ -1,12 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import './Modal.css';
+import Button from "../button/Button.jsx";
 
 const Modal = ({ show, onClose, painting }) => {
     const modalRef = useRef(null);
 
     useEffect(() => {
         const handleKeyDown = (e) => {
+            // Prevent default behavior for ArrowDown and ArrowUp keys, but allow Escape key to close the modal
             if (show) {
                 if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
                     e.preventDefault();
@@ -17,15 +19,18 @@ const Modal = ({ show, onClose, painting }) => {
         };
 
         if (show) {
+            // Disable scrolling when the modal is open
             document.body.style.overflow = 'hidden';
             window.addEventListener('keydown', handleKeyDown);
             if (modalRef.current) {
-                modalRef.current.focus();
+                modalRef.current.focus(); // Focus on the modal when it is opened
             }
         } else {
+            // Enable scrolling when the modal is closed
             document.body.style.overflow = 'auto';
         }
 
+        // Cleanup function to reset body overflow and remove event listener
         return () => {
             document.body.style.overflow = 'auto';
             window.removeEventListener('keydown', handleKeyDown);
@@ -33,7 +38,7 @@ const Modal = ({ show, onClose, painting }) => {
     }, [show, onClose]);
 
     if (!show) {
-        return null;
+        return null; // Return nothing if the modal is not shown
     }
 
     return (
@@ -46,7 +51,11 @@ const Modal = ({ show, onClose, painting }) => {
                 tabIndex={-1}
                 ref={modalRef}
             >
-                <button className="modal-close" onClick={onClose} aria-label="Close"></button>
+                <Button
+                    className="modal-close"
+                    type="button"
+                    onClick={onClose}
+                />
                 {painting && (
                     <article>
                         <section>
@@ -68,15 +77,15 @@ const Modal = ({ show, onClose, painting }) => {
 };
 
 Modal.propTypes = {
-    show: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
+    show: PropTypes.bool.isRequired, // Whether the modal is visible
+    onClose: PropTypes.func.isRequired, // Function to close the modal
     painting: PropTypes.shape({
         title: PropTypes.string,
         artist: PropTypes.string,
         year: PropTypes.string,
         image: PropTypes.string,
         description: PropTypes.string,
-    }),
+    }), // Painting object with optional properties
 };
 
 export default Modal;
